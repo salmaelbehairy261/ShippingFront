@@ -1,0 +1,67 @@
+<div class="container">
+
+    <div class="d-flex mt-2 gap-3 ">
+        <div class="form-group mb-3">
+            <input type="text" (keyup)="onSearch()" placeholder="بحث" class="form-control me-2" #search>
+        </div>
+        <div class="form-group mb-3">
+            <button (click)="onReset()" class="btn btn-outline-sucess">اعادة ضبط</button>
+        </div>
+        <div class="form-group mb-3">
+            <app-sort (sort)="onSort()"></app-sort>
+        </div>
+        <div class="form-group mb-3">
+            <app-page-size (pageSizeChanged)="onPageSizeChange($event)"></app-page-size>
+        </div>
+    </div>
+    <app-paging-header [totalCount]=" totalCount" [pageNumper]="representativeParams.pageNumper"
+        [pageSize]="representativeParams.pageSize"></app-paging-header>
+        <button class="btn btn-primary"
+                        (click)="addRepresentative()">اضافة </button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>الاسم</th>
+                <th>الايميل</th>
+                <th>رقم الهاتف</th>
+                <th>الفرع</th>
+                <th>نوع الخصم</th>
+                <th>نسبة الشركة من الطلب</th>
+                <th>الحالة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let representative of representatives; let id = index">
+                <td>{{ id + 1 }}</td>
+                <td>{{ representative.name }}</td>
+                <td>{{ representative.email }}</td>
+                <td>{{ representative.phone }}</td>
+                <td>{{ representative.branchName }}</td>
+                <td>{{ representative.type?'نسبة مئوية':'نسبة محددة' }}</td>
+                <td>{{ representative.amount }}{{ representative.type?'%':'' }}</td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="isDeleted{{id}}"
+                            [checked]="representative.isDeleted" (change)="toggleDelete(representative)"
+                            [disabled]="representative.isDeleted">
+                        <label class="form-check-label" for="isDeleted{{id}}">
+                            {{ representative.isDeleted ? 'غير نشط' : 'نشط' }}
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" *ngIf="!representative.isDeleted"
+                        (click)="editRepresentative(representative.id)">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-center" *ngIf="totalCount>0">
+        <app-pager [totalCount]="totalCount" [pageSize]="representativeParams.pageSize"
+            (pageChanged)="onPageChanged($event)"></app-pager>
+    </div>
+
+
+</div>

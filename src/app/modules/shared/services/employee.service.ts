@@ -21,7 +21,7 @@ export class EmployeeService {
   ) { }
 
 public GetُEmployee(Eid:any) {
-      const url = `Account/employeeId?employeeId=${Eid}`;
+      const url = `Employee/${Eid}`;
       return this.apiService.get<getEmployee>(url).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
@@ -32,35 +32,35 @@ public GetُEmployee(Eid:any) {
   }
 
  public AddEmployee(employee: addEmployee ) {
-      const url = `Account/registerEmployee`;
+      const url = `Employee`;
       this.apiService.post<any,addEmployee >(url, employee).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
-      ) 
+      )
       .subscribe(res => {
         this.toastr.success("تم إضافة الموظف بنجاح")
       });
-  } 
+  }
 
 public UpdateEmployee(updateEmployee:updateEmployee,EId:any){
-    const url = `Account/updateEmployee?id=${EId}`;
+    const url = `Employee?id=${EId}`;
     this.apiService.put<any,updateEmployee>(url,updateEmployee).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
-    ) 
+    )
     .subscribe(res => {
       this.toastr.success("تم تعديل الموظف بنجاح")
     });
 }
-  
+
 public GetEmployees(employeeParams:Params){
-  const url = `Account/Employees`;
+  const url = `Employee`;
   let p = new HttpParams();
   p = p.append('sort', employeeParams.sort);
   p = p.append('pageIndex', employeeParams.pageNumper);
@@ -73,8 +73,17 @@ public GetEmployees(employeeParams:Params){
       this.toastr.error(err);
       return EMPTY;
     })
-  ) 
+  )
  }
-
+ public  Delete(Id: string) {
+  const url = `Employee?id=${Id}`;
+  return this.apiService.delete<void>(url).pipe(
+    catchError(error => {
+      const err=this.errorMessageService.getServerErrorMessage(error);
+      this.toastr.error(err);
+      return EMPTY;
+    })
+  )
+}
 
 }

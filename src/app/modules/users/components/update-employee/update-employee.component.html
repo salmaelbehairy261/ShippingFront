@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-10">
+            <form (ngSubmit)="onSubmit()" [formGroup]="updateEmployeeForm">
+
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input formControlName="name" [value]="employee?.name" id="name" type="text" class="form-control"
+                        placeholder="الاسم">
+                    <div *ngIf="updateEmployeeForm.get('name')!.invalid && updateEmployeeForm.get('name')!.touched">
+                        <div class="text-danger" *ngIf="updateEmployeeForm.get('name')!.errors!['required']">
+                            الاسم مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف </label>
+                    <input formControlName="phoneNumber" id="phoneNumber" [value]="employee?.phoneNumber" type="text"
+                        class="form-control">
+                    <div
+                        *ngIf="updateEmployeeForm.get('phoneNumber')!.invalid && updateEmployeeForm.get('phoneNumber')!.touched">
+                        <div class="text-danger" *ngIf="updateEmployeeForm.get('phoneNumber')!.errors!['required']">
+                            رقم الهاتف مطلوب
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="updateEmployeeForm.get('phoneNumber')?.hasError('minlength') || updateEmployeeForm.get('phoneNumber')?.hasError('maxlength')">
+                            رقم الهاتف غير صحيح
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان</label>
+                    <input formControlName="address" [value]="employee?.address" id="address" type="text"
+                        class="form-control">
+                    <div
+                        *ngIf="updateEmployeeForm.get('phoneNumber')!.invalid && updateEmployeeForm.get('phoneNumber')!.touched">
+                        <div class="text-danger" *ngIf="updateEmployeeForm.get('phoneNumber')!.errors!['required']">
+                            العنوان مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="branchId">الفرع</label>
+                    <select formControlName="branchId" id="branchId" class="form-control">
+                        <option value="">اختر فرع</option>
+                        <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+                    </select>
+                    <div
+                        *ngIf="updateEmployeeForm.get('branchId')!.invalid && updateEmployeeForm.get('branchId')!.touched">
+                        <div class="text-danger" *ngIf="updateEmployeeForm.get('branchId')!.errors!['required']">
+                            الفرع مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="groupId">الصلحيات</label>
+                    <select formControlName="groupId" id="groupId" class="form-control">
+                        <option value="">اختر مجموعه</option>
+                        <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+                    </select>
+                    <div
+                        *ngIf="updateEmployeeForm.get('groupId')!.invalid && updateEmployeeForm.get('groupId')!.touched">
+                        <div class="text-danger" *ngIf="updateEmployeeForm.get('groupId')!.errors!['required']">
+                            الصلحيات مطلوبة
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary" [disabled]="updateEmployeeForm.invalid">حفظ</button>
+            </form>
+        </div>
+    </div>
+</div>

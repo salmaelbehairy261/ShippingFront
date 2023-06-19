@@ -15,6 +15,8 @@ export class SidebarComponent implements OnInit {
   }
   isStatCollapsed=true
   isSettingCollapsed=true
+  isUsersCollapsed=true
+  isLocCollapsed=true
   StatusNames: any = [
     "جديد",
     "قيد الانتظار",

@@ -2,14 +2,14 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { PaginationModule } from "ngx-bootstrap/pagination";
 import { ToastrModule } from "ngx-toastr";
 import { PagingHeaderComponent } from "./component/paging-header/paging-header.component";
 import { PagerComponent } from "./component/pager/pager.component";
 import { SortComponent } from './component/sort/sort.component';
 import { PageSizeComponent } from './component/page-size/page-size.component';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import { PageSizeComponent } from './component/page-size/page-size.component';
     PagingHeaderComponent,
     SortComponent,
     PageSizeComponent,
-
+    ModalModule,
+    NgbModalModule
   ]
 })
 export class SharedModule { }

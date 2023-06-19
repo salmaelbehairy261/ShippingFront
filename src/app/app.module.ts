@@ -1,3 +1,4 @@
+import { UsersModule } from './modules/users/users.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +20,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RepresentativeModule } from './modules/representative/representative.module';
 import { SettingModule } from './modules/setting/setting.module';
+import { LocationModule } from './modules/location/location.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SettingModule } from './modules/setting/setting.module';
     MerchantModule,
     LoginModule,
     RepresentativeModule,
-    SettingModule
+    SettingModule,
+    UsersModule,
+    LocationModule
   ],
   providers: [
     CookieService,

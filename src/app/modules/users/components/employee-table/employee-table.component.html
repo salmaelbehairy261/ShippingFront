@@ -1,0 +1,62 @@
+<div class="container">
+
+    <div class="d-flex mt-2 gap-3 ">
+        <div class="form-group mb-3">
+            <input type="text" (keyup)="onSearch()" placeholder="بحث" class="form-control me-2" #search>
+        </div>
+        <div class="form-group mb-3">
+            <button (click)="onReset()" class="btn btn-outline-sucess">اعادة ضبط</button>
+        </div>
+        <div class="form-group mb-3">
+            <app-sort (sort)="onSort()"></app-sort>
+        </div>
+        <div class="form-group mb-3">
+            <app-page-size (pageSizeChanged)="onPageSizeChange($event)"></app-page-size>
+        </div>
+    </div>
+    <app-paging-header [totalCount]=" totalCount" [pageNumper]="employeeParams.pageNumper"
+        [pageSize]="employeeParams.pageSize"></app-paging-header>
+        <button class="btn btn-primary"  (click)="addEmployee()">اضافة</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Branch Name</th>
+                <th>Group Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of Employees; let id = index">
+                <td>{{ id + 1 }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.phone }}</td>
+                <td>{{ employee.branchName }}</td>
+                <td>{{ employee.groupName }}</td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="isDeleted{{id}}"
+                            [checked]="employee.isDeleted" (change)="toggleDelete(employee)"
+                            [disabled]="employee.isDeleted">
+                        <label class="form-check-label" for="isDeleted{{id}}">
+                            {{ employee.isDeleted ? 'Deleted' : 'Active' }}
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" *ngIf="!employee.isDeleted"
+                        (click)="editEmployee(employee.id)">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center" *ngIf="totalCount>0">
+        <app-pager [totalCount]="totalCount" [pageSize]="employeeParams.pageSize"
+            (pageChanged)="onPageChanged($event)"></app-pager>
+    </div>
+</div>
+<router-outlet></router-outlet>
