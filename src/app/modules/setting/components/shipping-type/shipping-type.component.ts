@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { shippingType } from '../../../shared/models/shippingType';
 
+
+
 @Component({
   selector: 'app-shipping-type',
   templateUrl: './shipping-type.component.html',
@@ -21,6 +23,7 @@ export class ShippingTypeComponent implements OnInit{
     this.shippingTypeService.getAllShippingTypes().subscribe(res=>this.shippingTypes=res);
   }
 
+ 
   addShippingType(shippingType:shippingTypeAdd){
     this.shippingTypeService.addShippingType(shippingType).subscribe(err=>console.log(err));
   }
@@ -34,8 +37,7 @@ export class ShippingTypeComponent implements OnInit{
   }
   delete(id:number){
     this.shippingTypeService.DeleteShippingType(id).subscribe();
-    window.location.reload();
-
+    this.ngOnInit()
   }
   //modal
   closeResult = '';
@@ -111,7 +113,8 @@ export class ShippingTypeComponent implements OnInit{
         //console.log(body);
         this.shippingTypeService.addShippingType(body).subscribe(err=>console.log(err));
         this.flag=false;
-        window.location.reload();
+        this.modalService.dismissAll("saved");
+        this.ngOnInit();
         this.myToastrService.success("تمت اضافه نوع الشحن بنجاح");
       }
       else{
@@ -119,7 +122,6 @@ export class ShippingTypeComponent implements OnInit{
       }
   }
 
-  submit(e:any){e.e.preventDefault();}
   //
 
 
@@ -142,13 +144,14 @@ export class ShippingTypeComponent implements OnInit{
     return this.UpdateShippingTypeForm.controls["Cost"];
   }
   requireOneControl() {
-    if (this.UpdateShippingTypeForm.controls["Name"].value === String(this.UpdateShippingTypeForm.value.Name) && this.UpdateShippingTypeForm.controls["Cost"].value === String(this.UpdateShippingTypeForm.value.Cost)) 
+    if (this.UpdateShippingTypeForm.controls["Name"].value === this.shippingTypeToUpdate.name && this.UpdateShippingTypeForm.controls["Cost"].value === String(this.UpdateShippingTypeForm.value.Cost)) 
     {
       this.flag2=true;
     }
     else{
       this.flag2=false;
     }
+    //console.log(this.flag2)
   }
   resetFlag(){
     this.flag2=false;
@@ -180,7 +183,8 @@ export class ShippingTypeComponent implements OnInit{
         };
         this.flag2=false;
         this.shippingTypeService.updateShippingType(body).subscribe(err=>console.log(err));
-        window.location.reload();
+        this.modalService.dismissAll("saved");
+        this.ngOnInit()
         this.myToastrService.success("تمت تعديل نوع الشحن بنجاح");
         }
   }

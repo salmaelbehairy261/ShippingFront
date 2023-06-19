@@ -25,13 +25,17 @@
                         <td class="py-4">{{item.name}}</td>
                         <td class="py-4">{{item.cost}}</td>
                         
-                        <td class="py-4  form-switch" *ngIf="!item.status" (click)="toggleStatus(item.id)">
-                            <input class="form-check-input" type="checkbox" role="switch" >
+                        <td class="py-4 text-center" *ngIf="!item.status" (click)="toggleStatus(item.id)">
+                            <div class="form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" >
+                            </div>
                         </td>
-                        <td class="py-4  form-switch" *ngIf="item.status" (click)="toggleStatus(item.id)">
-                            <input class="form-check-input" type="checkbox" role="switch"  checked>
+                        <td class="py-4 text-center " *ngIf="item.status" (click)="toggleStatus(item.id)">
+                            <div class="form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch"  checked>
+                            </div>
                         </td>
-                        <td class="py-4">
+                        <td class="py-3">
                             <a class=" btn btn-outline-warning rounded ms-2" (click)="openUpdateForm(content2,item)"> 
                                 تعديل
                             </a>
@@ -54,7 +58,7 @@
 	</div>
 	<div class="modal-body">
         
-        <form  class="flex flex-wrap" [formGroup]="AddShippingTypeForm" (ngSubmit)="submit($event)">
+        <form  class="flex flex-wrap" [formGroup]="AddShippingTypeForm">
                 <div class="d-flex flex-row align-items-start gap-1">
                     <label for="" class="form-control w-25">الاسم</label>
                     <input type="text" class="form-control w-50" formControlName="Name"/>
