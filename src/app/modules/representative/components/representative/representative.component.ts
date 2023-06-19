@@ -1,6 +1,8 @@
+import { NavTitleService } from './../../../shared/services/nav-title.service';
+import { OrderService } from 'src/app/modules/shared/services/order.service';
 import { Component } from '@angular/core';
-import { RepresentativeService } from '../../services/Representative.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Order } from 'src/app/modules/shared/models/Order';
 
 @Component({
   selector: 'app-representative',
@@ -15,11 +17,15 @@ export class RepresentativeComponent {
   tableSizes: any = [8, 16, 30, 50];
   searchText:any="";
   orderId:any;
-  StatusNamesExpectNewPendingAndReject:any=this.representativeService.StatusNamesExpectNewPendingAndReject;
+  StatusNamesExpectNewPendingAndReject:any=this.orderService.StatusNamesExpectNewPendingAndRejectRep;
 
-  constructor(private representativeService:RepresentativeService,private modalService: NgbModal,) { }
+  constructor(
+    private orderService:OrderService,
+    private modalService: NgbModal,
+    private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
+    this.navTitleService.title.next('عرض الطلبات')
      this.countOfTotalOrders(this.searchText);
      this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
   }
@@ -28,14 +34,14 @@ export class RepresentativeComponent {
    //Pagination
    countOfTotalOrders(searchText:string): void {
 
-    this.representativeService.GetCountOrdersForRepresentative(searchText).subscribe((res) => {
+    this.orderService.GetCountOrdersForRepresentative(searchText).subscribe((res) => {
       this.count=Number(res)
     })
   }
 
   fetchOrders(searchText:string,pageNumber:any,pageSize:any): void {
 
-    this.representativeService.GetOrdersForRepresentative(searchText,pageNumber,pageSize).subscribe((res) => {
+    this.orderService.GetOrdersForRepresentative(searchText,pageNumber,pageSize).subscribe((res) => {
       this.CurrentOrders = res;
     })
   }
@@ -60,7 +66,7 @@ export class RepresentativeComponent {
 
  //modal
  closeResult: string = '';
-    
+
  open(content:any,orderId:any) {
    this.orderId=orderId
    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -69,7 +75,7 @@ export class RepresentativeComponent {
      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
    });
  }
- 
+
  private getDismissReason(reason: any): string {
    if (reason === ModalDismissReasons.ESC) {
      return 'by pressing ESC';
@@ -84,7 +90,7 @@ export class RepresentativeComponent {
  {
    var SelectedItem = (document.getElementById("ddlneworder")) as HTMLSelectElement;
    const status= SelectedItem.options[SelectedItem.selectedIndex].value;
-   this.representativeService.ChangeOrderStatus(this.orderId,status)
+   this.orderService.ChangeOrderStatusRep(this.orderId,status)
    console.log(status+"     "+this.orderId)
 
    this.countOfTotalOrders(this.searchText);

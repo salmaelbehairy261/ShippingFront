@@ -1,0 +1,89 @@
+<div class="px-4 py-2">
+    <div class="page p-4 my-3  mx-auto  rounded">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div>
+                <p class="font-weight-bold py-1 rounded ">اعدادات نوع الشحن</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-info" (click)="openAddingForm(content)">اضافه نوع شحن جديد</button>
+            </div>
+        </div>
+        <div>
+            <table class="table ">
+                <thead >
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>الاسم</th>
+                        <th class="col-span-2">الاعدادات</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr *ngFor="let item of reasonsRefusalTypes; let i =index">
+                        <td class="py-4">{{i+1}}</td>
+                        <td class="py-4">{{item.name}}</td>
+                        <td class="py-4">
+                            <a class=" btn btn-outline-warning rounded ms-2" (click)="openUpdateForm(content2,item)"> 
+                                تعديل
+                            </a>
+                            <a class=" btn btn-outline-danger rounded ms-2" (click)="deleteReasonRefusal(item)"> 
+                                حذف
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Adding New Reason Refusal Modal -->
+<ng-template #content let-modal>
+	<div class="d-flex justify-content-between p-3">
+		<h5  >اضافه نوع شحن</h5>
+		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+        
+        <form  class="flex flex-wrap" [formGroup]="AddReasonRefusalForm" (ngSubmit)="submit($event)">
+                <div class="d-flex flex-row align-items-start gap-1">
+                    <label for="" class="form-control w-25">الاسم</label>
+                    <input type="text" class="form-control w-50" formControlName="name"/>
+                </div>
+                <ng-container *ngIf="getName.touched">
+                    <div *ngIf="getName.hasError('required')" 
+                        class="form-text text-danger">
+                        الاسم مطلوب
+                    </div>
+                </ng-container>
+
+                <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> حاول ادخال البيانات بطريقه صحيحه مره اخري </div>
+                <div class="p-3 d-flex align-items-start gap-2">
+                    <button type="submit" class="btn btn-outline-dark " (click)="AddReasonRefusal();">حفظ</button>
+                    <button type="button" class="btn btn-outline-danger " (click)="modal.close('cancel click'); ">الغاء</button>
+                </div>
+		</form>
+	</div>
+</ng-template>
+
+<!-- Updating an exisiting shipping Type modal -->
+<ng-template #content2 let-modal>
+	<div class="d-flex justify-content-between p-3">
+		<h5 >تعديل نوع شحن</h5>
+		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+        <form  class="flex flex-wrap" [formGroup]="UpdateReasonRefusalForm" >
+                <div class="d-flex flex-row align-items-start gap-1">
+                    <label for="" class="form-control w-25">الاسم</label>
+                    <input type="text" class="form-control w-50" formControlName="name" >
+                </div>
+                <div class="h6 text-danger ms-5 mt-2" *ngIf="flag2"> لم يتم تعديل ايا من المدخلات  </div>
+                <div class="p-3 d-flex align-items-start gap-2">
+                    <button type="submit" class="btn btn-outline-dark " (click)="UpdateReasonRefusal()">حفظ</button>
+                    <button type="button" class="btn btn-outline-danger " (click)="modal.close('cancel click'); resetFlag()">الغاء</button>
+                </div>
+		</form>
+	</div>
+</ng-template>
+
+

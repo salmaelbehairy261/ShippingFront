@@ -17,6 +17,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { RepresentativeModule } from './modules/representative/representative.module';
+import { SettingModule } from './modules/setting/setting.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     PaginationModule.forRoot(),
     SharedModule,
     MerchantModule,
-    LoginModule
+    LoginModule,
+    RepresentativeModule,
+    SettingModule
   ],
   providers: [
     CookieService,

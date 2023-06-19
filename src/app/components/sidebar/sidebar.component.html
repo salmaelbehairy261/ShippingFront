@@ -10,8 +10,65 @@
       </a>
     </div>
     <div>
+          <!--Employee-->
+    <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100" *ngIf="role!='Representative' && role !='Merchant'">
+      <li class="nav-item w-100 px-3 rounded" >
+        <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row " (click)="isSettingCollapsed = ! isSettingCollapsed"
+        [attr.aria-expanded]="!isSettingCollapsed">
+          <div>
+            <svg width="30" height="30" viewBox="0 0 64 64" class="fill" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M58.48 17.12L32.48 3.12002C32.3353 3.04298 32.1739 3.00269 32.01 3.00269C31.8461 3.00269 31.6847 3.04298 31.54 3.12002L5.54 17.12C5.37845 17.2037 5.2428 17.3299 5.14765 17.4849C5.05249 17.64 5.00144 17.8181 5 18V46C5.00048 46.1809 5.05003 46.3583 5.14336 46.5133C5.2367 46.6682 5.37032 46.795 5.53 46.88L31.53 60.88C31.6747 60.9571 31.8361 60.9974 32 60.9974C32.1639 60.9974 32.3253 60.9571 32.47 60.88L58.47 46.88C58.6297 46.795 58.7633 46.6682 58.8566 46.5133C58.95 46.3583 58.9995 46.1809 59 46V18C59.0005 17.8201 58.9524 17.6434 58.8609 17.4886C58.7694 17.3337 58.6378 17.2064 58.48 17.12V17.12ZM32 5.14002L55.9 18L48.9 21.77L25.83 8.46002L32 5.14002ZM8.1 18L15.63 14L38.69 27.26L32 30.86L8.1 18ZM23.76 9.57002L46.83 22.88L40.76 26.15L17.7 12.83L23.76 9.57002ZM42.09 27.7L47.53 24.78V32.24L45.43 30.16C45.3133 30.0441 45.1699 29.9588 45.0123 29.9115C44.8548 29.8643 44.688 29.8567 44.5268 29.8893C44.3656 29.922 44.2149 29.9939 44.0882 30.0986C43.9614 30.2034 43.8624 30.3378 43.8 30.49L42.09 34.61V27.7ZM7 19.67L31 32.6V58.33L7 45.4V19.67ZM33 58.33V32.6L40.09 28.78V39.64C40.1016 39.8639 40.1881 40.0775 40.3356 40.2463C40.4831 40.4152 40.6831 40.5295 40.9034 40.5711C41.1238 40.6126 41.3517 40.5789 41.5505 40.4753C41.7494 40.3717 41.9077 40.2044 42 40L45.06 32.61L47.8 35.33C47.9399 35.4711 48.1186 35.5672 48.3133 35.6063C48.5081 35.6454 48.71 35.6256 48.8935 35.5494C49.0769 35.4732 49.2335 35.3442 49.3433 35.1786C49.4531 35.0131 49.5112 34.8186 49.51 34.62V23.7L56.99 19.7V45.4L33 58.33Z" />
+              </svg>
+            <h4 class="ms-1 px-0 px-sm-3  d-none d-md-inline">الاعدادات</h4>
+          </div>
+        </a>
+    </li>
+    <ul #collapse="ngbCollapse" [(ngbCollapse)]="isSettingCollapsed" class="m-0 px-3">
+      <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/weight" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}" >
+        <a  class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+          <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">اعدادات الوزن</span>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/village" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}" >
+        <a  class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+          <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">اعدادات التوصيل لقرية</span>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/shipping" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}" >
+        <a  class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+          <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">انواع الشحن</span>
+          </div>
+        </a>
+      </li>
+      <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/reasons" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}" >
+        <a  class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+          <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">اسباب الرفض</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    </ul>
+    <!--Representative-->
+    <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100" *ngIf="role=='Representative'">
+      <li class="nav-item w-100 px-3 rounded" [routerLink]="['/representative']" routerLinkActive="active">
+        <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
+          <div>
+            <svg width="30" height="30" viewBox="0 0 64 64" class="fill" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M58.48 17.12L32.48 3.12002C32.3353 3.04298 32.1739 3.00269 32.01 3.00269C31.8461 3.00269 31.6847 3.04298 31.54 3.12002L5.54 17.12C5.37845 17.2037 5.2428 17.3299 5.14765 17.4849C5.05249 17.64 5.00144 17.8181 5 18V46C5.00048 46.1809 5.05003 46.3583 5.14336 46.5133C5.2367 46.6682 5.37032 46.795 5.53 46.88L31.53 60.88C31.6747 60.9571 31.8361 60.9974 32 60.9974C32.1639 60.9974 32.3253 60.9571 32.47 60.88L58.47 46.88C58.6297 46.795 58.7633 46.6682 58.8566 46.5133C58.95 46.3583 58.9995 46.1809 59 46V18C59.0005 17.8201 58.9524 17.6434 58.8609 17.4886C58.7694 17.3337 58.6378 17.2064 58.48 17.12V17.12ZM32 5.14002L55.9 18L48.9 21.77L25.83 8.46002L32 5.14002ZM8.1 18L15.63 14L38.69 27.26L32 30.86L8.1 18ZM23.76 9.57002L46.83 22.88L40.76 26.15L17.7 12.83L23.76 9.57002ZM42.09 27.7L47.53 24.78V32.24L45.43 30.16C45.3133 30.0441 45.1699 29.9588 45.0123 29.9115C44.8548 29.8643 44.688 29.8567 44.5268 29.8893C44.3656 29.922 44.2149 29.9939 44.0882 30.0986C43.9614 30.2034 43.8624 30.3378 43.8 30.49L42.09 34.61V27.7ZM7 19.67L31 32.6V58.33L7 45.4V19.67ZM33 58.33V32.6L40.09 28.78V39.64C40.1016 39.8639 40.1881 40.0775 40.3356 40.2463C40.4831 40.4152 40.6831 40.5295 40.9034 40.5711C41.1238 40.6126 41.3517 40.5789 41.5505 40.4753C41.7494 40.3717 41.9077 40.2044 42 40L45.06 32.61L47.8 35.33C47.9399 35.4711 48.1186 35.5672 48.3133 35.6063C48.5081 35.6454 48.71 35.6256 48.8935 35.5494C49.0769 35.4732 49.2335 35.3442 49.3433 35.1786C49.4531 35.0131 49.5112 34.8186 49.51 34.62V23.7L56.99 19.7V45.4L33 58.33Z" />
+              </svg>
+            <h4 class="ms-1 px-0 px-sm-3  d-none d-md-inline">عرض الطلبات</h4>
+          </div>
+        </a>
+    </li>
+    </ul>
     <!--Merchant-->
-    <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100">
+    <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100" *ngIf="role=='Merchant'">
       <li class="nav-item w-100 px-3 rounded" [routerLink]="['merchant']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
             <div>

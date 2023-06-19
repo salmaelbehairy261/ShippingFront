@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RepresentativeComponent } from './components/representative/representative.component';
 
 const routes: Routes = [
-  {path:'representative',component:RepresentativeComponent},
+  {path:'',component:RepresentativeComponent},
 ];
 
 @NgModule({

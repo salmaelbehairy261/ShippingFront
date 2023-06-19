@@ -145,7 +145,7 @@ export class OrderService {
     )
   }
 
-  ChangeOrderStatus(orderId:any,status:any) 
+  ChangeOrderStatus(orderId:any,status:any)
   {
     const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
     this.apiService.put(url,{orderId,status}).pipe(
@@ -159,7 +159,7 @@ export class OrderService {
       })
   }
 
-  DropdownListRepresentative(orderId:any) 
+  DropdownListRepresentative(orderId:any)
   {
     const url = `Account/DropdownListRepresentative?orderId=${orderId}`;
     return this.apiService.get(url).pipe(
@@ -171,10 +171,10 @@ export class OrderService {
     )
   }
 
-  SelectRepresentative(orderId:any,representativeId:any) 
+  SelectRepresentative(orderId:any,representativeId:any)
   {
     const url = `Order/SelectRepresentative?orderId=${orderId}&representativeId=${representativeId}`;
-    
+
     this.apiService.put(url,{orderId,representativeId}).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
@@ -187,7 +187,7 @@ export class OrderService {
           "تم التسليم للمندوب بنجاح"
           );
       })
-  } 
+  }
 
   merchantId:string=this.authService.getUserId()
 
@@ -201,7 +201,7 @@ export class OrderService {
       })
     )
   }
- 
+
 
   GetOrdersForMerchant(searchText:string,statusId:any,pageNumber:any,pageSize:any) {
     const url = `Order/GetOrdersForMerchant?searchText=${searchText}&merchantId=${this.merchantId}&statusId=${statusId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
@@ -223,5 +223,52 @@ export class OrderService {
         return EMPTY;
       })
     )
+  }
+  StatusNamesExpectNewPendingAndRejectRep: any = [
+    {name:"تم التسليم",value:OrderStatus.ClientDelivered},
+    {name:"لا يمكن الوصول",value:OrderStatus.UnReachable},
+    {name:"تم التاجيل",value:OrderStatus.Postponed},
+    {name:"تم التسليم جزئيا",value:OrderStatus.PartiallyDelivered},
+    {name:"تم الالغاء من قبل المستلم",value:OrderStatus.ClientCanceled},
+    {name:"تم الرفض مع الدفع",value:OrderStatus.RejectWithPaying},
+    {name:"رفض مع سداد جزء",value:OrderStatus.RejectWithPartialPaying},
+  ]
+    representativeId:string=this.authService.getUserId();
+    GetOrdersForRepresentative(searchText:string,pageNumber:any,pageSize:any) {
+        const url = `Order/GetOrdersForRepresentative?searchText=${searchText}&representativeId=${this.representativeId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
+      return this.apiService.get(url).pipe(
+        catchError(error => {
+          const err=this.errorMessageService.getServerErrorMessage(error);
+          this.toastr.error(err);
+          return EMPTY;
+        })
+      )
+      }
+      GetCountOrdersForRepresentative(searchText:string) {
+        const url = `Order/GetCountOrdersForRepresentative?representativeId=${this.representativeId}&searchText=${searchText}`;
+        return this.apiService.get(url).pipe(
+          catchError(error => {
+            const err=this.errorMessageService.getServerErrorMessage(error);
+            this.toastr.error(err);
+            return EMPTY;
+          })
+        )
+      }
+      ChangeOrderStatusRep(orderId:any,status:any)
+      {
+        const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
+        this.apiService.put(url,{orderId,status}).pipe(
+          catchError(error => {
+            const err=this.errorMessageService.getServerErrorMessage(error);
+            this.toastr.error(err);
+            return EMPTY;
+          })
+        )
+        .subscribe((res:any)=>{
+            this.toastr.success(
+              "تم تغيير الحالة بنجاح"
+              );
+          },
+        )
   }
 }

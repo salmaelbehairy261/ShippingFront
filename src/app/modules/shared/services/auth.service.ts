@@ -41,6 +41,10 @@ export class AuthService {
       this.cookieService.set('user_role',role, exp, undefined, undefined, true, 'Strict');
       if(this.getUserRole()=='Merchant')
         this.router.navigate(['/merchant'])
+      else if(this.getUserRole()=='Representative')
+        this.router.navigate(['/representative'])
+      else
+        this.router.navigate(['/employee'])
       })
   }
   logout(){
@@ -71,5 +75,5 @@ export class AuthService {
   isAuthenticated() {
     return this.cookieService.get('token') != null;
   }
-  
+
 }

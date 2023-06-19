@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { AuthService } from './../../modules/shared/services/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
-  
-  constructor(private router:Router){}
+export class SidebarComponent implements OnInit {
+  role:any
+  constructor(private router:Router,
+    private authService:AuthService){}
+  ngOnInit(): void {
+    this.role=this.authService.getUserRole()
+  }
   isStatCollapsed=true
+  isSettingCollapsed=true
   StatusNames: any = [
     "جديد",
     "قيد الانتظار",
