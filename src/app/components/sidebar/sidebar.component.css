@@ -1,0 +1,49 @@
+.bg-color{
+  background-color:#4F6D7A;
+}
+.nav-item{
+  cursor: pointer;
+}
+.nav-link{
+  color: #d1cfcf !important;
+}
+.nav-link .fill path{
+  fill:#ffffff
+}
+.nav-link .stroke path{
+  stroke: #d1cfcf;
+}
+ul{
+  list-style-type: none;
+}
+.nav-item:hover .nav-link{
+  color: #ffffff !important;
+}
+.nav-item:hover .nav-link .fill path{
+  fill:#ffffff
+}
+.nav-item:hover .nav-link .stroke path{
+  stroke:#ffffff
+}
+.nav-item.active {
+  background-color: #C0D6DF;
+  border-radius: 5px;
+}
+.active .nav-link{
+  color: #4F6D7A !important;
+}
+.active .nav-link .fill path{
+  fill: #4F6D7A;;
+}
+.active .nav-link .stroke path{
+  stroke: #4F6D7A;
+}
+.sub-active .nav-link{
+  color: #fff !important;
+}
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+<div class="container p-5">
+    <div class="rounded shadow bg-gray p-4 py-5">
+      <form class="d-flex flex-column align-items-center justify-content-center" [formGroup]="loginForm" (ngSubmit)="login()">
+        <img
+        src="assets/Images/logo.logo.png"
+        class="rounded-circle mx-2 logo"
+        height="180"
+        loading="lazy"
+      />
+        <h3 class="fw-bold my-3 text-main">تسجيل الدخول</h3>
+        <div class="w-50">
+            <div class="form-group mb-3">
+                <h5>البريد الإلكتروني</h5>
+                <input type="text" class="form-control p-2" placeholder="من فضلك ادخل البريد الإلكتروني" formControlName="email">
+                <div *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched">
+                    <div class="text-danger" *ngIf="loginForm.get('email')!.errors!['required']">
+                      البريد الإلكتروني مطلوب
+                    </div>
+                    <div class="text-danger" *ngIf="loginForm.get('email')!.errors!['email']">
+                        البريد الإلكتروني غير صحيح 
+                    </div>
+                </div>
+            </div>
+            <div class="form-group inner-addon  right-addon mb-3">
+                <h5>كلمة المرور</h5>
+                <input [type]="showPassword? 'text' : 'password'" class="form-control p-2" placeholder="ادخل كلمة المرور" formControlName="password">
+                <div>
+                    <i alt="show" class="far fa-eye eye-show"
+                    (click)="showPassword= !showPassword"
+                    [class.hide]="showPassword"></i>
+                    <i alt="hide" class="far fa-eye-slash eye-hide"
+                    (click)="showPassword= !showPassword"
+                    [class.hide]="!showPassword"></i>
+                  </div>
+                <div *ngIf="loginForm.get('password')!.invalid && loginForm.get('password')!.touched">
+                    <div class="text-danger" *ngIf="loginForm.get('password')!.errors!['required']">
+                      كلمة المرور مطلوبة
+                    </div>
+                </div>
+            </div>
+            <div class="form-group my-4 text-center ">
+                <input type="submit" value="تسجيل الدخول" class="btn btn-main px-5" [disabled]="!loginForm.valid">
+            </div>
+        </div>
+      </form>
+    </div>  
+</div>
