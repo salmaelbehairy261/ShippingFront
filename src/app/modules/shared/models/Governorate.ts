@@ -11,7 +11,13 @@ export interface governates {
   name: string;
   isDeleted:boolean
 }
-
+export interface governate {
+  id: number;
+  name: string;
+}
+export interface governateName {
+  name: string;
+}
 export interface governorateWithCity {
   id: number;
   name: string;

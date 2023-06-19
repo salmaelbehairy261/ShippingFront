@@ -1,3 +1,4 @@
+import { governate, governateName } from './../models/Governorate';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { governates, governorateWithCities, governorateWithCity } from '../models/Governorate';
@@ -36,9 +37,39 @@ export class GovernrateService {
       })
     )
   }
-    public GetGovernorates(){
-    const url = `Governorate`;
+  public GetGovernorates(){
+    const url = `Governorate/all`;
     return this.apiService.get<governates[]>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  public AddGovernorate(governate:governateName){
+    const url='Governorate'
+    return this.apiService.post<any,governateName>(url,governate).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  public UpdateGovernorate(governate:governate,gId:number){
+    const url=`Governorate/${gId}`
+    return this.apiService.put<any,governate>(url,governate).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  public DeleteGovernorate(id:any){
+    const url=`Governorate?id=${id}`
+    return this.apiService.delete<any>(url).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
