@@ -21,6 +21,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RepresentativeModule } from './modules/representative/representative.module';
 import { SettingModule } from './modules/setting/setting.module';
 import { LocationModule } from './modules/location/location.module';
+import { GroupsModule } from './modules/groups/groups.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { LocationModule } from './modules/location/location.module';
     RepresentativeModule,
     SettingModule,
     UsersModule,
-    LocationModule
+    LocationModule,
+    GroupsModule
   ],
   providers: [
     CookieService,

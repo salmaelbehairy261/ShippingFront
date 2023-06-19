@@ -10,6 +10,7 @@ import { RepresentativeGuard } from 'src/guards/representative.guard';
 import { SettingRoutingModule } from './modules/setting/setting-routing.module';
 import { UsersRoutingModule } from './modules/users/users-routing.module';
 import { LocationRoutingModule } from './modules/location/location-routing.module';
+import { GroupsRoutingModule } from './modules/groups/groups-routing.module';
 
 const routes: Routes = [
   ...LoginRoutingModule.routes,
@@ -23,7 +24,8 @@ const routes: Routes = [
     {path:'employee',children:[
       ...LocationRoutingModule.routes,
       ...SettingRoutingModule.routes,
-      ...UsersRoutingModule.routes
+      ...UsersRoutingModule.routes,
+      ...GroupsRoutingModule.routes
     ]},
   ],canActivate:[AuthGuard]}
 ];
