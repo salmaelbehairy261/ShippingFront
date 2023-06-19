@@ -41,7 +41,8 @@ export class EmployeeTableComponent implements OnInit {
   });
 }
 
-  editEmployee(employeeId: string) {
+ 
+ editEmployee(employeeId: string) {
 
   this.router.navigate(['/employee/users/UpdateEmployee', employeeId]);
   }

@@ -1,0 +1,62 @@
+<div class="px-4 py-2">
+    <div class="page p-4 my-3  mx-auto  rounded">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div>
+                <p class="font-weight-bold py-1 rounded "> المجموعات </p>
+            </div>
+            <div>
+                <button class="btn btn-outline-info" (click)="addGroup()">اضافه مجموعه جديده</button>
+            </div>
+        </div>
+
+        <div class="d-flex mt-2 gap-3 ">
+            <div class="form-group mb-3">
+                <input type="text" (keyup)="onSearch()" placeholder="بحث" class="form-control me-2" #search>
+            </div>
+            <div class="form-group mb-3">
+                <button (click)="onReset()" class="btn btn-outline-sucess">اعادة ضبط</button>
+            </div>
+            <div class="form-group mb-3">
+                <app-sort (sort)="onSort()"></app-sort>
+            </div>
+            <div class="form-group mb-3">
+                <app-page-size (pageSizeChanged)="onPageSizeChange($event)"></app-page-size>
+            </div>
+        </div>
+
+        <app-paging-header [totalCount]=" totalCount" [pageNumper]="groupParams.pageNumper"
+            [pageSize]="groupParams.pageSize"></app-paging-header>
+
+        <div>
+            <table class="table ">
+                <thead>
+                    <tr class="text-center">
+                        <th>#</th>
+                        <th>الاسم</th>
+                        <th>التاريخ</th>
+                        <th class="col-span-2">الاعدادات</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr *ngFor="let item of groups; let i =index">
+                        <td class="py-4">{{i+1}}</td>
+                        <td class="py-4">{{item.name}}</td>
+                        <td class="py-4">{{item.date}}</td>
+                        <td class="py-4">
+                            <a class=" btn btn-outline-warning rounded ms-2">
+                                تعديل
+                            </a>
+                            <a class=" btn btn-outline-danger rounded ms-2" (click)="deleteGroup(item.id)">
+                                حذف
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="totalCount>0">
+            <app-pager [totalCount]="totalCount" [pageSize]="groupParams.pageSize"
+                (pageChanged)="onPageChanged($event)"></app-pager>
+        </div>
+    </div>
+</div>
