@@ -17,9 +17,9 @@ export class RepresentativeService {
     private toastr:MyToastrService,
     private errorMessageService:ErrorMessageService
   ) { }
-  
+
   public GetRepresentatives(representativesParams:Params){
-    const url = `Account/Representatives`;
+    const url = `Representative`;
     let p = new HttpParams();
       p = p.append('sort', representativesParams.sort);
       p = p.append('pageIndex', representativesParams.pageNumper);
@@ -36,7 +36,7 @@ export class RepresentativeService {
   }
 
   public GetRepresentative(Eid:any) {
-      const url = `Account/representativeId?representativeId=${Eid}`;
+      const url = `Representative/${Eid}`;
       return this.apiService.get<getRepresentative>(url).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
@@ -47,29 +47,39 @@ export class RepresentativeService {
   }
 
   public UpdateRepresentative(updateRepresentative:updateRepresentative,EId:any){
-    const url = `Account/updateRepresentative?id=${EId}`;
+    const url = `Representative?id=${EId}`;
     this.apiService.put<any,updateRepresentative>(url,updateRepresentative).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
-    ) 
+    )
     .subscribe(res => {
       this.toastr.success("تم تعديل المندوب بنجاح")
     });
   }
   public AddRepresentative(representative: addRepresentative) {
-      const url = `Account/registerRepresentative`;
+      const url = `Representative`;
       this.apiService.post<any,addRepresentative >(url, representative).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
-      ) 
+      )
       .subscribe(res => {
         this.toastr.success("تم إضافة المندوب بنجاح")
       });
+  }
+  public  Delete(Id: string) {
+    const url = `Representative?id=${Id}`;
+    return this.apiService.delete<void>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
   }
 }

@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-10">
+
+            <form [formGroup]="updateRepresentativeForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input formControlName="name" id="name" type="text" class="form-control" placeholder="الاسم">
+                    <div
+                        *ngIf="updateRepresentativeForm.get('name')!.invalid && updateRepresentativeForm.get('name')!.touched">
+                        <div class="text-danger" *ngIf="updateRepresentativeForm.get('name')!.errors!['required']">
+                            الاسم مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف </label>
+                    <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control">
+                    <div
+                        *ngIf="updateRepresentativeForm.get('phoneNumber')!.invalid && updateRepresentativeForm.get('phoneNumber')!.touched">
+                        <div class="text-danger"
+                            *ngIf="updateRepresentativeForm.get('phoneNumber')!.errors!['required']">
+                            رقم الهاتف مطلوب
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="updateRepresentativeForm.get('phoneNumber')?.hasError('minlength') || updateRepresentativeForm.get('phoneNumber')?.hasError('maxlength')">
+                            الرقم السري غير صحيح
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان</label>
+                    <input formControlName="address" id="address" type="text" class="form-control">
+                    <div
+                        *ngIf="updateRepresentativeForm.get('phoneNumber')!.invalid && updateRepresentativeForm.get('phoneNumber')!.touched">
+                        <div class="text-danger"
+                            *ngIf="updateRepresentativeForm.get('phoneNumber')!.errors!['required']">
+                            العنوان مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="branchId">الفرع</label>
+                    <select formControlName="branchId" id="branchId" class="form-control">
+                        <option value="">Select Branch</option>
+                        <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+                    </select>
+                    <div
+                        *ngIf="updateRepresentativeForm.get('branchId')!.invalid && updateRepresentativeForm.get('branchId')!.touched">
+                        <div class="text-danger" *ngIf="updateRepresentativeForm.get('branchId')!.errors!['required']">
+                            الفرع مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type">النوع</label>
+                    <select formControlName="type" id="type" class="form-control">
+                        <option value=0>Percent</option>
+                        <option value=1>Fixed</option>
+                    </select>
+                    <div
+                        *ngIf="updateRepresentativeForm.get('type')!.invalid && updateRepresentativeForm.get('type')!.touched">
+                        <div class="text-danger" *ngIf="updateRepresentativeForm.get('type')!.errors!['required']">
+                            النوع مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount"> تكلفة </label>
+                    <input formControlName="amount" id="amount" type="number" class="form-control">
+                    <div
+                        *ngIf="updateRepresentativeForm.get('amount')!.invalid && updateRepresentativeForm.get('amount')!.touched">
+                        <div class="text-danger" *ngIf="updateRepresentativeForm.get('amount')!.errors!['required']">
+                            التكلفة مطلوبة
+                        </div>
+                    </div>
+                </div>
+
+
+                <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="governorates" placeholder="المحافظات"
+                    (onSelect)="OnSelect($event)" (onDeSelect)="OnDeSelect($event)" (onSelectAll)="OnSelectAll($event)"
+                    (onDeSelectAll)="OnDeSelectAll()">
+                </ng-multiselect-dropdown>
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </form>
+        </div>
+    </div>
+</div>

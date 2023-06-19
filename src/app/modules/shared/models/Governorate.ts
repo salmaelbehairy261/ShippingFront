@@ -1,4 +1,4 @@
-import { city } from "./City"
+import { city, cityData } from "./City"
 
 export interface governorateWithCities{
   id:number
@@ -10,4 +10,10 @@ export interface governates {
   id: number;
   name: string;
   isDeleted:boolean
+}
+
+export interface governorateWithCity {
+  id: number;
+  name: string;
+  cities: cityData[];
 }

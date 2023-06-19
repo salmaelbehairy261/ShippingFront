@@ -16,10 +16,10 @@ export class MerchantService {
     private toastr:MyToastrService,
     private errorMessageService:ErrorMessageService
   ) { }
-  
-  
+
+
 public GetMerchants(merchantParams:Params){
-  const url = `Account/Merchants`;
+  const url = `Merchant`;
   let p = new HttpParams();
     p = p.append('sort', merchantParams.sort);
     p = p.append('pageIndex', merchantParams.pageNumper);
@@ -32,47 +32,56 @@ public GetMerchants(merchantParams:Params){
         this.toastr.error(err);
         return EMPTY;
       })
-    ) 
+    )
    }
 
 
 public GetMerchant(Eid:any) {
-      const url = `Account/merchantId?merchantId=${Eid}`;
+      const url = `Merchant/${Eid}`;
       return this.apiService.get<getMerchant>(url).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
-      ) 
+      )
   }
 
   public UpdateMerchant(updateMerchant:updateMerchant,EId:any){
-    const url = `Account/updateMerchan?id=${EId}`;
+    const url = `Merchant?id=${EId}`;
     this.apiService.put<any,updateMerchant>(url,updateMerchant).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
-    ) 
+    )
     .subscribe(res => {
       this.toastr.success("تم تعديل التاجر بنجاح")
     });
 }
 
   public AddMerchant(merchant:addMerchant ) {
-      const url = `Account/registerMerchant`;
+      const url = `Merchant`;
       this.apiService.post<any,addMerchant >(url, merchant).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
-      ) 
+      )
       .subscribe(res => {
         this.toastr.success("تم إضافة التاجر بنجاح")
       });
   }
-  
+  public  Delete(Id: string) {
+    const url = `Merchant?id=${Id}`;
+    return this.apiService.delete<void>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
 }

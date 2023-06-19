@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit{
     const role=this.authService.getUserRole()
     if(role=="Merchant")
       this.router.navigate(['/merchant'])
+    else if(role=="Representative")
+    this.router.navigate(['/representative'])
+    else
+      this.router.navigate(['/employee'])
   }
 
 }

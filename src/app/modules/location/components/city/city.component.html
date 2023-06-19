@@ -1,0 +1,195 @@
+<div class="container page">
+    <div class="d-flex page__box p-3">المدن</div>
+    <div class="page__content shadow position-relative">
+        <div class="page__content-data position-absolute w-100">
+            <div class="content">
+                <div class="controls my-3 p-3 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary" (click)="addModal.show()">اضافة
+                        مدينة</button>
+                    <input type="text" class="form-control w-25"  placeholder="البحث بالاسم">
+                </div>
+
+                <div class="container">
+
+                    <div class="form-group">
+                        <label for="governorate">المحافظة</label>
+                        <select id="governorate" class="form-control my-2" #selectElement
+                            (change)="onGovernorateChange(selectElement.value)">
+                            <option  *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
+                        </select>
+                    </div>
+                    <div class="myElements ">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead class="text-success">
+                                <th>م</th>
+                                <th> المدينة</th>
+                                <th>تكلفة الشحن</th>
+                                <th>ال pickup</th>
+                                <th>الاعدادت</th>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of cities; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td class="text-primary">{{item.name}}</td>
+                                    <td class="text-primary">{{item.price}}</td>
+                                    <td class="text-primary">{{item.pickup}}</td>
+
+
+                                    <td><button (click)="GetCurrentId(item.id)" data-bs-toggle="modal"
+                                            data-bs-target="#update"><i
+                                                class="fa-solid fa-pen-to-square text-warning me-1"></i></button>
+                                        <button (click)="GetCurrentId(item.id)" data-bs-toggle="modal"
+                                            data-bs-target="#delete"><i
+                                                class="fa-solid fa-trash-can text-danger"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- add modal -->
+<div class="modal fade"
+  bsModal
+  #addModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اضافة مدينة</h5>
+            </div>
+            <form [formGroup]="CityForm" (ngSubmit)="AddCity()">
+                <div class="modal-body">
+                    <div class="name">
+                        <input type="text" class="form-control my-2" placeholder="اسم المدينة" formControlName="Name">
+
+                        <div class="errs" *ngIf="CityForm.get('Name')?.errors && CityForm.get('Name')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('Name')?.errors?.['required']">الاسم مطلوب
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="governorate">المحافظة</label>
+                            <select id="governorate" class="form-control" formControlName="GovernorateId">
+                                <option value="" selected>اختر المحافظة</option>
+                                <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
+                            </select>
+                        </div>
+                        <div class="errs" *ngIf="CityForm.get('GovernorateId')?.errors && CityForm.get('GovernorateId')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('GovernorateId')?.errors?.['required']">المحافظة مطلوبة
+                            </p>
+                        </div>
+                        <input type="number" class="form-control my-2" placeholder="تكلفة الشحن" formControlName="Price">
+                        <div class="errs" *ngIf="CityForm.get('Price')?.errors && CityForm.get('Price')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('Price')?.errors?.['required']">تكلفة الشحن مطلوبة
+                            </p>
+                        </div>
+                        <input type="number" class="form-control" placeholder="تكلفة الPickup" formControlName="Pickup">
+                        <div class="errs" *ngIf="CityForm.get('Pickup')?.errors && CityForm.get('Pickup')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('Pickup')?.errors?.['required']"> مطلوب
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="CityForm.invalid" type="submit" class="special btn btn-primary">اضافة</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="addModal.hide()">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">حذف مدينة</h5>
+            </div>
+            <div class="modal-body text-secondary fw-bold">
+                هل انت تريد حذف هذه المدينة ؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">حذف</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update modal -->
+<div class="modal fade" id="update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">تعديل مدينة</h5>
+            </div>
+            <form [formGroup]="CityUpdateForm" (ngSubmit)="UpdateCity()">
+                <div class="modal-body text-secondary fw-bold">
+                    <div class="name">
+                        <input type="text" class="form-control" placeholder="اسم المدينة" formControlName="Name">
+                        <div class="errs" *ngIf="CityForm.get('Name')?.errors && CityForm.get('Name')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('Name')?.errors?.['required']">الاسم مطلوب
+                            </p>
+                            <p class="text-danger" *ngIf="CityForm.get('Name')?.errors?.['pattern']">الحد الادني
+                                للحروف بين 3 ال 30 حرف</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="governorate">المحافظة</label>
+                            <select id="governorate" class="form-control" formControlName="GovernorateId" #selectedGovernorate
+                                (change)="onGovernorateChange(selectedGovernorate.value)">
+                                <option value="">اختر المحافظة</option>
+                                <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
+                            </select>
+                        </div>
+                        <div class="errs" *ngIf="CityForm.get('GovernorateId')?.errors && CityForm.get('GovernorateId')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('GovernorateId')?.errors?.['required']">المحافظة مطلوبة
+                            </p>
+
+                        </div>
+
+                        <input type="number" class="form-control my-2" placeholder="تكلفة الشحن" formControlName="Price">
+                        <div class="errs" *ngIf="CityForm.get('Price')?.errors && CityForm.get('Price')?.touched">
+
+                            <p class="text-danger" *ngIf="CityForm.get('Price')?.errors?.['required']">تكلفة الشحن مطلوبة
+                            </p>
+
+                        </div>
+
+                        <input type="number" class="form-control" placeholder="تكلفة الPickup" formControlName="Pickup">
+
+                        <div class="errs" *ngIf="CityForm.get('Pickup')?.errors && CityForm.get('Pickup')?.touched">
+                            <p class="text-danger" *ngIf="CityForm.get('Pickup')?.errors?.['required']"> مطلوب
+                            </p>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="CityUpdateForm.invalid" type="submit" class="btn btn-warning"
+                        data-bs-dismiss="modal">تعديل</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

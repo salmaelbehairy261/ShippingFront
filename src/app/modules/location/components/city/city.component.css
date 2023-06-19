@@ -1,0 +1,17 @@
+
+td button{
+  border-style: none;
+  background-color: transparent;
+
+}
+
+.myElements .form-check , .myElements .form-switch{
+    padding: 0 !important;
+}
+
+.myElements .form-check{
+  display: flex;
+}
+.myElements .form-check-input{
+    margin: auto !important;
+}

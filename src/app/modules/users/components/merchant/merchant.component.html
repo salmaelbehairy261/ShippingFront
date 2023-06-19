@@ -1,0 +1,217 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-10">
+            <form (ngSubmit)="onSubmit()" [formGroup]="merchantForm">
+
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input formControlName="name" id="name" type="text" class="form-control" placeholder="الاسم">
+                    <div *ngIf="merchantForm.get('name')!.invalid && merchantForm.get('name')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('name')!.errors!['required']">
+                            الاسم مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="userName">اسم المستخدم</label>
+                    <input formControlName="userName" id="userName" type="text" class="form-control">
+                    <div *ngIf="merchantForm.get('userName')!.invalid && merchantForm.get('userName')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('userName')!.errors!['required']">
+                            اسم المستخدم مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">البريدالالكتروني</label>
+                    <input formControlName="email" id="email" type="email" class="form-control">
+                    <div *ngIf="merchantForm.get('email')!.invalid && merchantForm.get('email')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('email')!.errors!['required']">
+                            البريدالالكتروني مطلوب
+                        </div>
+                        <div class="text-danger" *ngIf="merchantForm.get('email')?.hasError('email')">
+                            البريد الإلكتروني غير صحيح
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">الرقم السري</label>
+                    <input formControlName="password" id="password" type="password" class="form-control">
+                    <div *ngIf="merchantForm.get('password')!.invalid && merchantForm.get('password')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('password')!.errors!['required']">
+                            الرقم السري مطلوب
+                        </div>
+                        <div class="text-danger" *ngIf="merchantForm.get('password')?.hasError('minlength')">
+                            الرقم السري يجب أن يحتوي على الحد الأدنى من الأحرف
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف </label>
+                    <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control">
+                    <div *ngIf="merchantForm.get('phoneNumber')!.invalid && merchantForm.get('phoneNumber')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('phoneNumber')!.errors!['required']">
+                            رقم الهاتف مطلوب
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="merchantForm.get('phoneNumber')?.hasError('minlength') || merchantForm.get('phoneNumber')?.hasError('maxlength')">
+                            الرقم السري غير صحيح
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان</label>
+                    <input formControlName="address" id="address" type="text" class="form-control">
+                    <div *ngIf="merchantForm.get('phoneNumber')!.invalid && merchantForm.get('phoneNumber')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('phoneNumber')!.errors!['required']">
+                            العنوان مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="branch">الفرع</label>
+                    <select formControlName="branch" id="branch" class="form-control">
+                        <option value="">Select Branch</option>
+                        <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+                    </select>
+                    <div *ngIf="merchantForm.get('branch')!.invalid && merchantForm.get('branch')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('branch')!.errors!['required']">
+                            الفرع مطلوب
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="governorate">المحافظة</label>
+                    <select formControlName="governorate" id="governorate" class="form-control"
+                        (change)="onGovernorateChange()">
+                        <option value="">Select Governorate</option>
+                        <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
+                    </select>
+                    <div *ngIf="merchantForm.get('governorate')!.invalid && merchantForm.get('governorate')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('governorate')!.errors!['required']">
+                            المحافظةمطلوبة
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">المدينة</label>
+                    <select formControlName="city" id="city" class="form-control">
+                        <option value="">Select City</option>
+                        <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+                    </select>
+                    <div *ngIf="merchantForm.get('city')!.invalid && merchantForm.get('city')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('city')!.errors!['required']">
+                            المدينة مطلوبة
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="storeName">اسم المتجر</label>
+                    <input formControlName="storeName" id="storeName" type="text" class="form-control">
+                    <div *ngIf="merchantForm.get('storeName')!.invalid && merchantForm.get('name')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('storeName')!.errors!['storeName']">
+                            اسم المتجر مطلوب
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pickUp"> تكلفة خاصة</label>
+                    <input formControlName="pickUp" id="pickUp" type="number" class="form-control">
+                    <div *ngIf="merchantForm.get('pickUp')!.invalid && merchantForm.get('pickUp')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('pickUp')!.errors!['required']">
+                            التكلفة خاصه مطلوبة
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="returnerPercent">نسبة تحمل التاجر من قيمة الشحن للطلبات المرفوضه</label>
+                    <input formControlName="returnerPercent" id="returnerPercent" type="number" class="form-control">
+                    <div
+                        *ngIf="merchantForm.get('returnerPercent')!.invalid && merchantForm.get('returnerPercent')!.touched">
+                        <div class="text-danger" *ngIf="merchantForm.get('returnerPercent')!.errors!['required']">
+                            نسبة تحمل التاجر مطلوبة
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="merchantForm.get('returnerPercent')?.hasError('max') || merchantForm.get('returnerPercent')?.hasError('min')">
+                            نسبة التحميل يجب أن تكون بين صفر ومائة
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialPrices">قائمة اسعار خاصة</label>
+
+                    <div formArrayName="specialPrices">
+                        <div *ngFor="let specialPrice of specialPricesControls.controls; let i=index"
+                            [formGroupName]="i">
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="price"> السعر</label>
+                                    <input formControlName="price" id="price" type="number" class="form-control"
+                                        placeholder="السعر">
+                                    <div
+                                        *ngIf="specialPrice.get('price')!.invalid && specialPrice.get('price')!.touched">
+                                        <div class="text-danger" *ngIf="specialPrice.get('price')!.errors!['required']">
+                                            السعر مطلوب
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="governorate">المحافظة</label>
+                                    <select formControlName="governorateId" id="governorate" class="form-control"
+                                        (change)="onGovernorateChangeList(i)">
+                                        <option value="">Select Governorate</option>
+                                        <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}
+                                        </option>
+                                    </select>
+                                    <div
+                                        *ngIf="specialPrice.get('governorateId')!.invalid && specialPrice.get('governorateId')!.touched">
+                                        <div class="text-danger"
+                                            *ngIf="specialPrice.get('governorateId')!.errors!['required']">
+                                            المحافظةمطلوبة
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <label for="city">المدينة</label>
+                                    <select formControlName="cityId" id="city" class="form-control">
+                                        <option value="">Select City</option>
+                                        <option *ngFor="let city of citiesPrice[i]" [value]="city.id">{{ city.name }}
+                                        </option>
+                                    </select>
+                                    <div
+                                        *ngIf="specialPrice.get('cityId')!.invalid && specialPrice.get('cityId')!.touched">
+                                        <div class="text-danger"
+                                            *ngIf="specialPrice.get('cityId')!.errors!['required']">
+                                            المدينة مطلوبة
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <input type="button" value="حذف" (click)="remove(i)">
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="addSpecialPrice()" class="btn btn-primary mt-2">اضافة</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="merchantForm.invalid">حفظ</button>
+            </form>
+        </div>
+    </div>
+</div>
