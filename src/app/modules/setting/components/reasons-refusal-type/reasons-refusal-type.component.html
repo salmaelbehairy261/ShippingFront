@@ -2,10 +2,10 @@
     <div class="page p-4 my-3  mx-auto  rounded">
         <div class="d-flex flex-wrap justify-content-between">
             <div>
-                <p class="font-weight-bold py-1 rounded ">اعدادات نوع الشحن</p>
+                <p class="font-weight-bold py-1 rounded ">اعدادات اسباب الرفض </p>
             </div>
             <div>
-                <button class="btn btn-outline-info" (click)="openAddingForm(content)">اضافه نوع شحن جديد</button>
+                <button class="btn btn-outline-info" (click)="openAddingForm(content)">اضافه سبب رفض </button>
             </div>
         </div>
         <div>
@@ -21,7 +21,7 @@
                     <tr *ngFor="let item of reasonsRefusalTypes; let i =index">
                         <td class="py-4">{{i+1}}</td>
                         <td class="py-4">{{item.name}}</td>
-                        <td class="py-4">
+                        <td class="py-3">
                             <a class=" btn btn-outline-warning rounded ms-2" (click)="openUpdateForm(content2,item)"> 
                                 تعديل
                             </a>
@@ -44,15 +44,15 @@
 	</div>
 	<div class="modal-body">
         
-        <form  class="flex flex-wrap" [formGroup]="AddReasonRefusalForm" (ngSubmit)="submit($event)">
+        <form  class="flex flex-wrap" [formGroup]="AddReasonRefusalForm" >
                 <div class="d-flex flex-row align-items-start gap-1">
-                    <label for="" class="form-control w-25">الاسم</label>
+                    <label for="" class="form-control w-25">سبب الرفض</label>
                     <input type="text" class="form-control w-50" formControlName="name"/>
                 </div>
                 <ng-container *ngIf="getName.touched">
                     <div *ngIf="getName.hasError('required')" 
                         class="form-text text-danger">
-                        الاسم مطلوب
+                        سبب الرفض مطلوب
                     </div>
                 </ng-container>
 
@@ -74,7 +74,7 @@
 	<div class="modal-body">
         <form  class="flex flex-wrap" [formGroup]="UpdateReasonRefusalForm" >
                 <div class="d-flex flex-row align-items-start gap-1">
-                    <label for="" class="form-control w-25">الاسم</label>
+                    <label for="" class="form-control w-25">سبب الرفض</label>
                     <input type="text" class="form-control w-50" formControlName="name" >
                 </div>
                 <div class="h6 text-danger ms-5 mt-2" *ngIf="flag2"> لم يتم تعديل ايا من المدخلات  </div>

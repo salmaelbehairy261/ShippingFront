@@ -48,9 +48,8 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   ReasonRefusalTypeToUpdate:ReasonsRefusalTypeUpdate={id:0,name:""}
   openUpdateForm(content:any,item:ReasonsRefusalTypeUpdate) {
     this.ReasonRefusalTypeToUpdate=item;
-    //console.log(this.shippingTypeToUpdate);
     this.UpdateReasonRefusalForm.patchValue({
-      id:this.ReasonRefusalTypeToUpdate.name,
+      id:this.ReasonRefusalTypeToUpdate.id.toString(),
       name:this.ReasonRefusalTypeToUpdate.name.toString()
     })
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -98,18 +97,16 @@ export class ReasonsRefusalTypeComponent implements OnInit{
         const body:ReasonsRefusalTypeAdd ={
           name:String(this.AddReasonRefusalForm.value.name)
         };
-        //console.log(body);
         this.addReasonRefusal(body);
         this.flag=false;
-        window.location.reload();
-        this.myToastrService.success("تمت اضافه نوع الشحن بنجاح");
+        this.modalService.dismissAll("saved");
+        this.ngOnInit();
       }
       else{
         this.flag=true;
       }
   }
 
-  submit(e:any){e.e.preventDefault();}
   //
 
 
@@ -130,7 +127,7 @@ export class ReasonsRefusalTypeComponent implements OnInit{
 
 
   requireOneControl() {
-    if (this.UpdateReasonRefusalForm.controls["name"].value === String(this.UpdateReasonRefusalForm.value.name)) 
+    if (this.UpdateReasonRefusalForm.controls["name"].value === this.ReasonRefusalTypeToUpdate.name) 
     {
       this.flag2=true;
     }
@@ -153,15 +150,14 @@ export class ReasonsRefusalTypeComponent implements OnInit{
         else{
           reasonRefusalName=String(this.UpdateReasonRefusalForm.value.name);
         }
-
         const body:ReasonsRefusalTypeUpdate ={
           id:this.ReasonRefusalTypeToUpdate.id,
           name:reasonRefusalName
         };
         this.flag2=false;
         this.updateReasonRefusal(body);
-        window.location.reload();
-        this.myToastrService.success("تمت تعديل سبب الرفض بنجاح");
+        this.modalService.dismissAll("saved");
+        this.ngOnInit();
         }
   }
 }
