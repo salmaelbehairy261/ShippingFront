@@ -161,7 +161,7 @@ export class OrderService {
 
   DropdownListRepresentative(orderId:any) 
   {
-    const url = `Account/DropdownListRepresentative?orderId=${orderId}`;
+    const url = `Order/DropdownListRepresentative?orderId=${orderId}`;
     return this.apiService.get(url).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
@@ -201,7 +201,7 @@ export class OrderService {
       })
     )
   }
- 
+
 
   GetOrdersForMerchant(searchText:string,statusId:any,pageNumber:any,pageSize:any) {
     const url = `Order/GetOrdersForMerchant?searchText=${searchText}&merchantId=${this.merchantId}&statusId=${statusId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
@@ -216,6 +216,29 @@ export class OrderService {
 
   GetCountOrdersForMerchant(searchText:string,statusId: any) {
     const url = `Order/GetCountOrdersForMerchant?searchText=${searchText}&merchantId=${this.merchantId}&statusId=${statusId}`;
+    return this.apiService.get(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+
+  DeleteOrder(orderId:any) 
+  {
+    const url = `Order?orderId=${orderId}`;
+    this.apiService.delete<void>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  
+  GetAllDataById(id:any) {
+    const url = `Order/GetAllDataById?id=${id}`;
     return this.apiService.get(url).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);

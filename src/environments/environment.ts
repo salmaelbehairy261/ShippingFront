@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl: 'http://localhost:5019/api/',
+  baseUrl: 'http://localhost:28208/api/',
   secretKey: 'jutesxbwrpmngd'
 };

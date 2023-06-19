@@ -8,20 +8,23 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NewOrderComponent } from './components/new-order/new-order.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
-
+import{NgxPrintModule} from 'ngx-print';
+import { DisplayOrderComponent } from './components/display-order/display-order.component'
 
 @NgModule({
   declarations: [
     HomeComponent,
     ShowOrdersComponent,
     NewOrderComponent,
-    EditOrderComponent
+    EditOrderComponent,
+    DisplayOrderComponent
   ],
   imports: [
     CommonModule,
     MerchantRoutingModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxPrintModule
   ]
 })
 export class MerchantModule { }
