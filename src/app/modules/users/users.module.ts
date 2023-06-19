@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 import { SharedModule } from "../shared/shared.module";
 import { RepresentativeComponent } from "./components/Representative/representative.component";
 import { MerchantComponent } from "./components/merchant/merchant.component";
@@ -12,7 +11,7 @@ import { MarchantTableComponent } from "./components/marchant-table/marchant-tab
 import { UpdateMerchantComponent } from "./components/update-merchant/update-merchant.component";
 import { EmployeeTableComponent } from "./components/employee-table/employee-table.component";
 import { EmployeeComponent } from "./components/Employee/employee.component";
-
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown'
 
 
 

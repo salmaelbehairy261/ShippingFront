@@ -90,8 +90,10 @@ export class ShowOrdersComponent {
   }
 
   DeleteOrder() {
-    this.orderService.DeleteOrder(this.orderId);
-    // this.countOfTotalOrders(this.searchText);
-    // this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
+    this.orderService.DeleteOrder(this.orderId).subscribe(()=>{
+      this.countOfTotalOrders(this.searchText);
+      this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
+    })
+    
   }
 }
