@@ -5,6 +5,9 @@ import { governates, governorateWithCities, governorateWithCity } from '../model
 import { MyToastrService } from './my-toastr.service';
 import { ErrorMessageService } from './error-message.service';
 import { EMPTY, catchError } from 'rxjs';
+import { Params } from '../models/Params';
+import { HttpParams } from '@angular/common/http';
+
 
 
 @Injectable({
@@ -47,9 +50,15 @@ export class GovernrateService {
       })
     )
   }
-  public GetAllGovernorates(){
+  public GetAllGovernorates(govParams:Params){
     const url = `Governorate/all`;
-    return this.apiService.get<governorateResponse>(url).pipe(
+  let p = new HttpParams();
+    p = p.append('sort', govParams.sort);
+    p = p.append('pageIndex', govParams.pageNumper);
+    p = p.append('pageSize', govParams.pageSize);
+    if(govParams.search) p=p.append('search',govParams.search)
+    if(govParams.sort) p=p.append('sort',govParams.sort)
+    return this.apiService.getPagenation<governorateResponse>(url,p).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
@@ -57,7 +66,8 @@ export class GovernrateService {
       })
     )
   }
-  public AddGovernorate(governate:governateName){
+
+  public AddGovernorate(governate: governateName) {
     const url='Governorate'
     return this.apiService.post<any,governateName>(url,governate).pipe(
       catchError(error => {

@@ -19,6 +19,8 @@ export class EmployeeTableComponent implements OnInit {
   isDesc:boolean=false
   employeeParams = new Params();
   totalCount = 0;
+
+  
  constructor(
           private employeeService: EmployeeService,
           private router: Router,
