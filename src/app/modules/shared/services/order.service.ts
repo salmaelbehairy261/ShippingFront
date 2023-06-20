@@ -26,9 +26,6 @@ export class OrderService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم إضافة الطلب بنجاح")
-    });
   }
   public getOrderById(id:number){
     return this.apiService.get<OrderToUpdate>(`${this.url}/Get/${id}`).pipe(
