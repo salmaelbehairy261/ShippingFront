@@ -17,7 +17,6 @@ import { GovernorateComponent } from './components/governorate/governorate.compo
     CommonModule,
     LocationRoutingModule,
     SharedModule,
-    ModalModule
   ],
   providers:[
     NgbActiveModal,

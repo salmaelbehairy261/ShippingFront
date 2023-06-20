@@ -5,6 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { governate, governateName, governates, governorateResponse } from 'src/app/modules/shared/models/Governorate';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
 
@@ -22,7 +23,8 @@ export class GovernorateComponent {
   @ViewChild('search') searchTerms?: ElementRef;
   isDesc:boolean=false
   governerates: governates[] = []
-  constructor(private governorateService:GovernrateService) {}
+  constructor(private governorateService:GovernrateService,
+    private navTitleService:NavTitleService) {}
   term: string = "";
   currentID: number = 0;
   currentGovernorate: any = null;
@@ -46,6 +48,7 @@ export class GovernorateComponent {
   })
 
   ngOnInit(): void {
+    this.navTitleService.title.next("المحافظات")
     this.GetAllGovernorates();
   }
   GetAllGovernorates() {
