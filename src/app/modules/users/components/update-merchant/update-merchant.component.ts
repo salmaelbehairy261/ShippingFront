@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { branch } from "src/app/modules/shared/models/Branch";
+import { branchList } from "src/app/modules/shared/models/Branch";
 import { city } from "src/app/modules/shared/models/City";
 import { governorateWithCities } from "src/app/modules/shared/models/Governorate";
 import { getMerchant, updateMerchant } from "src/app/modules/shared/models/Merchant";
@@ -23,7 +23,7 @@ export class UpdateMerchantComponent implements OnInit {
   governorates: governorateWithCities[] = [];
   cities: city[] = [];
   citiesPrice: city[][] = [];
-  branches: branch[] = [];
+  branches: branchList[] = [];
   customSpecialPrice: specialPrice[] = [];
   merchant: getMerchant|null = null;
   merchantId: string='';

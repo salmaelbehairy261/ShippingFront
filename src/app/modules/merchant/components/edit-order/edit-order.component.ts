@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Order, OrderToUpdate, PaymentType, Product, orderType } from '../../../shared/models/Order';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { shippingType } from '../../../shared/models/shipping-type';
-import { branch } from '../../../shared/models/Branch';
 import { city } from '../../../shared/models/City';
 import { OrderService } from '../../../shared/services/order.service';
 import { ShippingTypeService } from '../../../shared/services/shipping-type.service';
@@ -12,6 +11,7 @@ import { governorateWithCities } from 'src/app/modules/shared/models/Governorate
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { branchList } from 'src/app/modules/shared/models/Branch';
 
 @Component({
   selector: 'app-edit-order',
@@ -32,7 +32,7 @@ export class EditOrderComponent implements OnInit{
   ngOnInit(): void {
     this.orderId=this.activeRoute.snapshot.params['id'];
     this.navTitleService.title.next("تعديل الطلب")
-    this.branchService.getBranches().subscribe((res: branch[]) => {
+    this.branchService.getBranches().subscribe((res: branchList[]) => {
       this.branches = res
     })
     this.governorateService.GetGovernorateWithCityList().subscribe((res: governorateWithCities[]) => {
@@ -51,7 +51,7 @@ export class EditOrderComponent implements OnInit{
   cities: city[]=[]
   governorates: governorateWithCities[]=[]
   shippingTypes: shippingType[]=[]
-  branches: branch[]=[]
+  branches: branchList[]=[]
   productsArr:Product[]=[]
   isLastProduct=false
   selectedGov:any

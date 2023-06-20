@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { RepresentativeService } from '../../../shared/services/representative.service';
 import { addRepresentative, RepresentativeGovernateDto } from '../../../shared/models/Representative';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { branch } from 'src/app/modules/shared/models/Branch';
+import {  branchList } from 'src/app/modules/shared/models/Branch';
 import { governates } from 'src/app/modules/shared/models/Governorate';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
@@ -16,7 +16,7 @@ import { NavTitleService } from 'src/app/modules/shared/services/nav-title.servi
 })
 export class RepresentativeComponent implements OnInit {
   representativeForm: FormGroup = new FormGroup({});
-  branches:branch[] = [];
+  branches:branchList[] = [];
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
   customArray: RepresentativeGovernateDto[] = [ ];

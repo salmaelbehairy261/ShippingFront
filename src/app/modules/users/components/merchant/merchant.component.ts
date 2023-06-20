@@ -1,9 +1,10 @@
+import { branchList } from './../../../shared/models/Branch';
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
 import { addMerchant } from "../../../shared/models/Merchant";
 import { MerchantService } from "../../../shared/services/merchant.service";
 import { specialPrice } from "../../../shared/models/SpecialPrice";
-import { branch } from "src/app/modules/shared/models/Branch";
+
 import { city } from "src/app/modules/shared/models/City";
 import { governorateWithCities } from "src/app/modules/shared/models/Governorate";
 import { BranchService } from "src/app/modules/shared/services/branch.service";
@@ -20,7 +21,7 @@ export class MerchantComponent implements OnInit {
   governorates: governorateWithCities[] = [];
   cities: city[] = [];
   citiesPrice: city[][] = [];
-  branches:branch[] = [];
+  branches:branchList[] = [];
   customSpecialPrice: specialPrice[] = [];
 
   constructor(

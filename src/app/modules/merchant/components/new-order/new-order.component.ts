@@ -7,10 +7,10 @@ import { ShippingTypeService } from '../../../shared/services/shipping-type.serv
 import { OrderService } from '../../../shared/services/order.service';
 import { city } from '../../../shared/models/City';
 import { shippingType } from '../../../shared/models/shipping-type';
-import { branch } from '../../../shared/models/Branch';
 import { governorateWithCities } from 'src/app/modules/shared/models/Governorate';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { branchList } from 'src/app/modules/shared/models/Branch';
 
 
 @Component({
@@ -44,7 +44,7 @@ export class NewOrderComponent implements OnInit {
   cities: city[]=[]
   governorates: governorateWithCities[]=[]
   shippingTypes: shippingType[]=[]
-  branches: branch[]=[]
+  branches: branchList[]=[]
   productsArr:Product[]=[]
   isLastProduct=false
   selectedGov:any

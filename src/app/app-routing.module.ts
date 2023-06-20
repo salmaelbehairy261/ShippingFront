@@ -11,6 +11,7 @@ import { SettingRoutingModule } from './modules/setting/setting-routing.module';
 import { UsersRoutingModule } from './modules/users/users-routing.module';
 import { LocationRoutingModule } from './modules/location/location-routing.module';
 import { GroupsRoutingModule } from './modules/groups/groups-routing.module';
+import { BranchRoutingModule } from './modules/branch/branch-routing.module';
 
 const routes: Routes = [
   ...LoginRoutingModule.routes,
@@ -25,7 +26,8 @@ const routes: Routes = [
       ...LocationRoutingModule.routes,
       ...SettingRoutingModule.routes,
       ...UsersRoutingModule.routes,
-      ...GroupsRoutingModule.routes
+      ...GroupsRoutingModule.routes,
+      ...BranchRoutingModule.routes
     ]},
   ],canActivate:[AuthGuard]}
 ];

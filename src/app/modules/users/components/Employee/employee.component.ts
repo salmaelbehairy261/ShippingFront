@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { branch } from "src/app/modules/shared/models/Branch";
+import { branchList } from "src/app/modules/shared/models/Branch";
 import { addEmployee } from "src/app/modules/shared/models/Employee";
 import { group } from "src/app/modules/shared/models/Group";
 import { BranchService } from "src/app/modules/shared/services/branch.service";
@@ -20,7 +20,7 @@ export class EmployeeComponent implements OnInit {
  employeeForm: FormGroup = new FormGroup({});
 
   groups: group[] = [];
-  branches:branch[] = [];
+  branches:branchList[] = [];
 
   constructor(
     private employeeService: EmployeeService,

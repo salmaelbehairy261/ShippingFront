@@ -22,6 +22,7 @@ import { RepresentativeModule } from './modules/representative/representative.mo
 import { SettingModule } from './modules/setting/setting.module';
 import { LocationModule } from './modules/location/location.module';
 import { GroupsModule } from './modules/groups/groups.module';
+import { BranchModule } from './modules/branch/branch.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { GroupsModule } from './modules/groups/groups.module';
     SettingModule,
     UsersModule,
     LocationModule,
-    GroupsModule
+    GroupsModule,
+    BranchModule
   ],
   providers: [
     CookieService,

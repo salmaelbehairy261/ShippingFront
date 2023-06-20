@@ -49,7 +49,8 @@ export class EmployeeTableComponent implements OnInit {
   addEmployee() {
 
     this.router.navigate(['/employee/users/AddEmployee']);
-    }
+  }
+  
   toggleDelete(employee: getAllEmployees) {
     if (employee.isDeleted) {
       return;
