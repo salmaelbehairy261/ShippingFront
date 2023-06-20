@@ -81,7 +81,7 @@ export class OrderService {
 
   GetOrdersForEmployee(searchText:string,statusId:any,pageNumber:any,pageSize:any) {
     const url = `Order/GetOrdersForEmployee?searchText=${searchText}&statusId=${statusId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
-   return this.apiService.get(url).pipe(
+  return this.apiService.get(url).pipe(
     catchError(error => {
       const err=this.errorMessageService.getServerErrorMessage(error);
       this.toastr.error(err);
@@ -145,6 +145,19 @@ export class OrderService {
     )
   }
 
+  ChangeOrderStatus(orderId:any,status:any)
+  {
+    const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
+    this.apiService.put(url,{orderId,status}).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    ).subscribe((res:any)=>{
+        this.toastr.success("تم تغيير الحالة بنجاح");
+      })
+  }
   DropdownListRepresentative(orderId:any)
   {
     const url = `Order/DropdownListRepresentative?orderId=${orderId}`;
@@ -211,7 +224,7 @@ export class OrderService {
     )
   }
 
-  DeleteOrder(orderId:any) 
+  DeleteOrder(orderId:any)
   {
     const url = `Order?orderId=${orderId}`;
    return this.apiService.delete<void>(url).pipe(
@@ -222,7 +235,7 @@ export class OrderService {
       })
     )
   }
-  
+
   GetAllDataById(id:any) {
     const url = `Order/GetAllDataById?id=${id}`;
     return this.apiService.get(url).pipe(

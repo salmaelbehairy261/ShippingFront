@@ -53,8 +53,6 @@ export class CityService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم حذف المدينة بنجاح")
-    });
+      
   }
 }

@@ -29,6 +29,26 @@
           </div>
         </a>
       </li>
+      <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee']" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
+        <div>
+          <svg width="30px" height="30px" class="stroke" viewBox="0 0 24 24" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>@1xIconly/Bold/Home</title>
+            <desc>Created with Sketch.</desc>
+            <g id="Iconly/Bold/Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Home" transform="translate(2.500000, 2.000000)" fill-rule="nonzero">
+                <path
+                  d="M6.63477851,18.7733424 L6.63477851,15.7156161 C6.63477851,14.9350667 7.27217143,14.3023065 8.05843544,14.3023065 L10.9326107,14.3023065 C11.310188,14.3023065 11.6723007,14.4512083 11.9392882,14.7162553 C12.2062757,14.9813022 12.3562677,15.3407831 12.3562677,15.7156161 L12.3562677,18.7733424 C12.3538816,19.0978491 12.4820659,19.4098788 12.7123708,19.6401787 C12.9426757,19.8704786 13.2560494,20 13.5829406,20 L15.5438266,20 C16.4596364,20.0023499 17.3387522,19.6428442 17.9871692,19.0008077 C18.6355861,18.3587712 19,17.4869804 19,16.5778238 L19,7.86685918 C19,7.13246047 18.6720694,6.43584231 18.1046183,5.96466895 L11.4340245,0.675869015 C10.2736604,-0.251438297 8.61111277,-0.221497907 7.48539114,0.74697893 L0.967012253,5.96466895 C0.37274068,6.42195254 0.0175522924,7.12063643 0,7.86685918 L0,16.568935 C0,18.4638535 1.54738155,20 3.45617342,20 L5.37229029,20 C6.05122667,20 6.60299723,19.4562152 6.60791706,18.7822311 L6.63477851,18.7733424 Z"
+                  id="id_101"></path>
+              </g>
+            </g>
+          </svg>
+          <h4 class="ms-1 px-0 px-sm-3  d-none d-md-inline">الرئيسية</h4>
+        </div>
+      </a>
+    </li>
       <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee/groups']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
@@ -49,7 +69,6 @@
           </div>
         </a>
       </li>
-
       <li class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isUsersCollapsed = ! isUsersCollapsed" [attr.aria-expanded]="!isUsersCollapsed">
@@ -88,7 +107,6 @@
           </a>
         </li>
       </ul>
-
       <li class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isLocCollapsed = ! isLocCollapsed" [attr.aria-expanded]="!isLocCollapsed">
@@ -102,7 +120,7 @@
         </a>
       </li>
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isLocCollapsed" class="m-0 px-3">
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/users/ShowEmployee"
+        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
           routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -119,10 +137,6 @@
           </a>
         </li>
       </ul>
-
-
-
-
       <li class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isSettingCollapsed = ! isSettingCollapsed" [attr.aria-expanded]="!isSettingCollapsed">
@@ -169,6 +183,48 @@
           </a>
         </li>
       </ul>
+      <li class="nav-item w-100 px-3 rounded">
+        <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
+          (click)="isStatCollapsed = ! isStatCollapsed" [attr.aria-expanded]="!isStatCollapsed">
+          <div>
+            <svg width="30" height="30" viewBox="0 0 64 64" class="fill" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M58.48 17.12L32.48 3.12002C32.3353 3.04298 32.1739 3.00269 32.01 3.00269C31.8461 3.00269 31.6847 3.04298 31.54 3.12002L5.54 17.12C5.37845 17.2037 5.2428 17.3299 5.14765 17.4849C5.05249 17.64 5.00144 17.8181 5 18V46C5.00048 46.1809 5.05003 46.3583 5.14336 46.5133C5.2367 46.6682 5.37032 46.795 5.53 46.88L31.53 60.88C31.6747 60.9571 31.8361 60.9974 32 60.9974C32.1639 60.9974 32.3253 60.9571 32.47 60.88L58.47 46.88C58.6297 46.795 58.7633 46.6682 58.8566 46.5133C58.95 46.3583 58.9995 46.1809 59 46V18C59.0005 17.8201 58.9524 17.6434 58.8609 17.4886C58.7694 17.3337 58.6378 17.2064 58.48 17.12V17.12ZM32 5.14002L55.9 18L48.9 21.77L25.83 8.46002L32 5.14002ZM8.1 18L15.63 14L38.69 27.26L32 30.86L8.1 18ZM23.76 9.57002L46.83 22.88L40.76 26.15L17.7 12.83L23.76 9.57002ZM42.09 27.7L47.53 24.78V32.24L45.43 30.16C45.3133 30.0441 45.1699 29.9588 45.0123 29.9115C44.8548 29.8643 44.688 29.8567 44.5268 29.8893C44.3656 29.922 44.2149 29.9939 44.0882 30.0986C43.9614 30.2034 43.8624 30.3378 43.8 30.49L42.09 34.61V27.7ZM7 19.67L31 32.6V58.33L7 45.4V19.67ZM33 58.33V32.6L40.09 28.78V39.64C40.1016 39.8639 40.1881 40.0775 40.3356 40.2463C40.4831 40.4152 40.6831 40.5295 40.9034 40.5711C41.1238 40.6126 41.3517 40.5789 41.5505 40.4753C41.7494 40.3717 41.9077 40.2044 42 40L45.06 32.61L47.8 35.33C47.9399 35.4711 48.1186 35.5672 48.3133 35.6063C48.5081 35.6454 48.71 35.6256 48.8935 35.5494C49.0769 35.4732 49.2335 35.3442 49.3433 35.1786C49.4531 35.0131 49.5112 34.8186 49.51 34.62V23.7L56.99 19.7V45.4L33 58.33Z" />
+            </svg>
+            <h4 class="ms-1 px-0 px-sm-3  d-none d-md-inline">عرض الطلبات</h4>
+          </div>
+        </a>
+      </li>
+      <ul #collapse="ngbCollapse" [(ngbCollapse)]="isStatCollapsed" class="m-0 px-3">
+        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/orders/{{i}}" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}" *ngFor="let status of StatusNames; let i=index">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">{{status}}</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee/reports']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
+          <div>
+            <svg width="30px" height="30px" class="stroke" viewBox="0 0 24 24" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>@1xIconly/Bold/Home</title>
+              <desc>Created with Sketch.</desc>
+              <g id="Iconly/Bold/Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Home" transform="translate(2.500000, 2.000000)" fill-rule="nonzero">
+                  <path
+                    d="M6.63477851,18.7733424 L6.63477851,15.7156161 C6.63477851,14.9350667 7.27217143,14.3023065 8.05843544,14.3023065 L10.9326107,14.3023065 C11.310188,14.3023065 11.6723007,14.4512083 11.9392882,14.7162553 C12.2062757,14.9813022 12.3562677,15.3407831 12.3562677,15.7156161 L12.3562677,18.7733424 C12.3538816,19.0978491 12.4820659,19.4098788 12.7123708,19.6401787 C12.9426757,19.8704786 13.2560494,20 13.5829406,20 L15.5438266,20 C16.4596364,20.0023499 17.3387522,19.6428442 17.9871692,19.0008077 C18.6355861,18.3587712 19,17.4869804 19,16.5778238 L19,7.86685918 C19,7.13246047 18.6720694,6.43584231 18.1046183,5.96466895 L11.4340245,0.675869015 C10.2736604,-0.251438297 8.61111277,-0.221497907 7.48539114,0.74697893 L0.967012253,5.96466895 C0.37274068,6.42195254 0.0175522924,7.12063643 0,7.86685918 L0,16.568935 C0,18.4638535 1.54738155,20 3.45617342,20 L5.37229029,20 C6.05122667,20 6.60299723,19.4562152 6.60791706,18.7822311 L6.63477851,18.7733424 Z"
+                    id="id_101"></path>
+                </g>
+              </g>
+            </svg>
+            <h4 class="ms-1 px-0 px-sm-3  d-none d-md-inline">تقارير الطلبات</h4>
+          </div>
+        </a>
+      </li>
     </ul>
     <!--Representative-->
     <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100"
