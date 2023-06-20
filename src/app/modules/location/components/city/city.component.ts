@@ -44,9 +44,6 @@ export class CityComponent  implements OnInit{
     this.cities = selectedGovernorate ? selectedGovernorate.cities : [];
   }
 currentGovernorateId:any
-
-
-
 CityForm: FormGroup = new FormGroup({
   Name: new FormControl(null, [Validators.required]),
   Price: new FormControl(null, [Validators.required]),

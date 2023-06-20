@@ -1,4 +1,4 @@
-import { governate, governateName } from './../models/Governorate';
+import { governate, governateName, governorateResponse } from './../models/Governorate';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { governates, governorateWithCities, governorateWithCity } from '../models/Governorate';
@@ -38,8 +38,18 @@ export class GovernrateService {
     )
   }
   public GetGovernorates(){
-    const url = `Governorate/all`;
+    const url = `Governorate`;
     return this.apiService.get<governates[]>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  public GetAllGovernorates(){
+    const url = `Governorate/all`;
+    return this.apiService.get<governorateResponse>(url).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);

@@ -145,6 +145,19 @@ export class OrderService {
     )
   }
 
+  ChangeOrderStatus(orderId:any,status:any)
+  {
+    const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
+    this.apiService.put(url,{orderId,status}).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    ).subscribe((res:any)=>{
+        this.toastr.success("تم تغيير الحالة بنجاح");
+      })
+  }
   DropdownListRepresentative(orderId:any)
   {
     const url = `Order/DropdownListRepresentative?orderId=${orderId}`;

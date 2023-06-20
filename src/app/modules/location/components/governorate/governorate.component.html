@@ -21,7 +21,7 @@
                                     <td>{{i+1}}</td>
                                     <td class="text-primary">{{item.name}}</td>
                                     <td>
-                                        <button (click)="GetCurrentId(item.id);updateModal.show()" class="btn btn-warning">تعديل</button>
+                                        <button (click)="GetCurrentGov(item.id);updateModal.show()" class="btn btn-warning">تعديل</button>
                                         <button (click)="GetCurrentId(item.id);deleteModal.show()" class="btn btn-danger">حذف</button>
                                     </td>
                                 </tr>
@@ -48,13 +48,13 @@ aria-labelledby="dialog-sizes-name1">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">اضافة محافظة</h5>
             </div>
-            <form [formGroup]="GovernorateForm" (ngSubmit)="AddGovernorate(GovernorateForm)">
+            <form [formGroup]="GovernorateForm" (ngSubmit)="AddGovernorate()">
                 <div class="modal-body">
                     <div class="name">
-                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="Name">
+                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="name">
                         <div class="errs"
-                            *ngIf="GovernorateForm.get('Name')?.errors && GovernorateForm.get('Name')?.touched">
-                            <p class="text-danger" *ngIf="GovernorateForm.get('Name')?.errors?.['required']">الاسم مطلوب
+                            *ngIf="GovernorateForm.get('name')?.errors && GovernorateForm.get('name')?.touched">
+                            <p class="text-danger" *ngIf="GovernorateForm.get('name')?.errors?.['required']">الاسم مطلوب
                             </p>
                         </div>
                     </div>
@@ -87,8 +87,7 @@ aria-labelledby="dialog-sizes-name1">
                 هل انت تريد حذف هذه المحافظة ؟
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="DeleteGovernorate()"
-                    data-bs-dismiss="modal">حذف</button>
+                <button type="button" class="btn btn-danger" (click)="DeleteGovernorate()">حذف</button>
                 <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">اغلاق</button>
             </div>
         </div>
@@ -110,20 +109,19 @@ aria-labelledby="dialog-sizes-name1">
             <div class="modal-header">
                 <h5 class="modal-title text-danger" id="staticBackdropLabel">تعديل محافظة</h5>
             </div>
-            <form [formGroup]="GovernorateUpdateForm" (ngSubmit)="UpdateGovernorate(GovernorateUpdateForm)">
+            <form [formGroup]="GovernorateUpdateForm" (ngSubmit)="UpdateGovernorate()">
                 <div class="modal-body text-secondary fw-bold">
                     <div class="name">
-                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="Name">
+                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="name">
                         <div class="errs"
-                            *ngIf="GovernorateUpdateForm.get('Name')?.errors && GovernorateUpdateForm.get('Name')?.touched">
-                            <p class="text-danger" *ngIf="GovernorateUpdateForm.get('Name')?.errors?.['required']">الاسم
+                            *ngIf="GovernorateUpdateForm.get('name')?.errors && GovernorateUpdateForm.get('name')?.touched">
+                            <p class="text-danger" *ngIf="GovernorateUpdateForm.get('name')?.errors?.['required']">الاسم
                                 مطلوب</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="GovernorateUpdateForm.invalid" type="submit" class="btn btn-warning"
-                        data-bs-dismiss="modal">تعديل</button>
+                    <button [disabled]="GovernorateUpdateForm.invalid" type="submit" class="btn btn-warning">تعديل</button>
                     <button type="button" class="btn btn-secondary" (click)="updateModal.hide()">اغلاق</button>
                 </div>
             </form>

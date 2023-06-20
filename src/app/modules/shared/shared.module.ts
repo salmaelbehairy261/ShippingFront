@@ -26,6 +26,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ToastrModule,
     PaginationModule.forRoot(),
+    ModalModule
   ],
   exports:[
     NgbModule,

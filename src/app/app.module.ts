@@ -13,7 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from 'src/interceptors/token.interceptor';
 import { AuthService } from './modules/shared/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -22,14 +22,16 @@ import { RepresentativeModule } from './modules/representative/representative.mo
 import { SettingModule } from './modules/setting/setting.module';
 import { LocationModule } from './modules/location/location.module';
 import { GroupsModule } from './modules/groups/groups.module';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { EmployeeOrdersModule } from './modules/employee-orders/employee-orders.module';
+import { OrderReportsModule } from './modules/order-reports/order-reports.module';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LayoutComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,12 +48,15 @@ import { GroupsModule } from './modules/groups/groups.module';
     SettingModule,
     UsersModule,
     LocationModule,
-    GroupsModule
+    GroupsModule,
+    EmployeeOrdersModule,
+    OrderReportsModule
   ],
   providers: [
     CookieService,
     AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true }],
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
