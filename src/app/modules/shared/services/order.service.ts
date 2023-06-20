@@ -62,6 +62,7 @@ export class OrderService {
     )
   }
 
+  //Load Status
   StatusNames: any = [
     "جديد",
     "قيد الانتظار",
@@ -103,7 +104,6 @@ export class OrderService {
     const url = "Order/CountOrdersForEmployeeByStatus";
     return this.apiService.get(url);
   }
-
   GetOrdersForEmployee(searchText:string,statusId:any,pageNumber:any,pageSize:any) {
     const url = `Order/GetOrdersForEmployee?searchText=${searchText}&statusId=${statusId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
   return this.apiService.get(url).pipe(
@@ -114,7 +114,6 @@ export class OrderService {
     })
   )
   }
-
   GetCountOrdersForEmployee(searchText:string,statusId: any) {
     const url = `Order/GetCountOrdersForEmployee?searchText=${searchText}&statusId=${statusId}`;
     return this.apiService.get(url).pipe(
@@ -125,7 +124,31 @@ export class OrderService {
       })
     )
   }
-  // End Employee
+  DropdownListRepresentative(orderId:any)
+  {
+    const url = `Order/DropdownListRepresentative?orderId=${orderId}`;
+    return this.apiService.get(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+  SelectRepresentative(orderId:any,representativeId:any)
+  {
+    const url = `Order/SelectRepresentative?orderId=${orderId}&representativeId=${representativeId}`;
+
+    return this.apiService.put(url,{orderId,representativeId}).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+    
+  }
+
 
   //Start Merchant
   merchantId:string=this.authService.getUserId()
@@ -161,7 +184,7 @@ export class OrderService {
         })
       )
   }
-  //End Merchant
+
 
   representativeId:string=this.authService.getUserId();
 
@@ -196,7 +219,18 @@ export class OrderService {
         })
       )
   }
-  //End Representative
+  ChangeStatusAndReasonRefusal(orderId:any,status:any,reasonRefusal:any)
+  {
+    const url = `Order/ChangeStatusAndReasonRefusal?orderId=${orderId}&status=${status}&reasonRefusal=${reasonRefusal}`;
+   return this.apiService.put(url,{orderId,status,reasonRefusal}).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+
 
   //Start Order Report
   GetAllOrders(pageNumber:any,pageSize:any) {
@@ -242,44 +276,21 @@ export class OrderService {
       })
     )
   }
-//End Order Report
 
 
   ChangeOrderStatus(orderId:any,status:any)
-  {
-    const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
-   return this.apiService.put(url,{orderId,status}).pipe(
-      catchError(error => {
-        const err=this.errorMessageService.getServerErrorMessage(error);
-        this.toastr.error(err);
-        return EMPTY;
-      })
-    )
+{
+  const url = `Order/ChangeStatus?orderId=${orderId}&status=${status}`;
+ return this.apiService.put(url,{orderId,status}).pipe(
+    catchError(error => {
+      const err=this.errorMessageService.getServerErrorMessage(error);
+      this.toastr.error(err);
+      return EMPTY;
+    })
+  )
   }
-  DropdownListRepresentative(orderId:any)
-  {
-    const url = `Order/DropdownListRepresentative?orderId=${orderId}`;
-    return this.apiService.get(url).pipe(
-      catchError(error => {
-        const err=this.errorMessageService.getServerErrorMessage(error);
-        this.toastr.error(err);
-        return EMPTY;
-      })
-    )
-  }
-  SelectRepresentative(orderId:any,representativeId:any)
-  {
-    const url = `Order/SelectRepresentative?orderId=${orderId}&representativeId=${representativeId}`;
-
-    return this.apiService.put(url,{orderId,representativeId}).pipe(
-      catchError(error => {
-        const err=this.errorMessageService.getServerErrorMessage(error);
-        this.toastr.error(err);
-        return EMPTY;
-      })
-    )
-    
-  }
+ 
+  //Display Order
   GetAllDataById(id:any) {
     const url = `Order/GetAllDataById?id=${id}`;
     return this.apiService.get(url).pipe(
@@ -290,21 +301,5 @@ export class OrderService {
       })
     )
   }
-  ChangeStatusAndReasonRefusal(orderId:any,status:any,reasonRefusal:any)
-  {
-    const url = `Order/ChangeStatusAndReasonRefusal?orderId=${orderId}&status=${status}&reasonRefusal=${reasonRefusal}`;
-   return this.apiService.put(url,{orderId,status,reasonRefusal}).pipe(
-      catchError(error => {
-        const err=this.errorMessageService.getServerErrorMessage(error);
-        this.toastr.error(err);
-        return EMPTY;
-      })
-    )
-  }
-
-
- 
-
-
   
 }
