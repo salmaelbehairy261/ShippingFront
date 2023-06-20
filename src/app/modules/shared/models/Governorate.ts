@@ -23,6 +23,7 @@ export interface governorateWithCity {
   name: string;
   cities: cityData[];
 }
+
 export interface governorateResponse {
   pageIndex: number;
   pageSize: number;

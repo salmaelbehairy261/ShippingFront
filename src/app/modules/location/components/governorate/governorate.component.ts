@@ -2,9 +2,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { governate, governateName, governorateResponse } from 'src/app/modules/shared/models/Governorate';
+import { governate, governateName, governates, governorateResponse } from 'src/app/modules/shared/models/Governorate';
 import { Params } from 'src/app/modules/shared/models/Params';
-import { Governates } from 'src/app/modules/shared/models/Representative';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 
 
@@ -20,13 +19,16 @@ export class GovernorateComponent {
   @ViewChild('addModal') addModal: BsModalRef | undefined;
   @ViewChild('updateModal') updateModal: BsModalRef | undefined;
   @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
-  governerates: Array<any> = []
+  @ViewChild('search') searchTerms?: ElementRef;
+  isDesc:boolean=false
+  governerates: governates[] = []
   constructor(private governorateService:GovernrateService) {}
   term: string = "";
   currentID: number = 0;
   currentGovernorate: any = null;
   govParams = new Params();
   totalCount = 0;
+
   GetCurrentId(id: number) {
     this.currentID = id;
   }
@@ -47,7 +49,7 @@ export class GovernorateComponent {
     this.GetAllGovernorates();
   }
   GetAllGovernorates() {
-    this.governorateService.GetAllGovernorates().subscribe((data:governorateResponse) => {
+    this.governorateService.GetAllGovernorates(this.govParams).subscribe((data:governorateResponse) => {
         this.governerates = data.data;
         this.govParams.pageNumper = data.pageIndex;
         this.govParams.pageSize = data.pageSize;
@@ -65,6 +67,7 @@ export class GovernorateComponent {
         this.addModal!.hide();
       })
   }
+
   UpdateGovernorate() {
     const obj:governate= {
       id: this.currentID,
@@ -82,6 +85,43 @@ export class GovernorateComponent {
         this.deleteModal!.hide();
       })
   }
+
+
+  onPageChanged(event: any)
+  {
+    if (this.govParams.pageNumper !== event.page)
+    {
+      this.govParams.pageNumper = event.page;
+      this.GetAllGovernorates();
+
+      }
+  }
+
+  onSearch() {
+    this.govParams.search = this.searchTerms?.nativeElement.value;
+    this.govParams.pageNumper = 1;
+    this.GetAllGovernorates();
+  }
+  onReset() {
+    if (this.searchTerms)
+      this.searchTerms.nativeElement.value = ""
+    this.govParams = new Params();
+    this.GetAllGovernorates();
+  }
+  onSort(){
+    this.isDesc=!this.isDesc;
+    this.govParams.sort=this.isDesc?'Desc':''
+    this.GetAllGovernorates();
+  }
+  onPageSizeChange(event:any){
+    const pageSize=parseInt(event.target.value)
+    if (pageSize > 0 && pageSize < 50){
+      this.govParams.pageSize=pageSize
+      this.GetAllGovernorates()
+    }
+  }
+
+
 }
 
 
