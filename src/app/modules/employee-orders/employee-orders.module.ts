@@ -6,12 +6,14 @@ import { OrdersCountComponent } from './components/orders-count/orders-count.com
 import { ShowOrdersComponent } from './components/show-orders/show-orders.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import{DisplayOrderComponent} from './components/display-order/display-order.component'
 
 
 @NgModule({
   declarations: [
     OrdersCountComponent,
-    ShowOrdersComponent
+    ShowOrdersComponent,
+    DisplayOrderComponent
   ],
   imports: [
     CommonModule,
