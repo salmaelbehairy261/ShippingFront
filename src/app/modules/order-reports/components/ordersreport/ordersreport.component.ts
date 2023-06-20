@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
 
 @Component({
@@ -20,9 +21,10 @@ export class OrdersreportComponent {
   isValid:boolean=false;
   StatusNames:any=this.ordersService.StatusNames;
 
-  constructor(private ordersService: OrderService) { }
+  constructor(private ordersService: OrderService,private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
+    this.navTitleService.title.next("تقارير الطلبات")
     this.countOfTotalOrders();
     this.fetchOrders(this.pageNumber,this.pageSize);
   }

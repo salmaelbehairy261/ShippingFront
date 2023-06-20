@@ -1,30 +1,28 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { addBranch, getAllBranch, updateBranch } from 'src/app/modules/shared/models/Branch';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 @Component({
   selector: 'app-branches',
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.css']
 })
 export class BranchesComponent {
-   @ViewChild('closeModal') closeModal: ElementRef<any> | undefined;
+  @ViewChild('addModal') addModal: BsModalRef | undefined;
+  @ViewChild('updateModal') updateModal: BsModalRef | undefined;
+  @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
   @ViewChild('search') searchTerms?: ElementRef;
   branches: getAllBranch[] = [];
   branchParams = new Params;
   totalCount = 0;
   isDesc:boolean=false
- 
-
-  constructor(private branchService: BranchService,private toastr:MyToastrService
-) {
-
-
-  }
-
-
+  constructor(private branchService: BranchService,
+    private toastr:MyToastrService,
+    private navTitleService:NavTitleService) {}
   term: string = "";
   currentID: number = 0;
   currentBranch: any = null;
@@ -44,6 +42,7 @@ export class BranchesComponent {
   })
 
   ngOnInit(): void {
+    this.navTitleService.title.next('الفروع')
     this.GetAllBranches();
   }
 
@@ -53,7 +52,6 @@ export class BranchesComponent {
     this.branchParams.pageNumper = response.pageIndex;
     this.branchParams.pageSize = response.pageSize;
     this.totalCount=response.pageCount
-
     });
   }
 
@@ -63,13 +61,12 @@ export class BranchesComponent {
       name:this.BranchForm.value.Name,
     }
 
-
     this.branchService.addBranch(object).subscribe({
       next: () => {
         this.GetAllBranches();
         this.BranchForm.reset();
-        this.closeModal?.nativeElement.click();
         this.toastr.success("تم إضافة الفرع بنجاح")
+        this.addModal!.hide();
       }
     })
 
@@ -81,33 +78,30 @@ export class BranchesComponent {
       id: Number(this.currentID),
       name: this.BranchUpdateForm.value.Name,
     }
-
     this.branchService.updateBranch( obj,this.currentID).subscribe({
       next: () => {
         this.GetAllBranches();
       this.toastr.success("تم تعديل الفرع بنجاح")
-  
+      this.updateModal!.hide();
       }
     })
-
   }
 
   changeStatus(id: number) {
-   const Id = Number(id);
+  const Id = Number(id);
     this.branchService.updateBranchStatus(Id).subscribe({
-      next: (data) => {       
+      next: (data) => {
       this.toastr.success("تم تعديل الحالة بنجاح")
-   
         this.GetAllBranches();
       }
     })
   }
 
   DeleteBranch() {
-
     this.branchService.delete(Number(this.currentID)).subscribe({
       next: (data) => {
         this.GetAllBranches();
+        this.deleteModal!.hide();
       }
     })
   }

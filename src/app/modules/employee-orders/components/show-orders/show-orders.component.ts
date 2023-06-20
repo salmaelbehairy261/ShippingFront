@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
 
 @Component({
@@ -23,9 +24,14 @@ export class ShowOrdersComponent implements OnInit{
   orderId:any;
   selectedStatus: number = 0;
 
-  constructor(private modalService: NgbModal,private employeeOrdersService: OrderService, private activeRoute: ActivatedRoute,private router: Router) { }
+  constructor(private modalService: NgbModal,
+    private employeeOrdersService: OrderService,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
+    this.navTitleService.title.next("عرض الطلبات")
     this.countOfTotalOrders(this.searchText);
     this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
   }

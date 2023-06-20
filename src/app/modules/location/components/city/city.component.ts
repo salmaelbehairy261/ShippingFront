@@ -9,6 +9,7 @@ import { governorateWithCity } from 'src/app/modules/shared/models/Governorate';
 import { CityService } from 'src/app/modules/shared/services/city.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
 @Component({
@@ -28,8 +29,10 @@ export class CityComponent  implements OnInit{
     private governorateService:GovernrateService,
     private toastr:MyToastrService,
     private changeDetectorRef: ChangeDetectorRef,
+    private navTitleService:NavTitleService
     ) {}
   ngOnInit(): void {
+    this.navTitleService.title.next("المدن")
     this.loadGovernorates(1);
   }
   loadGovernorates(id:any) {
