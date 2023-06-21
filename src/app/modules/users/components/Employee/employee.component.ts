@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { branchList } from "src/app/modules/shared/models/Branch";
@@ -6,6 +7,7 @@ import { group } from "src/app/modules/shared/models/Group";
 import { BranchService } from "src/app/modules/shared/services/branch.service";
 import { EmployeeService } from "src/app/modules/shared/services/employee.service";
 import { GroupService } from "src/app/modules/shared/services/group.service";
+import { MyToastrService } from "src/app/modules/shared/services/my-toastr.service";
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
 
 
@@ -22,7 +24,8 @@ export class EmployeeComponent implements OnInit {
   groups: group[] = [];
   branches:branchList[] = [];
 
-  constructor(
+  constructor(private toaster:MyToastrService ,
+     private location:Location,
     private employeeService: EmployeeService,
     private groupService: GroupService,
     private branchService:BranchService,
@@ -80,7 +83,10 @@ onSubmit() {
 
     };
   console.log(employeeData);
-  this.employeeService.AddEmployee(employeeData);
+  this.employeeService.AddEmployee(employeeData).subscribe(res => {
+    this.toaster.success("تم إضافة الموظف بنجاح");
+     this.location.back();
+      });
 
   }
 

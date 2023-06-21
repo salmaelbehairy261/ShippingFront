@@ -1,0 +1,10 @@
+.btn-primary {
+  --bs-btn-bg: #4f6d7a;
+  --bs-btn-border-color: #4f6d7a;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c0d6df;
+  --bs-btn-hover-border-color: #c0d6df;
+}
+td a:hover {
+  cursor: pointer;
+}

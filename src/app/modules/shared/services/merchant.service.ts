@@ -49,30 +49,26 @@ public GetMerchant(Eid:any) {
 
   public UpdateMerchant(updateMerchant:updateMerchant,EId:any){
     const url = `Merchant?id=${EId}`;
-    this.apiService.put<any,updateMerchant>(url,updateMerchant).pipe(
+  return  this.apiService.put<any,updateMerchant>(url,updateMerchant).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم تعديل التاجر بنجاح")
-    });
+   
 }
 
   public AddMerchant(merchant:addMerchant ) {
       const url = `Merchant`;
-      this.apiService.post<any,addMerchant >(url, merchant).pipe(
+     return this.apiService.post<any,addMerchant >(url, merchant).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
       )
-      .subscribe(res => {
-        this.toastr.success("تم إضافة التاجر بنجاح")
-      });
+     
   }
   public  Delete(Id: string) {
     const url = `Merchant?id=${Id}`;

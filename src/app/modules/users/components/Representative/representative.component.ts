@@ -8,6 +8,8 @@ import { governates } from 'src/app/modules/shared/models/Governorate';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-representative',
@@ -23,6 +25,8 @@ export class RepresentativeComponent implements OnInit {
 
 
   constructor(
+    private toaster: MyToastrService,
+    private location :Location,
     private representativeService: RepresentativeService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
@@ -145,7 +149,10 @@ formBuilde() {
     };
 
     console.log(Data);
-    this.representativeService.AddRepresentative(Data);
+    this.representativeService.AddRepresentative(Data).subscribe(res => {
+      this.toaster.success("تم إضافة المندوب بنجاح");
+      this.location.back();
+      });
   }
 
 }

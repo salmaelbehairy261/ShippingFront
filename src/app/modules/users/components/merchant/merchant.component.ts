@@ -10,6 +10,8 @@ import { governorateWithCities } from "src/app/modules/shared/models/Governorate
 import { BranchService } from "src/app/modules/shared/services/branch.service";
 import { GovernrateService } from "src/app/modules/shared/services/governrate.service";
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-merchant',
@@ -25,6 +27,8 @@ export class MerchantComponent implements OnInit {
   customSpecialPrice: specialPrice[] = [];
 
   constructor(
+    private toaster: MyToastrService,
+    private location:Location,
     private merchantService: MerchantService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
@@ -139,6 +143,9 @@ onGovernorateChangeList(i: number) {
     };
 
 
-   this.merchantService.AddMerchant(merchantData);
+   this.merchantService.AddMerchant(merchantData).subscribe(res => {
+     this.toaster.success("تم إضافة التاجر بنجاح");
+     this.location.back();
+      });
   }
 }

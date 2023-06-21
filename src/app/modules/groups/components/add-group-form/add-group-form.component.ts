@@ -65,7 +65,7 @@ export class AddGroupFormComponent implements OnInit{
 
   flag:boolean=false;
   checkAndModifyArray(array:Permission[], ObjectsToAddOrRemove:Permission[]) {
-    // Check if objectsToAdd are not already present in the array
+    
     for (let i = 0; i < ObjectsToAddOrRemove.length; i++) {
       const objectToAdd = ObjectsToAddOrRemove[i];
       const isPresent = array.some((obj) => obj.permissionId === objectToAdd.permissionId && obj.action=== objectToAdd.action);
