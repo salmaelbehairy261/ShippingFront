@@ -3,6 +3,9 @@ import { OrderService } from 'src/app/modules/shared/services/order.service';
 import { Component } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Order } from 'src/app/modules/shared/models/Order';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { ActivatedRoute } from '@angular/router';
+import { ReasonsRefusalServiceService } from 'src/app/modules/shared/services/reasons-refusal-service.service';
 
 @Component({
   selector: 'app-representative',
@@ -17,31 +20,40 @@ export class RepresentativeComponent {
   tableSizes: any = [8, 16, 30, 50];
   searchText:any="";
   orderId:any;
-  StatusNamesExpectNewPendingAndReject:any=this.orderService.StatusNamesExpectNewPendingAndRejectRep;
-
+  statusId:any;
+  StatusNamesExpectNewPendingAndReject:any=this.orderService.StatusNamesExpectNewPendingAndReject;
+  reasonFlag=false;
+  reasonsRefusalTypes:any=[];
   constructor(
     private orderService:OrderService,
     private modalService: NgbModal,
+    private activeRoute: ActivatedRoute,
+    private toastr:MyToastrService,
+    private reasonsRefusalTypeService:ReasonsRefusalServiceService,
     private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
-    this.navTitleService.title.next('عرض الطلبات')
-     this.countOfTotalOrders(this.searchText);
-     this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+
+     this.activeRoute.params.subscribe(params => {
+      this.statusId = +params['id'];
+      this.navTitleService.title.next('عرض الطلبات')
+      this.countOfTotalOrders(this.searchText);
+      this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
+    })
   }
 
 
    //Pagination
    countOfTotalOrders(searchText:string): void {
 
-    this.orderService.GetCountOrdersForRepresentative(searchText).subscribe((res) => {
+    this.orderService.GetCountOrdersForRepresentative(searchText,this.statusId).subscribe((res) => {
       this.count=Number(res)
     })
   }
 
   fetchOrders(searchText:string,pageNumber:any,pageSize:any): void {
 
-    this.orderService.GetOrdersForRepresentative(searchText,pageNumber,pageSize).subscribe((res) => {
+    this.orderService.GetOrdersForRepresentative(searchText,this.statusId,pageNumber,pageSize).subscribe((res) => {
       this.CurrentOrders = res;
     })
   }
@@ -86,16 +98,33 @@ export class RepresentativeComponent {
    }
  }
 
- ChangeOrderStatus()
+ ChangeStatusAndReasonRefusal()
  {
    var SelectedItem = (document.getElementById("ddlneworder")) as HTMLSelectElement;
    const status= SelectedItem.options[SelectedItem.selectedIndex].value;
-   this.orderService.ChangeOrderStatusRep(this.orderId,status)
-   console.log(status+"     "+this.orderId)
 
-   this.countOfTotalOrders(this.searchText);
-   this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+   var SelectedItem = (document.getElementById("ddlreason")) as HTMLSelectElement;
+   if(!Number(SelectedItem?.options[SelectedItem.selectedIndex]?.value)){var reasonRefusal = -1}
+   else{ var reasonRefusal=Number(SelectedItem?.options[SelectedItem.selectedIndex]?.value)}
+
+   this.orderService.ChangeStatusAndReasonRefusal(this.orderId,status,reasonRefusal).subscribe((res)=>{
+    this.toastr.success("تم تغيير الحالة بنجاح");
+    this.countOfTotalOrders(this.searchText);
+    this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+
+  })
  }
 
+ IsSelectReason(event:any)
+ {
+    const status=event.target.value;
+    this.reasonFlag=false;
+    if(Number(status)==8||Number(status)==9)
+    {
+      this.reasonFlag=true;
+      this.reasonsRefusalTypeService.getAllReasonsRefusalTypes().subscribe((res)=>this.reasonsRefusalTypes=res);
+      console.log(this.reasonsRefusalTypes)
+    }
+ }
 
 }

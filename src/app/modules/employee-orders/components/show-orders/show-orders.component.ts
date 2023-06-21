@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
 
@@ -28,6 +29,7 @@ export class ShowOrdersComponent implements OnInit{
     private employeeOrdersService: OrderService,
     private activeRoute: ActivatedRoute,
     private router: Router,
+    private toastr:MyToastrService,
     private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
@@ -101,10 +103,13 @@ export class ShowOrdersComponent implements OnInit{
   {
     var SelectedItem = (document.getElementById("ddlneworder")) as HTMLSelectElement;
     const status= SelectedItem.options[SelectedItem.selectedIndex].value;
-    this.employeeOrdersService.ChangeOrderStatus(this.orderId,status)
+    this.employeeOrdersService.ChangeOrderStatus(this.orderId,status).subscribe((res)=>{
+      this.toastr.success("تم تغيير الحالة بنجاح");
+      this.countOfTotalOrders(this.searchText);
+      this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+    })
 
-    this.countOfTotalOrders(this.searchText);
-    this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+    
   }
 
   //Representative
@@ -119,8 +124,11 @@ export class ShowOrdersComponent implements OnInit{
   {
     var SelectedItem = (document.getElementById("ddlneworder")) as HTMLSelectElement;
     const representativeId= SelectedItem.options[SelectedItem.selectedIndex].value;
-    this.employeeOrdersService.SelectRepresentative(this.orderId,representativeId);
-   // window.location.reload();//xxxxxx
+    this.employeeOrdersService.SelectRepresentative(this.orderId,representativeId).subscribe(()=>{
+      this.toastr.success("تم التسليم للمندوب بنجاح");
+      this.countOfTotalOrders(this.searchText);
+      this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+    })
   }
 
 }

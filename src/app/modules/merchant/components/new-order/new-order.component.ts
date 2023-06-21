@@ -57,7 +57,7 @@ export class NewOrderComponent implements OnInit {
     { name: 'الاستلام من الفرع', value: orderType.ReceiveFromTheBranch },
     { name: 'الاستلام من التاجر', value: orderType.ReceiveFromTheTrader }
   ];
-  
+
   orderForm = this.fb.group(
     {
       orderType: new FormControl('', [Validators.required]),
@@ -125,7 +125,10 @@ export class NewOrderComponent implements OnInit {
       notes:this.orderForm.controls['notes'].value,
       products:this.productsArr
     }
-    this.orderService.addOrder(order)
+    this.orderService.addOrder(order).subscribe(res => {
+      //modal to view data
+      console.log(res.result)
+    });
     console.log(order)
   }
 }
