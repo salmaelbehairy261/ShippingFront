@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { shippingType } from '../../../shared/models/shippingType';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
 
@@ -16,14 +17,18 @@ import { shippingType } from '../../../shared/models/shippingType';
 })
 export class ShippingTypeComponent implements OnInit{
 
-  constructor(private shippingTypeService:ShippingTypeService,private modalService: NgbModal,private myToastrService:MyToastrService) {  }
+  constructor(private shippingTypeService:ShippingTypeService,
+    private modalService: NgbModal,
+    private myToastrService:MyToastrService,
+    private navTitleService:NavTitleService) {  }
   shippingTypes:any;
 
   ngOnInit():void{
+    this.navTitleService.title.next("انواع الشحن")
     this.shippingTypeService.getAllShippingTypes().subscribe(res=>this.shippingTypes=res);
   }
 
- 
+
   addShippingType(shippingType:shippingTypeAdd){
     this.shippingTypeService.addShippingType(shippingType).subscribe(err=>console.log(err));
   }
@@ -83,10 +88,10 @@ export class ShippingTypeComponent implements OnInit{
   //
   //
 
-  
+
   //add form
   flag: boolean = false;
- 
+
   AddShippingTypeForm=new FormGroup({
     Name:new FormControl('',[Validators.required]),
     Cost:new FormControl('',[Validators.required])
@@ -100,8 +105,8 @@ export class ShippingTypeComponent implements OnInit{
     return this.AddShippingTypeForm.controls["Cost"];
   }
 
-  
-  
+
+
 
   AddShippingType(){
     if (this.AddShippingTypeForm.status=="VALID")
@@ -125,7 +130,7 @@ export class ShippingTypeComponent implements OnInit{
   //
 
 
-  //update Form 
+  //update Form
 
   flag2: boolean = false;
 
@@ -135,7 +140,7 @@ export class ShippingTypeComponent implements OnInit{
     Cost:new FormControl('')
   });
 
-  
+
   get getUpdateFormName(){
     return this.UpdateShippingTypeForm.controls["Name"];
   }
@@ -144,7 +149,7 @@ export class ShippingTypeComponent implements OnInit{
     return this.UpdateShippingTypeForm.controls["Cost"];
   }
   requireOneControl() {
-    if (this.UpdateShippingTypeForm.controls["Name"].value === this.shippingTypeToUpdate.name && this.UpdateShippingTypeForm.controls["Cost"].value === String(this.UpdateShippingTypeForm.value.Cost)) 
+    if (this.UpdateShippingTypeForm.controls["Name"].value === this.shippingTypeToUpdate.name && this.UpdateShippingTypeForm.controls["Cost"].value === String(this.UpdateShippingTypeForm.value.Cost))
     {
       this.flag2=true;
     }

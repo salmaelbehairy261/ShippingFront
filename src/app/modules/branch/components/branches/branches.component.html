@@ -1,0 +1,163 @@
+<div class="container page">
+    <div class="d-flex page__box p-3">الفروع</div>
+    <div class="page__content shadow position-relative">
+        <div class="page__content-data position-absolute w-100">
+            <div class="content">
+                <div class="d-flex mt-2 gap-3 ">
+                    <div class="form-group mb-3">
+                        <input type="text" (keyup)="onSearch()" placeholder="بحث" class="form-control me-2" #search>
+                    </div>
+                    <div class="form-group mb-3">
+                        <button (click)="onReset()" class="btn btn-outline-sucess">اعادة ضبط</button>
+                    </div>
+                    <div class="form-group mb-3">
+                        <app-sort (sort)="onSort()"></app-sort>
+                    </div>
+                    <div class="form-group mb-3">
+                        <app-page-size (pageSizeChanged)="onPageSizeChange($event)"></app-page-size>
+                    </div>
+                </div>
+                <app-paging-header [totalCount]=" totalCount" [pageNumper]="branchParams.pageNumper"
+                    [pageSize]="branchParams.pageSize"></app-paging-header>
+                  <button class="btn btn-primary" (click)="addModal.show()">اضافة</button>
+                <div class="container">
+                    <div class="myElements ">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead class="text-success">
+                                <th>م</th>
+                                <th>اسم الفرع</th>
+                                <th>تاريخ الاضافة</th>
+                                <th>الحالة</th>
+                                <th>الاعدادت</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of branches ; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td class="text-primary">{{item.name}}</td>
+                                    <td class="text-primary">{{item.dateTime}}</td>
+                                    <td class="text-primary">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchCheckChecked" [checked]="item.status"
+                                                (change)="changeStatus(item.id)">
+                                        </div>
+                                    </td>
+                                    <td><button (click)="GetCurrentId(item.id);updateModal.show()" class="btn btn-warning" >تعديل</button>
+                                        <button (click)="GetCurrentId(item.id);deleteModal.show()" class="btn btn-danger">حذف</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center" *ngIf="totalCount>0">
+                    <app-pager [totalCount]="totalCount" [pageSize]="branchParams.pageSize"
+                        (pageChanged)="onPageChanged($event)"></app-pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- add modal  -->
+
+<div class="modal fade"
+bsModal
+#addModal="bs-modal"
+class="modal fade"
+tabindex="-1"
+role="dialog"
+aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اضافة فرع</h5>
+            </div>
+            <form [formGroup]="BranchForm" (ngSubmit)="AddBranch()">
+                <div class="modal-body">
+                    <div class="name">
+                        <input type="text" class="form-control" placeholder="اسم الفرع" formControlName="Name">
+                        <div class="errs" *ngIf="BranchForm.get('Name')?.errors && BranchForm.get('Name')?.touched">
+                            <p class="text-danger" *ngIf="BranchForm.get('Name')?.errors?.['required']">الاسم مطلوب
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="BranchForm.invalid" type="submit" class="special btn btn-primary">اضافة</button>
+                    <button type="button" class="btn btn-secondary" (click)="addModal.hide()">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+<div class="modal fade"
+bsModal
+#deleteModal="bs-modal"
+class="modal fade"
+tabindex="-1"
+role="dialog"
+aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">حذف فرع</h5>
+            </div>
+            <div class="modal-body text-secondary fw-bold">
+                هل انت تريد حذف هذا الفرع ؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="DeleteBranch()">حذف</button>
+                <button type="button" class="btn btn-secondary"  (click)="deleteModal.hide()">اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update modal -->
+<div class="modal fade"
+bsModal
+#updateModal="bs-modal"
+class="modal fade"
+tabindex="-1"
+role="dialog"
+aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">تعديل فرع</h5>
+            </div>
+            <form [formGroup]="BranchUpdateForm" (ngSubmit)="UpdateBranch(BranchUpdateForm)">
+                <div class="modal-body text-secondary fw-bold">
+                    <div class="name">
+                        <input type="text" class="form-control" placeholder="اسم الفرع" formControlName="Name">
+                        <div class="errs"
+                            *ngIf="BranchUpdateForm.get('Name')?.errors && BranchUpdateForm.get('Name')?.touched">
+                            <p class="text-danger" *ngIf="BranchUpdateForm.get('Name')?.errors?.['required']">الاسم
+                                مطلوب</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="BranchUpdateForm.invalid" type="submit" class="btn btn-warning">تعديل</button>
+                    <button type="button" class="btn btn-secondary" (click)="updateModal.hide()">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

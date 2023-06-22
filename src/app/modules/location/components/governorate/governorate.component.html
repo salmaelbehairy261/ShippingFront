@@ -1,0 +1,141 @@
+<div class="container">
+
+    <div class=" shadow ">
+        <div class=" w-100">
+            <div class="content">
+                <div class="controls my-3 p-3 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary" (click)="addModal.show()">اضافة
+                        محافظة</button>
+
+                </div>
+                <div class="d-flex mt-2 gap-3 ">
+                    <div class="form-group mb-3">
+                        <input type="text" (keyup)="onSearch()" placeholder="بحث" class="form-control me-2" #search>
+                    </div>
+                    <div class="form-group mb-3">
+                        <button (click)="onReset()" class="btn btn-outline-sucess">اعادة ضبط</button>
+                    </div>
+                    <div class="form-group mb-3">
+                        <app-sort (sort)="onSort()"></app-sort>
+                    </div>
+                    <div class="form-group mb-3">
+                        <app-page-size (pageSizeChanged)="onPageSizeChange($event)"></app-page-size>
+                    </div>
+                </div>
+                <app-paging-header [totalCount]=" totalCount" [pageNumper]="govParams.pageNumper"
+                    [pageSize]="govParams.pageSize"></app-paging-header>
+
+                <div class="container">
+                    <div class="myElements ">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead class="text-success">
+                                <th>م</th>
+                                <th>اسم المحافظة</th>
+                                <th>الاعدادت</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of governerates; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td class="text-primary">{{item.name}}</td>
+                                    <td>
+                                        <button (click)="GetCurrentGov(item.id);updateModal.show()"
+                                            class="btn btn-warning">تعديل</button>
+                                        <button (click)="GetCurrentId(item.id);deleteModal.show()"
+                                            class="btn btn-danger">حذف</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center" *ngIf="totalCount>0">
+                    <app-pager [totalCount]="totalCount" [pageSize]="govParams.pageSize"
+                        (pageChanged)="onPageChanged($event)"></app-pager>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add modal  -->
+
+<div class="modal fade" bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اضافة محافظة</h5>
+            </div>
+            <form [formGroup]="GovernorateForm" (ngSubmit)="AddGovernorate()">
+                <div class="modal-body">
+                    <div class="name">
+                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="name">
+                        <div class="errs"
+                            *ngIf="GovernorateForm.get('name')?.errors && GovernorateForm.get('name')?.touched">
+                            <p class="text-danger" *ngIf="GovernorateForm.get('name')?.errors?.['required']">الاسم مطلوب
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="GovernorateForm.invalid" type="submit"
+                        class="special btn btn-primary">اضافة</button>
+                    <button type="button" class="btn btn-secondary" (click)="addModal.hide()">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+<div class="modal fade" bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">حذف محافظة</h5>
+            </div>
+            <div class="modal-body text-secondary fw-bold">
+                هل انت تريد حذف هذه المحافظة ؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="DeleteGovernorate()">حذف</button>
+                <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">اغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update modal -->
+<div class="modal fade" bsModal #updateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">تعديل محافظة</h5>
+            </div>
+            <form [formGroup]="GovernorateUpdateForm" (ngSubmit)="UpdateGovernorate()">
+                <div class="modal-body text-secondary fw-bold">
+                    <div class="name">
+                        <input type="text" class="form-control" placeholder="اسم المحافظة" formControlName="name">
+                        <div class="errs"
+                            *ngIf="GovernorateUpdateForm.get('name')?.errors && GovernorateUpdateForm.get('name')?.touched">
+                            <p class="text-danger" *ngIf="GovernorateUpdateForm.get('name')?.errors?.['required']">الاسم
+                                مطلوب</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="GovernorateUpdateForm.invalid" type="submit"
+                        class="btn btn-warning">تعديل</button>
+                    <button type="button" class="btn btn-secondary" (click)="updateModal.hide()">اغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

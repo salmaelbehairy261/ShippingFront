@@ -11,6 +11,10 @@ import { SettingRoutingModule } from './modules/setting/setting-routing.module';
 import { UsersRoutingModule } from './modules/users/users-routing.module';
 import { LocationRoutingModule } from './modules/location/location-routing.module';
 import { GroupsRoutingModule } from './modules/groups/groups-routing.module';
+import { BranchRoutingModule } from './modules/branch/branch-routing.module';
+import { OrderReportsRoutingModule } from './modules/order-reports/order-reports-routing.module';
+import { EmployeeOrdersModule } from './modules/employee-orders/employee-orders.module';
+import { EmployeeOrdersRoutingModule } from './modules/employee-orders/employee-orders-routing.module';
 
 const routes: Routes = [
   ...LoginRoutingModule.routes,
@@ -25,13 +29,16 @@ const routes: Routes = [
       ...LocationRoutingModule.routes,
       ...SettingRoutingModule.routes,
       ...UsersRoutingModule.routes,
-      ...GroupsRoutingModule.routes
+      ...GroupsRoutingModule.routes,
+      ...BranchRoutingModule.routes,
+      ...OrderReportsRoutingModule.routes,
+      ...EmployeeOrdersRoutingModule.routes
     ]},
   ],canActivate:[AuthGuard]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

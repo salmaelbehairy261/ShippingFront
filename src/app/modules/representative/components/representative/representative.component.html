@@ -52,18 +52,25 @@
     </div>
     <div class="modal-body">
       <div class>
-          <!-- In case other order -->
-          <select id="ddlneworder" class="form-select" style="width: 50%;">
+          <p>الحالة</p>
+          <select id="ddlneworder" class="form-select" style="width: 50%;" (change)="IsSelectReason($event)" >
   
               <option *ngFor="let status of StatusNamesExpectNewPendingAndReject" [value]="status.value">{{status.name}}</option>
   
-          </select> 
-  
+          </select><br>
+
+          <div *ngIf="reasonFlag" >
+            <p>سبب الرفض</p>
+          <select  id="ddlreason" class="form-select" style="width: 50%;" >
+            <option *ngFor="let reason of reasonsRefusalTypes" [value]="reason.id">{{reason.name}}</option>
+           </select> 
+          </div>
+          
       </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">الغاء</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="ChangeOrderStatus()">حفظ</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="ChangeStatusAndReasonRefusal()">حفظ</button>
     </div>
-  </ng-template>
+</ng-template>
   

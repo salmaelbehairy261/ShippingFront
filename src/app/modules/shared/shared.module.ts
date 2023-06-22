@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { NgbModalModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { PaginationModule } from "ngx-bootstrap/pagination";
 import { ToastrModule } from "ngx-toastr";
 import { PagingHeaderComponent } from "./component/paging-header/paging-header.component";
@@ -26,6 +26,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ToastrModule,
     PaginationModule.forRoot(),
+    ModalModule
   ],
   exports:[
     NgbModule,
@@ -37,7 +38,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     SortComponent,
     PageSizeComponent,
     ModalModule,
-    NgbModalModule
   ]
 })
 export class SharedModule { }

@@ -3,6 +3,7 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
 import { FormControl, FormGroup } from '@angular/forms';
 import { DeliverToVillageService } from '../../../shared/services/deliver-to-village.service';
 import { DeliverToVillage } from '../../../shared/models/deliverToVillage';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 @Component({
   selector: 'app-deliver-to-village',
@@ -10,32 +11,35 @@ import { DeliverToVillage } from '../../../shared/models/deliverToVillage';
   styleUrls: ['./deliver-to-village.component.css']
 })
 export class DeliverToVillageComponent implements OnInit{
-  constructor(public deliverToVillageService:DeliverToVillageService,private myToastrService:MyToastrService) 
+  constructor(public deliverToVillageService:DeliverToVillageService,
+    private myToastrService:MyToastrService,
+    private navTitleService:NavTitleService)
   {
-    
+
   }
   defaultDeliver:any;
   ngOnInit(): void {
+    this.navTitleService.title.next("التوصيل لقرية")
     this.deliverToVillageService.getDeliverToVillageById(1).subscribe(res=>{this.defaultDeliver=res;
       this.DeliverToVillageForm.patchValue({
         additionalCost:this.defaultDeliver.additionalCost.toString()
       });
-    });  
-    
+    });
+
   }
   flag: boolean = false;
- 
+
   DeliverToVillageForm=new FormGroup({
     additionalCost:new FormControl('')
   });
-  
+
   get getDefaultWeight(){
     return this.DeliverToVillageForm.controls["additionalCost"];
   }
 
- 
+
   requireOneControl() {
-    if (this.DeliverToVillageForm.controls["additionalCost"].value === String(this.defaultDeliver.additionalCost) ) 
+    if (this.DeliverToVillageForm.controls["additionalCost"].value === String(this.defaultDeliver.additionalCost) )
     {
       this.flag=true;
     }

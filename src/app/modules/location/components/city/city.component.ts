@@ -1,12 +1,15 @@
 
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup , Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 //import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCity, UpdateCity, cityData } from 'src/app/modules/shared/models/City';
 import { governorateWithCity } from 'src/app/modules/shared/models/Governorate';
 import { CityService } from 'src/app/modules/shared/services/city.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
 @Component({
@@ -16,15 +19,20 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
 })
 export class CityComponent  implements OnInit{
   @ViewChild('selectElement') selectElement!: ElementRef<HTMLSelectElement>;
+  @ViewChild('addModal') addModal: BsModalRef | undefined;
+  @ViewChild('updateModal') updateModal: BsModalRef | undefined;
+  @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
   governorates: governorateWithCity[] = [];
   cities: cityData[] = [];
   constructor(private formBuilder: FormBuilder,
     private cityService:CityService,
     private governorateService:GovernrateService,
     private toastr:MyToastrService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private navTitleService:NavTitleService
     ) {}
   ngOnInit(): void {
+    this.navTitleService.title.next("المدن")
     this.loadGovernorates(1);
   }
   loadGovernorates(id:any) {
@@ -39,35 +47,33 @@ export class CityComponent  implements OnInit{
     this.cities = selectedGovernorate ? selectedGovernorate.cities : [];
   }
 currentGovernorateId:any
-
-
-
 CityForm: FormGroup = new FormGroup({
-  'Name': new FormControl(null, [Validators.required]),
-  'Price': new FormControl(null, [Validators.required]),
-  'Pickup': new FormControl(null, [Validators.required]),
-  'GovernorateId': new FormControl(null, [Validators.required])
+  Name: new FormControl(null, [Validators.required]),
+  Price: new FormControl(null, [Validators.required]),
+  Pickup: new FormControl(null, [Validators.required]),
+  GovernorateId: new FormControl('', [Validators.required])
 })
   CityUpdateForm: FormGroup = new FormGroup({
-    'Name': new FormControl(null, [Validators.required, Validators.pattern(/^[a-zA-Zء-ي\s]+/)]),
-    'Price': new FormControl(null, [Validators.required]),
-    'Pickup': new FormControl(null, [Validators.required]),
-    'GovernorateId': new FormControl(null, [Validators.required]),
+    Name: new FormControl(null, [Validators.required]),
+    Price: new FormControl(null, [Validators.required]),
+    Pickup: new FormControl(null, [Validators.required]),
+    GovernorateId: new FormControl('', [Validators.required]),
 
   })
-
-  term: string = "";
-  currentID: number = 0;
+  currentID: number=0;
   currentGovernorate: any = null;
 
-
-
   GetCurrentId(id: number) {
-    this.currentID = id;
-    this.currentGovernorate = this.cities.find(x => x.id == id);
-    this.CityUpdateForm.get('Name')?.setValue(this.currentGovernorate?.name);
+    this.currentID=id
+    this.cityService.getCity(id).subscribe((res:UpdateCity)=>{
+      this.CityUpdateForm.patchValue({
+        Name:res.name,
+        Price:res.price,
+        Pickup:res.pickup,
+        GovernorateId:res.governorateId
+      })
+    })
   }
-
 
 AddCity() {
     const object :AddCity= {
@@ -82,6 +88,7 @@ AddCity() {
         this.loadGovernorates(this.CityForm.value.GovernorateId);
         this.selectOption(this.CityForm.value.GovernorateId)
         this.CityForm.reset();
+        this.addModal!.hide();
       })
   }
 
@@ -97,6 +104,7 @@ AddCity() {
       }
     }
   }
+
   UpdateCity() {
     let object:UpdateCity = {
       id:this.currentID,
@@ -108,20 +116,20 @@ AddCity() {
     this.cityService.updateCity(this.currentID, object).subscribe({
       next: () => {
         this.toastr.success("تم تعديل المدينة بنجاح"),
-        this.onGovernorateChange(this.CityUpdateForm.value.GovernorateId);
+        this.loadGovernorates(Number(this.CityUpdateForm.value.GovernorateId));
         this.CityUpdateForm.reset();
-
+        this.updateModal!.hide();
       }
     })
   }
-
-
-
-  /*DeleteCity() {
-    this._cityServices.DeleteCity(this.currentID).subscribe({
-      next: (data) => {
-        this.GetAllCities(this.currentGovernorateId);
-      }
-    })
-  }*/
+  GetCurrentCity(id:number){
+    this.currentID=id
+  }
+  DeleteCity() {
+    this.cityService.deleteCity(this.currentID).subscribe(() => {
+      this.toastr.success("تم حذف المدينة بنجاح")
+        this.loadGovernorates(this.currentGovernorateId);
+        this.deleteModal!.hide();
+      })
+  }
 }

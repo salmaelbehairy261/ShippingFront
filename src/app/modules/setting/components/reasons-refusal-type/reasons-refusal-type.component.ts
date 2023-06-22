@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReasonsRefusalTypeUpdate } from '../../../shared/models/ReasonsRefusalTypeUpdate';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReasonsRefusalTypeAdd } from 'src/app/modules/shared/models/ReasonsRefusalType';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 @Component({
   selector: 'app-reasons-refusal-type',
@@ -13,10 +14,14 @@ import { ReasonsRefusalTypeAdd } from 'src/app/modules/shared/models/ReasonsRefu
 })
 export class ReasonsRefusalTypeComponent implements OnInit{
 
-  constructor(private reasonsRefusalTypeService:ReasonsRefusalServiceService,private modalService: NgbModal,private myToastrService:MyToastrService) {  }
+  constructor(private reasonsRefusalTypeService:ReasonsRefusalServiceService,
+    private modalService: NgbModal,
+    private myToastrService:MyToastrService,
+    private navTitleService:NavTitleService) {  }
   reasonsRefusalTypes:any;
 
   ngOnInit():void{
+    this.navTitleService.title.next("اسباب الرفض")
     this.reasonsRefusalTypeService.getAllReasonsRefusalTypes().subscribe(res=>this.reasonsRefusalTypes=res);
   }
 
@@ -75,10 +80,10 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   //
   //
 
-  
+
   //add form
   flag: boolean = false;
- 
+
   AddReasonRefusalForm=new FormGroup({
     name:new FormControl('',[Validators.required])
   });
@@ -88,8 +93,8 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   }
 
 
-  
-  
+
+
 
   AddReasonRefusal(){
     if (this.AddReasonRefusalForm.status=="VALID")
@@ -110,7 +115,7 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   //
 
 
-  //update Form 
+  //update Form
 
   flag2: boolean = false;
 
@@ -120,14 +125,14 @@ export class ReasonsRefusalTypeComponent implements OnInit{
     name:new FormControl('')
   });
 
-  
+
   get getUpdateFormName(){
     return this.UpdateReasonRefusalForm.controls["name"];
   }
 
 
   requireOneControl() {
-    if (this.UpdateReasonRefusalForm.controls["name"].value === this.ReasonRefusalTypeToUpdate.name) 
+    if (this.UpdateReasonRefusalForm.controls["name"].value === this.ReasonRefusalTypeToUpdate.name)
     {
       this.flag2=true;
     }

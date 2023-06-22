@@ -15,6 +15,7 @@ import { Params } from '../models/Params';
 export class EmployeeService {
 
   constructor(
+  
     private apiService:ApiService,
     private toastr:MyToastrService,
     private errorMessageService:ErrorMessageService
@@ -33,30 +34,26 @@ public GetُEmployee(Eid:any) {
 
  public AddEmployee(employee: addEmployee ) {
       const url = `Employee`;
-      this.apiService.post<any,addEmployee >(url, employee).pipe(
+     return this.apiService.post<any,addEmployee >(url, employee).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
       )
-      .subscribe(res => {
-        this.toastr.success("تم إضافة الموظف بنجاح")
-      });
+      
   }
 
 public UpdateEmployee(updateEmployee:updateEmployee,EId:any){
     const url = `Employee?id=${EId}`;
-    this.apiService.put<any,updateEmployee>(url,updateEmployee).pipe(
+   return this.apiService.put<any,updateEmployee>(url,updateEmployee).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم تعديل الموظف بنجاح")
-    });
+    
 }
 
 public GetEmployees(employeeParams:Params){

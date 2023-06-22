@@ -48,29 +48,25 @@ export class RepresentativeService {
 
   public UpdateRepresentative(updateRepresentative:updateRepresentative,EId:any){
     const url = `Representative?id=${EId}`;
-    this.apiService.put<any,updateRepresentative>(url,updateRepresentative).pipe(
+  return  this.apiService.put<any,updateRepresentative>(url,updateRepresentative).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم تعديل المندوب بنجاح")
-    });
+    
   }
   public AddRepresentative(representative: addRepresentative) {
       const url = `Representative`;
-      this.apiService.post<any,addRepresentative >(url, representative).pipe(
+     return this.apiService.post<any,addRepresentative >(url, representative).pipe(
         catchError(error => {
           const err=this.errorMessageService.getServerErrorMessage(error);
           this.toastr.error(err);
           return EMPTY;
         })
       )
-      .subscribe(res => {
-        this.toastr.success("تم إضافة المندوب بنجاح")
-      });
+      
   }
   public  Delete(Id: string) {
     const url = `Representative?id=${Id}`;

@@ -1,14 +1,16 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RepresentativeGovernateDto, getRepresentative, updateRepresentative } from '../../../shared/models/Representative';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { RepresentativeService } from '../../../shared/services/representative.service';
-import { branch } from 'src/app/modules/shared/models/Branch';
 import { governates } from 'src/app/modules/shared/models/Governorate';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { branchList } from 'src/app/modules/shared/models/Branch';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { NavTitleService } from 'src/app/modules/shared/services/nav-title.servi
 })
 export class UpdateRepresentativeComponent {
  updateRepresentativeForm: FormGroup = new FormGroup({});
-  branches:branch[] = [];
+  branches:branchList[] = [];
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
   customArray: RepresentativeGovernateDto[] = [ ];
@@ -26,7 +28,8 @@ export class UpdateRepresentativeComponent {
   govSelectedValue: any=[];
   representativeId: string = '';
   constructor(
-
+    private toaster: MyToastrService,
+    private location:Location,
     private representativeService: RepresentativeService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
@@ -161,8 +164,11 @@ loadRepresentative(representativeId:string) {
 
     };
 
-    console.log(Data);
-   this.representativeService.UpdateRepresentative(Data,this.representativeId);
+ 
+   this.representativeService.UpdateRepresentative(Data,this.representativeId).subscribe(res => {
+     this.toaster.success("تم تعديل المندوب بنجاح");
+     this.location.back();
+    });
   }
 
 }

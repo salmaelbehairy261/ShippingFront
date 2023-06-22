@@ -19,6 +19,8 @@ export class EmployeeTableComponent implements OnInit {
   isDesc:boolean=false
   employeeParams = new Params();
   totalCount = 0;
+
+  
  constructor(
           private employeeService: EmployeeService,
           private router: Router,
@@ -49,7 +51,8 @@ export class EmployeeTableComponent implements OnInit {
   addEmployee() {
 
     this.router.navigate(['/employee/users/AddEmployee']);
-    }
+  }
+  
   toggleDelete(employee: getAllEmployees) {
     if (employee.isDeleted) {
       return;

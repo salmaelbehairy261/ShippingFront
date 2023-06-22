@@ -3,11 +3,13 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { RepresentativeService } from '../../../shared/services/representative.service';
 import { addRepresentative, RepresentativeGovernateDto } from '../../../shared/models/Representative';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { branch } from 'src/app/modules/shared/models/Branch';
+import {  branchList } from 'src/app/modules/shared/models/Branch';
 import { governates } from 'src/app/modules/shared/models/Governorate';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-representative',
@@ -16,13 +18,15 @@ import { NavTitleService } from 'src/app/modules/shared/services/nav-title.servi
 })
 export class RepresentativeComponent implements OnInit {
   representativeForm: FormGroup = new FormGroup({});
-  branches:branch[] = [];
+  branches:branchList[] = [];
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
   customArray: RepresentativeGovernateDto[] = [ ];
 
 
   constructor(
+    private toaster: MyToastrService,
+    private location :Location,
     private representativeService: RepresentativeService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
@@ -145,7 +149,10 @@ formBuilde() {
     };
 
     console.log(Data);
-    this.representativeService.AddRepresentative(Data);
+    this.representativeService.AddRepresentative(Data).subscribe(res => {
+      this.toaster.success("تم إضافة المندوب بنجاح");
+      this.location.back();
+      });
   }
 
 }

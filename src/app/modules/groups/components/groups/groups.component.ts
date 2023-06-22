@@ -5,6 +5,7 @@ import { GroupService } from 'src/app/modules/shared/services/group.service';
 import { getAllGroups, groupResponse } from 'src/app/modules/shared/models/Group';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { Router } from '@angular/router';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 @Component({
   selector: 'app-groups',
@@ -13,15 +14,19 @@ import { Router } from '@angular/router';
 })
 export class GroupsComponent implements OnInit{
 
-  constructor(private groupsService:GroupService,private myToastrService:MyToastrService, private router:Router) { }
-   @ViewChild('search') searchTerms?: ElementRef;
+  constructor(private groupsService:GroupService,
+    private myToastrService:MyToastrService,
+    private router:Router,
+    private navTitleService:NavTitleService) { }
+  @ViewChild('search') searchTerms?: ElementRef;
   groups:getAllGroups[]=[];
   isDesc:boolean=false
   groupParams = new Params();
-  totalCount = 0;    
+  totalCount = 0;
 
   ngOnInit(): void {
-    this.loadGroups(); 
+    this.navTitleService.title.next("المجموعات")
+    this.loadGroups();
   }
 
   loadGroups() {
@@ -39,23 +44,24 @@ export class GroupsComponent implements OnInit{
   deleteGroup(id:number){
     this.groupsService.deleteGroup(id).pipe(
       tap((response:any) => {
+
         if (response['message'] === "Group Deleted Successfully") {
-          
+
           this.toasterSuccess();
           this.loadGroups();
-        } 
+        }
         else if (response['message'] === "Delete Employee First") {
-          
+
           this.toasterError();
         }
       }),
       catchError((error) => {
-        
+
         console.error('API request error:', error);
         return of(null);
       })
     ).subscribe();
-    
+
   }
   toasterSuccess(){
     this.myToastrService.success("تم حذف المجموعه بنجاح");
@@ -65,7 +71,7 @@ export class GroupsComponent implements OnInit{
   }
 
 
-  
+
   onPageChanged(event: any)
   {
     if (this.groupParams.pageNumper !== event.page)

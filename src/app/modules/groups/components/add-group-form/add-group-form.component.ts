@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Group, GroupPrivilageService, Permission } from 'src/app/modules/shared/models/Group';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { Location } from '@angular/common';
+import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
 @Component({
@@ -13,9 +14,13 @@ import { Location } from '@angular/common';
 })
 export class AddGroupFormComponent implements OnInit{
 
-  constructor(private toaster:MyToastrService , private groupService:GroupService , private location:Location) {}
+  constructor(private toaster:MyToastrService ,
+    private groupService:GroupService ,
+    private location:Location,
+    private navTitleService:NavTitleService) {}
   groupPrivilagesArr:any;
   ngOnInit(): void {
+    this.navTitleService.title.next("اضافة مجموعة")
     const groupsPrivilages:GroupPrivilageService=new GroupPrivilageService();
     this.groupPrivilagesArr=groupsPrivilages.Privilages;
   }
@@ -38,7 +43,7 @@ export class AddGroupFormComponent implements OnInit{
         newPermmision.action=action;
         ObjectsToAddOrRemove.push(newPermmision);
       }
-      
+
       this.AllGroupPrivilages=this.checkAndModifyArray(this.AllGroupPrivilages,ObjectsToAddOrRemove);
     }
     else
@@ -60,7 +65,7 @@ export class AddGroupFormComponent implements OnInit{
 
   flag:boolean=false;
   checkAndModifyArray(array:Permission[], ObjectsToAddOrRemove:Permission[]) {
-    // Check if objectsToAdd are not already present in the array
+    
     for (let i = 0; i < ObjectsToAddOrRemove.length; i++) {
       const objectToAdd = ObjectsToAddOrRemove[i];
       const isPresent = array.some((obj) => obj.permissionId === objectToAdd.permissionId && obj.action=== objectToAdd.action);
@@ -95,19 +100,19 @@ export class AddGroupFormComponent implements OnInit{
 
   SubmitGroupFrom(){
     if (this.AddGroupForm.status=="VALID" && this.AllGroupPrivilages.length > 0)
-    { 
+    {
       const newGroup :Group=new Group();
       newGroup.name=String(this.AddGroupForm.value.name);
       newGroup.gropPermissions=this.AllGroupPrivilages;
 
       console.log(newGroup);
-    
+
       this.groupService.AddGroup(newGroup).subscribe(res => {
         this.toaster.success("تم إضافة المجموعة بنجاح")
         this.location.back();
       });;
-    
-      
+
+
     }
     else if(this.AllGroupPrivilages.length == 0)
     {
