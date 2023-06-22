@@ -1,107 +1,119 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-10">
+<div class="container p-5">
+    <div class="d-flex justify-content-center bg-light rounded shadow">
+        <div class="w-75 p-5 ">
             <form (ngSubmit)="onSubmit()" [formGroup]="employeeForm">
-
-                <div class="form-group">
-                    <label for="name">الاسم</label>
-                    <input formControlName="name" id="name" type="text" class="form-control" placeholder="الاسم">
-                    <div *ngIf="employeeForm.get('name')!.invalid && employeeForm.get('name')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('name')!.errors!['required']">
-                            الاسم مطلوب
-                        </div>
-                    </div>
+              <div class="d-flex flex-row justify-content-between mb-3">
+                <h5 (click)="showInfo(1)" class="step p-3" [class.active]="personalInfo">البيانات الشخصية</h5>
+                <h5 (click)="showInfo(2)" class="step p-3" [class.active]="userInfo">معلومات الحساب</h5>
+                <h5 (click)="showInfo(3)" class="step p-3" [class.active]="jobInfo">معلومات الموظف</h5>
+              </div>
+              <div *ngIf="personalInfo">
+                <div class="form-group mb-3">
+                  <label for="name" class="fw-bold">الاسم</label>
+                  <input formControlName="name" id="name" type="text" class="form-control" placeholder="ادخل الاسم">
+                  <div *ngIf="employeeForm.get('name')!.invalid && employeeForm.get('name')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('name')!.errors!['required']">
+                          الاسم مطلوب
+                      </div>
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="userName">اسم المستخدم</label>
-                    <input formControlName="userName" id="userName" type="text" class="form-control">
-                    <div *ngIf="employeeForm.get('userName')!.invalid && employeeForm.get('userName')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('userName')!.errors!['required']">
-                            اسم المستخدم مطلوب
-                        </div>
-                    </div>
+                <div class="form-group mb-3">
+                  <label for="phoneNumber" class="fw-bold">رقم الهاتف </label>
+                  <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control" placeholder="ادخل رقم الهاتف">
+                  <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
+                          رقم الهاتف مطلوب
+                      </div>
+                      <div class="text-danger"
+                          *ngIf="employeeForm.get('phoneNumber')?.hasError('minlength') || employeeForm.get('phoneNumber')?.hasError('maxlength')">
+                          رقم الهاتف غير صحيح
+                      </div>
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="email">البريدالالكتروني</label>
-                    <input formControlName="email" id="email" type="email" class="form-control">
-                    <div *ngIf="employeeForm.get('email')!.invalid && employeeForm.get('email')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('email')!.errors!['required']">
-                            البريدالالكتروني مطلوب
-                        </div>
-                        <div class="text-danger" *ngIf="employeeForm.get('email')?.hasError('email')">
-                            البريد الإلكتروني غير صحيح
-                        </div>
-
-                    </div>
+                <div class="form-group mb-3">
+                  <label for="address" class="fw-bold">العنوان</label>
+                  <input formControlName="address" id="address" type="text" class="form-control" placeholder="ادخل العنوان">
+                  <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
+                          العنوان مطلوب
+                      </div>
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="password">الرقم السري</label>
-                    <input formControlName="password" id="password" type="password" class="form-control">
-                    <div *ngIf="employeeForm.get('password')!.invalid && employeeForm.get('password')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('password')!.errors!['required']">
-                            الرقم السري مطلوب
-                        </div>
-                        <div class="text-danger" *ngIf="employeeForm.get('password')?.hasError('minlength')">
-                            الرقم السري يجب أن يحتوي على الحد الأدنى من الأحرف
-                        </div>
-
-                    </div>
+                <div class="d-flex justify-content-end">
+                  <a (click)="showInfo(2)">التالي</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="phoneNumber">رقم الهاتف </label>
-                    <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control">
-                    <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
-                            رقم الهاتف مطلوب
-                        </div>
-                        <div class="text-danger"
-                            *ngIf="employeeForm.get('phoneNumber')?.hasError('minlength') || employeeForm.get('phoneNumber')?.hasError('maxlength')">
-                            رقم الهاتف غير صحيح
-                        </div>
-                    </div>
+              </div>
+              <div *ngIf="userInfo">
+                <div class="form-group mb-3">
+                  <label for="userName" class="fw-bold">اسم المستخدم</label>
+                  <input formControlName="userName" id="userName" type="text" class="form-control" placeholder="ادخل اسم المستخدم">
+                  <div *ngIf="employeeForm.get('userName')!.invalid && employeeForm.get('userName')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('userName')!.errors!['required']">
+                          اسم المستخدم مطلوب
+                      </div>
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="address">العنوان</label>
-                    <input formControlName="address" id="address" type="text" class="form-control">
-                    <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
-                            العنوان مطلوب
-                        </div>
-                    </div>
+                <div class="form-group mb-3">
+                  <label for="email" class="fw-bold">البريدالالكتروني</label>
+                  <input formControlName="email" id="email" type="email" class="form-control" placeholder="ادخل البريد الالكتروني">
+                  <div *ngIf="employeeForm.get('email')!.invalid && employeeForm.get('email')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('email')!.errors!['required']">
+                          البريدالالكتروني مطلوب
+                      </div>
+                      <div class="text-danger" *ngIf="employeeForm.get('email')?.hasError('email')">
+                          البريد الإلكتروني غير صحيح
+                      </div>
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="branch">الفرع</label>
-                    <select formControlName="branch" id="branch" class="form-control">
-                        <option value="">اختر فرع</option>
-                        <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
-                    </select>
-                    <div *ngIf="employeeForm.get('branch')!.invalid && employeeForm.get('branch')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('branch')!.errors!['required']">
-                            الفرع مطلوب
-                        </div>
-                    </div>
+                <div class="form-group mb-3">
+                  <label for="password" class="fw-bold">كلمة المرور</label>
+                  <input formControlName="password" id="password" type="password" class="form-control" placeholder="ادخل كلمة المرور">
+                  <div *ngIf="employeeForm.get('password')!.invalid && employeeForm.get('password')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('password')!.errors!['required']">
+                          الرقم السري مطلوب
+                      </div>
+                      <div class="text-danger" *ngIf="employeeForm.get('password')?.hasError('minlength')">
+                          الرقم السري يجب أن يحتوي على الحد الأدنى من الأحرف
+                      </div>
+                  </div>
                 </div>
-
-
-                <div class="form-group">
-                    <label for="group">الصلحيات</label>
-                    <select formControlName="group" id="group" class="form-control">
-                        <option value="">اختر مجموعه</option>
-                        <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
-                    </select>
-                    <div *ngIf="employeeForm.get('group')!.invalid && employeeForm.get('group')!.touched">
-                        <div class="text-danger" *ngIf="employeeForm.get('group')!.errors!['required']">
-                            الصلحيات مطلوبة
-                        </div>
-                    </div>
+                <div class="d-flex justify-content-between">
+                  <a (click)="showInfo(1)">السابق</a>
+                  <a (click)="showInfo(3)">التالي</a>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">حفظ</button>
+              </div>
+              <div *ngIf="jobInfo">
+                <div class="form-group mb-3">
+                  <label for="branch" class="fw-bold">الفرع</label>
+                  <select formControlName="branch" id="branch" class="form-control">
+                      <option value="">اختر فرع</option>
+                      <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+                  </select>
+                  <div *ngIf="employeeForm.get('branch')!.invalid && employeeForm.get('branch')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('branch')!.errors!['required']">
+                          الفرع مطلوب
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="group" class="fw-bold">الصلاحيات</label>
+                  <select formControlName="group" id="group" class="form-control">
+                      <option value="">اختر مجموعه</option>
+                      <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+                  </select>
+                  <div *ngIf="employeeForm.get('group')!.invalid && employeeForm.get('group')!.touched">
+                      <div class="text-danger" *ngIf="employeeForm.get('group')!.errors!['required']">
+                          الصلحيات مطلوبة
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary w-25" [disabled]="employeeForm.invalid">حفظ</button>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <a (click)="showInfo(2)">السابق</a>
+                </div>
+              </div>
             </form>
         </div>
     </div>
