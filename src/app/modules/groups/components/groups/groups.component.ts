@@ -39,7 +39,6 @@ export class GroupsComponent implements OnInit{
   deleteGroup(id:number){
     this.groupsService.deleteGroup(id).pipe(
       tap((response:any) => {
-       
         if (response['message'] === "Group Deleted Successfully") {
           
           this.toasterSuccess();
@@ -102,9 +101,10 @@ export class GroupsComponent implements OnInit{
   }
 
   addGroup() {
-
     this.router.navigate(['/employee/addGroups']);
-   
+}
+updateGroup(id:number){
+  this.router.navigate(["/employee/updateGroups",id]);
 }
 }
 
