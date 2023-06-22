@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
 
-body{
+body {
   direction: rtl;
-  font-family: 'Tajawal', sans-serif !important;
+  font-family: "Tajawal", sans-serif !important;
 }
 .btn:focus,
 .btn:active,
@@ -15,9 +15,9 @@ body{
 .form-control:hover {
   outline: none;
   box-shadow: none;
-  border-color:  #C0D6DF;
+  border-color: #c0d6df;
 }
-.toast-custom-position{
+.toast-custom-position {
   position: fixed;
   left: 0%;
   top: 0%;
@@ -28,6 +28,13 @@ body{
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #c0d6df;
   --bs-btn-hover-border-color: #c0d6df;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #4f6d7a;
+  --bs-btn-active-border-color: #4f6d7a;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #4f6d7a;
+  --bs-btn-disabled-bg: #4f6d7a7a;
+  --bs-btn-disabled-border-color: #4f6d7a7a;
 }
 .btn-outline-info {
   --bs-btn-color: #4f6d7a;
@@ -35,13 +42,13 @@ body{
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #4f6d7a;
   --bs-btn-hover-border-color: #4f6d7a;
-  --bs-btn-focus-shadow-rgb: 13,202,240;
+  --bs-btn-focus-shadow-rgb: 13, 202, 240;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #4f6d7a;;
+  --bs-btn-active-bg: #4f6d7a;
   --bs-btn-active-border-color: #4f6d7a;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.table-dark{
+.table-dark {
   --bs-table-color: #4f6d7a;
   --bs-table-bg: #c0d6df;
   --bs-table-border-color: #c0d6df;
@@ -56,4 +63,26 @@ body{
 }
 td a:hover {
   cursor: pointer;
+}
+
+.form-switch .form-check-input {
+  height: 20px;
+  width: 45px;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgb(192,214,223)'/></svg>");
+}
+.form-switch .form-check-input:focus {
+  border-color: rgb(79, 109, 122);
+  outline: 0;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgb(192,214,223)'/></svg>");
+}
+.form-switch .form-check-input:checked {
+  background-color: #ededed;
+  border-color: rgb(79, 109, 122);
+  border: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgb(79,109,122)'/></svg>");
+}
+
+.formbg {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
