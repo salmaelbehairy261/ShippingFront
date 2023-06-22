@@ -19,6 +19,11 @@ export class Group{
     name:string="";
     gropPermissions:Permission[]=[];
 }
+export class GroupToUpdate{
+    id:number=0;
+    name:string="";
+    gropPermissions:Permission[]=[];
+}
 export class GroupPrivilageService {
     Privilages: any = [
         {name:"الفرع",value:1},
@@ -39,5 +44,11 @@ export class GroupPrivilageService {
 }
 export class Permission{
     permissionId:number=0;
+    action:string="";
+}
+
+
+export class PermissiontoUseInUpdate{
+    id:number=0;
     action:string="";
 }

@@ -107,9 +107,10 @@ export class GroupsComponent implements OnInit{
   }
 
   addGroup() {
-
     this.router.navigate(['/employee/addGroups']);
-
+}
+updateGroup(id:number){
+  this.router.navigate(["/employee/updateGroups",id]);
 }
 }
 

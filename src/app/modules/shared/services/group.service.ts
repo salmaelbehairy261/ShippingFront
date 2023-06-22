@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Group, group, groupResponse } from '../models/Group';
+import { Group, GroupToUpdate, group, groupResponse } from '../models/Group';
 import { ApiService } from './api.service';
 import { MyToastrService } from './my-toastr.service';
 import { ErrorMessageService } from './error-message.service';
@@ -29,6 +29,17 @@ export class GroupService {
       )
       
   }
+  public  UpdateGroup(group: GroupToUpdate) {
+    const url = `Group/${group.id}`;
+    return this.genericService.put<any,GroupToUpdate >(url, group).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+    
+}
 
 
   public GetGroups(){
@@ -56,11 +67,19 @@ export class GroupService {
       return EMPTY;
     })
   ) 
-   
-  
   }
    deleteGroup(id:number){
      return this.genericService.delete<any>(`Group/${id}`).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+   }
+
+   getGroupById(id:number){
+    return this.genericService.get<any>(`Group/${id}`).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
