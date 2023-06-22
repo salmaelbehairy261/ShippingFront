@@ -14,11 +14,10 @@ import { Location } from '@angular/common';
 })
 export class UpdateGroupFormComponent implements OnInit{
 
-  constructor(private toaster:MyToastrService ,private route: ActivatedRoute,private groupsService:GroupService,private groupService:GroupService , private location:Location) { }
+  constructor(private toaster:MyToastrService ,private route: ActivatedRoute,private groupsService:GroupService,private groupService:GroupService , private location:Location){ }
     id:number=0;
     name:string="";
     groupPrivilagesArr:any;
-    // group:Group={name:"",gropPermissions:[]};
     group:any;
     // isChecked:any;//working
     isChecked: boolean[][] = [
@@ -44,8 +43,11 @@ export class UpdateGroupFormComponent implements OnInit{
         this.name=this.group.name.toString();
         this.UpdateGroupForm.patchValue({
           name:this.group.name.toString()
-        }
+        },{emitEvent:false}
         );
+        this.UpdateGroupForm.valueChanges.subscribe(value => {
+          this.saveBtnFlag=false;
+        });
         const isChecked2:boolean[][]=this.createIsCheckedArr(this.group.permissions);
         this.isChecked=isChecked2;
         //console.log(this.isChecked)
@@ -56,11 +58,7 @@ export class UpdateGroupFormComponent implements OnInit{
         });
         this.AllGroupPrivilages=AllGroupPrivilages2;
       });
-      this.UpdateGroupForm.valueChanges.subscribe(value => {
-        //console.log('Input value changed:', value);
-        this.saveBtnFlag=false;
-        // Perform any additional logic here
-      });
+      
     }
     createIsCheckedArr(groupPermission:any){
       const modifiedArray = groupPermission.map((obj: { id: any; action: any; }) => {
