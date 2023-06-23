@@ -19,6 +19,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./merchant.component.css']
 })
 export class MerchantComponent implements OnInit {
+  userInfo=false
+  personalInfo=true
+  jobInfo=false
+  paymentInfo=false
   merchantForm: FormGroup = new FormGroup({});
   governorates: governorateWithCities[] = [];
   cities: city[] = [];
@@ -35,7 +39,12 @@ export class MerchantComponent implements OnInit {
     private formBuilder: FormBuilder,
     private navTitleService:NavTitleService
   ) {}
-
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
+    this.paymentInfo=step==4
+  }
   ngOnInit(): void {
     this.navTitleService.title.next('اضافة تاجر')
     this.merchantForm = this.formBuilder.group({

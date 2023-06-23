@@ -19,7 +19,7 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
   styleUrls: ['./update-representative.component.css']
 })
 export class UpdateRepresentativeComponent {
- updateRepresentativeForm: FormGroup = new FormGroup({});
+  updateRepresentativeForm: FormGroup = new FormGroup({});
   branches:branchList[] = [];
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
@@ -27,6 +27,8 @@ export class UpdateRepresentativeComponent {
   representative: getRepresentative|null =null;
   govSelectedValue: any=[];
   representativeId: string = '';
+  personalInfo=true
+  jobInfo=false
   constructor(
     private toaster: MyToastrService,
     private location:Location,
@@ -48,7 +50,10 @@ export class UpdateRepresentativeComponent {
       this.loadRepresentative(this.representativeId);
     });
   }
-
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.jobInfo=step==3
+  }
 formBuilde() {
   this.updateRepresentativeForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -164,7 +169,7 @@ loadRepresentative(representativeId:string) {
 
     };
 
- 
+
    this.representativeService.UpdateRepresentative(Data,this.representativeId).subscribe(res => {
      this.toaster.success("تم تعديل المندوب بنجاح");
      this.location.back();

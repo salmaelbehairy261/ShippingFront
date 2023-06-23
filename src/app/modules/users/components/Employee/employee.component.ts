@@ -18,14 +18,16 @@ import { NavTitleService } from "src/app/modules/shared/services/nav-title.servi
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-
- employeeForm: FormGroup = new FormGroup({});
+userInfo=false
+personalInfo=true
+jobInfo=false
+employeeForm: FormGroup = new FormGroup({});
 
   groups: group[] = [];
   branches:branchList[] = [];
 
   constructor(private toaster:MyToastrService ,
-     private location:Location,
+    private location:Location,
     private employeeService: EmployeeService,
     private groupService: GroupService,
     private branchService:BranchService,
@@ -39,6 +41,11 @@ export class EmployeeComponent implements OnInit {
     this.formBuilde();
     this.loadBranches();
     this.loadGroups();
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
   }
   formBuilde() {
     this.employeeForm = this.formBuilder.group({
