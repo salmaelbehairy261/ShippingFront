@@ -89,6 +89,7 @@ export class GovernorateComponent {
       tap((response:any) => {
         if (response['message'] === "Government Deleted Successfully") {
           this.toasterSuccess();
+          this.GetAllGovernorates()
           this.deleteModal!.hide();
         }
         else if (response['message'] === "Delete Cities First") {
@@ -97,12 +98,11 @@ export class GovernorateComponent {
         }
       }),
       catchError((error) => {
-  
         console.error('API request error:', error);
         return of(null);
       })
     ).subscribe();
-  
+
   }
   toasterSuccess(){
     this.myToastrService.success("تم حذف المجموعه بنجاح");

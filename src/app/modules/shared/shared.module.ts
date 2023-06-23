@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, Location } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -10,6 +10,7 @@ import { PagerComponent } from "./component/pager/pager.component";
 import { SortComponent } from './component/sort/sort.component';
 import { PageSizeComponent } from './component/page-size/page-size.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { UpdateAccountComponent } from './component/update-account/update-account.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PagerComponent,
     PagingHeaderComponent,
     SortComponent,
-    PageSizeComponent
+    PageSizeComponent,
+    UpdateAccountComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     SortComponent,
     PageSizeComponent,
     ModalModule,
-  ]
+    UpdateAccountComponent
+  ],
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Order, OrderToUpdate, PaymentType, Product, orderType } from '../../../shared/models/Order';
+import { OrderToUpdate, PaymentType, Product, orderType } from '../../../shared/models/Order';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { shippingType } from '../../../shared/models/shipping-type';
 import { city } from '../../../shared/models/City';
@@ -12,6 +12,10 @@ import { NavTitleService } from 'src/app/modules/shared/services/nav-title.servi
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { branchList } from 'src/app/modules/shared/models/Branch';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrderConfirmationComponent } from '../order-confirmation/order-confirmation.component';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-order',
@@ -27,7 +31,10 @@ export class EditOrderComponent implements OnInit{
     private fb: FormBuilder,
     private navTitleService:NavTitleService,
     private activeRoute: ActivatedRoute,
-    private authService:AuthService
+    private authService:AuthService,
+    private modalService: NgbModal,
+    private toastr:MyToastrService,
+    private location:Location
   ) { }
   ngOnInit(): void {
     this.orderId=this.activeRoute.snapshot.params['id'];
@@ -168,7 +175,19 @@ export class EditOrderComponent implements OnInit{
       notes:this.orderForm.controls['notes'].value,
       products:this.productsArr
     }
-    this.orderService.updateOrder(order)
+    this.orderService.updateOrder(order).subscribe(res=>{
+      const modalRef = this.modalService.open(OrderConfirmationComponent, {
+        centered: true,
+      });
+      modalRef.componentInstance.productCost =res.result.productTotalCost
+      modalRef.componentInstance.shippingCost =res.result.orderShippingTotalCost
+      modalRef.componentInstance.weight =res.result.totalWeight
+      modalRef.componentInstance.message="تم تحديث الطلب بنجاح"
+      modalRef.hidden.subscribe(()=>{
+        this.toastr.success("تم تحديث الطلب بنجاح")
+        this.location.back()
+      })
+    })
     console.log(order)
   }
 }

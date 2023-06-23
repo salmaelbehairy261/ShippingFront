@@ -4,11 +4,14 @@ import { RepresentativeComponent } from './components/representative/representat
 import {NgxPaginationModule} from 'ngx-pagination';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from '../shared/shared.module';
+import{DisplayOrderComponent} from './components/display-order/display-order.component'
 
 @NgModule({
   declarations: [
     RepresentativeComponent,
-    HomeComponent
+    HomeComponent,
+    DisplayOrderComponent
+    
   ],
   imports: [
     CommonModule,

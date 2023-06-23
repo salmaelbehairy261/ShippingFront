@@ -29,16 +29,22 @@ export class AuthService {
         this.toastr.error(err);
         return EMPTY;
       })
+
     )
     .subscribe(res=>{
       const tokenData:any=jwt_decode(res.token)
+      console.log(tokenData)
       const token = CryptoJS.AES.encrypt(res.token, this.secretKey).toString();
+      const name=CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"], this.secretKey).toString();
       const id=CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"], this.secretKey).toString();
       const role=CryptoJS.AES.encrypt(tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"], this.secretKey).toString();
+      const email=CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"], this.secretKey).toString();
       const exp=new Date(tokenData["exp"]* 1000)
       this.cookieService.set('token',token, exp, undefined, undefined, true, 'Strict');
       this.cookieService.set('user_id',id, exp, undefined, undefined, true, 'Strict');
       this.cookieService.set('user_role',role, exp, undefined, undefined, true, 'Strict');
+      this.cookieService.set('user_name',name, exp, undefined, undefined, true, 'Strict');
+      this.cookieService.set('user_email',email, exp, undefined, undefined, true, 'Strict');
       if(this.getUserRole()=='Merchant')
         this.router.navigate(['/merchant'])
       else if(this.getUserRole()=='Representative')
@@ -49,16 +55,13 @@ export class AuthService {
   }
   logout(){
     const url='Account/logout'
-    this.apiService.post(url,'').pipe(
+    return this.apiService.post(url,'').pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
         return EMPTY;
       })
     )
-    .subscribe(res=>{
-      this.cookieService.deleteAll()
-    })
   }
   getToken() {
     const token=this.cookieService.get('token')
@@ -71,6 +74,14 @@ export class AuthService {
   getUserRole() {
     const role=this.cookieService.get('user_role')
     return CryptoJS.AES.decrypt(role, this.secretKey).toString(CryptoJS.enc.Utf8);
+  }
+  getUserName(){
+    const name=this.cookieService.get('user_name')
+    return CryptoJS.AES.decrypt(name, this.secretKey).toString(CryptoJS.enc.Utf8);
+  }
+  getUserEmail(){
+    const email=this.cookieService.get('user_email')
+    return CryptoJS.AES.decrypt(email, this.secretKey).toString(CryptoJS.enc.Utf8);
   }
   isAuthenticated() {
     return this.cookieService.get('token') != null;

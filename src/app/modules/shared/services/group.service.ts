@@ -27,7 +27,7 @@ export class GroupService {
           return EMPTY;
         })
       )
-      
+
   }
   public  UpdateGroup(group: GroupToUpdate) {
     const url = `Group/${Number(group.id)}`;
@@ -38,7 +38,7 @@ export class GroupService {
         return EMPTY;
       })
     )
-    
+
 }
 
 
@@ -66,7 +66,7 @@ export class GroupService {
       this.toastr.error(err);
       return EMPTY;
     })
-  ) 
+  )
   }
    deleteGroup(id:number){
      return this.genericService.delete<any>(`Group/${id}`).pipe(
@@ -87,4 +87,5 @@ export class GroupService {
       })
     )
    }
+
 }

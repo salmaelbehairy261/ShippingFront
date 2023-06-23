@@ -26,6 +26,7 @@ import { BranchModule } from './modules/branch/branch.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { EmployeeOrdersModule } from './modules/employee-orders/employee-orders.module';
 import { OrderReportsModule } from './modules/order-reports/order-reports.module';
+import { Location } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { OrderReportsModule } from './modules/order-reports/order-reports.module
     OrderReportsModule
   ],
   providers: [
+    Location,
     CookieService,
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true },

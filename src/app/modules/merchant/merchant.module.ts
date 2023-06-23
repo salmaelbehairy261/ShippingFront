@@ -9,7 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NewOrderComponent } from './components/new-order/new-order.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
 import { DisplayOrderComponent } from './components/display-order/display-order.component';
-import { UpdateAccountComponent } from './components/update-account/update-account.component'
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { UpdateAccountComponent } from './components/update-account/update-accou
     NewOrderComponent,
     EditOrderComponent,
     DisplayOrderComponent,
-    UpdateAccountComponent
+    OrderConfirmationComponent
   ],
   imports: [
     CommonModule,

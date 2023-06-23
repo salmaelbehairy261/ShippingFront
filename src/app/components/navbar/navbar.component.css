@@ -2,3 +2,13 @@
   background-color:#4F6D7A;
   color: #fcfcfc !important;
 }
+.dropdown-item:hover{
+  color: #4F6D7A;
+}
+.dropdown-item{
+  color: #4F6D7A;
+}
+.dropdown-item:active{
+  color: #4F6D7A;
+  background-color: #ddd;
+}

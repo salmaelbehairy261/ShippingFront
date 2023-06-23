@@ -1,6 +1,6 @@
 <div class="container-fluid p-4">
     <div class=" formbg p-4 mt-3">
-        <div>
+        <form>
             <label for="">
                 <select class="form-select mr-3" (change)="StatusSearch($event)">
                     <option value="0">اختر حالة</option>
@@ -19,7 +19,8 @@
                     name="الى">
             </label>
             <input type="button" class="btn btn-primary" value="بحث" [disabled]="!isValid" (click)="SearchByDate()" />
-        </div><br>
+            <button type="reset" class="btn btn-secondary m-3" (click)="Reset()">تراجع</button>
+        </form><br>
 
         <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
             <option *ngFor="let size of tableSizes">{{size}}</option>
