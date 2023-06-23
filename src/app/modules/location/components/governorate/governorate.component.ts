@@ -87,11 +87,8 @@ export class GovernorateComponent {
   DeleteGovernorate() {
     this.governorateService.DeleteGovernorate(this.currentID).pipe(
       tap((response:any) => {
-        console.log(response)
         if (response['message'] === "Government Deleted Successfully") {
-  
           this.toasterSuccess();
-          this.GetAllGovernorates();
           this.deleteModal!.hide();
         }
         else if (response['message'] === "Delete Cities First") {
