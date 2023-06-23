@@ -11,12 +11,14 @@ export class DashboardComponent implements OnInit{
   constructor(private authService:AuthService,private router:Router){}
   ngOnInit(): void {
     const role=this.authService.getUserRole()
-    if(role=="Merchant")
+    if (role == "Merchant")
       this.router.navigate(['/merchant'])
-    else if(role=="Representative")
-    this.router.navigate(['/representative'])
-    else
-      this.router.navigate(['/employee/users/AddEmployee'])
+    else if (role == "Representative")
+      this.router.navigate(['/representative'])
+    else {
+      this.router.navigate(['/employee/users/AddEmployee']);
+      this.authService.getPermissions();
+    }
   }
 
 }

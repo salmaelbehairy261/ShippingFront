@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { catchError, of, tap } from 'rxjs';
 import { addBranch, getAllBranch, updateBranch } from 'src/app/modules/shared/models/Branch';
 import { Params } from 'src/app/modules/shared/models/Params';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
@@ -24,7 +25,7 @@ export class BranchesComponent {
   constructor(private branchService: BranchService,
     private myToastrService:MyToastrService,
     private toastr:MyToastrService,
-    private navTitleService:NavTitleService) {}
+    private navTitleService:NavTitleService,private authService: AuthService) {}
   term: string = "";
   currentID: number = 0;
   currentBranch: any = null;
@@ -99,6 +100,12 @@ export class BranchesComponent {
     })
   }
 
+  
+
+  hasAction(action: string)
+  {
+    return this.authService.hasAction(action);
+  }  
   // DeleteBranch() {
   //   this.branchService.delete(Number(this.currentID)).subscribe({
   //     next: (data) => {

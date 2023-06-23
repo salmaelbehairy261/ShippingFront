@@ -9,24 +9,30 @@ import { MyToastrService } from './my-toastr.service';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { GroupService } from './group.service';
+import { Permissions } from '../models/Group';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+Permissions : Permissions []=[]
   constructor(
     private apiService:ApiService,
     private cookieService:CookieService,
     private errorMessageService:ErrorMessageService,
     private toastr:MyToastrService,
-    private router:Router
+    private router: Router,
+    private groupService:GroupService,
   ) { }
   secretKey=environment.secretKey
-  login(data:loginData){
+  login(data: loginData) {
+    
     const url='Account/login'
     return this.apiService.post<any,loginData>(url,data).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
+
         return EMPTY;
       })
 
@@ -51,6 +57,8 @@ export class AuthService {
         this.router.navigate(['/representative'])
       else
         this.router.navigate(['/employee'])
+      
+        
       })
   }
   logout(){
@@ -86,5 +94,32 @@ export class AuthService {
   isAuthenticated() {
     return this.cookieService.get('token') != null;
   }
+
+  getPermissions() {
+   
+    this.groupService.getGroupById(Number(this.getUserRole())).subscribe((response) => {
+      response.permissions.forEach((element:any) => {
+        const permission: Permissions = {
+          id: element.id,
+          action:element.action
+        }
+        this.Permissions.push(permission)
+      });
+      console.log(this.Permissions);
+      console.log(response); 
+    });
+  }
+
+
+  hasPermission(id: number) {
+  const permission = this.Permissions.find(p => p.id === id);
+  return !!permission; 
+  }
+
+  hasAction(action: string)
+  {
+    const permission = this.Permissions.find(p => p.action === action)
+     return !!permission; 
+  }  
 
 }

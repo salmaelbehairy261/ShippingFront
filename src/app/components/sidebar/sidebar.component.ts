@@ -1,17 +1,21 @@
+import { Permissions } from './../../modules/shared/models/Group';
 import { AuthService } from './../../modules/shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  role:any
-  constructor(private router:Router,
+  role: any
+
+  constructor(
+   
     private authService:AuthService){}
   ngOnInit(): void {
-    this.role=this.authService.getUserRole()
+    this.role = this.authService.getUserRole()
+
   }
   isStatCollapsed=true
   isSettingCollapsed=true
@@ -30,11 +34,19 @@ export class SidebarComponent implements OnInit {
     "رفض مع سداد جزء",
     "رفض من الموظف"
   ]
-  reloadComponent() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([this.router.url]);
-    });
+ 
+
+
+  hasPermission(id: number) {
+    return this.authService.hasPermission(id); 
   }
+
+  hasAction(action: string)
+  {
+    return this.authService.hasAction(action);
+  }  
+
+
 }
 
 

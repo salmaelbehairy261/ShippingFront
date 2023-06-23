@@ -1,0 +1,24 @@
+<div class="container-fluid p-5">
+    <div class=" formbg p-4 mt-3" style="background-color:  #c0d6df71;">
+        <div class="px-4 p-2  ">
+
+            <div>
+                <p class=" py-3 w-50 rounded " style="font-weight: 800; color: #4f6d7a;">اضافة فرع</p>
+            </div>
+            <form class="d-flex flex-wrap  gap-3" [formGroup]="BranchForm" (ngSubmit)="AddBranch()">
+
+                <input type="text" class="form-control w-25" placeholder="اسم الفرع" formControlName="Name">
+
+                <div class="errs" *ngIf="BranchForm.get('Name')?.errors && BranchForm.get('Name')?.touched">
+                    <p class="text-danger" *ngIf="BranchForm.get('Name')?.errors?.['required']">الاسم
+                        مطلوب
+                    </p>
+                </div>
+
+                <button [disabled]="BranchForm.invalid" type="submit" class="special btn btn-primary">اضافة</button>
+
+
+            </form>
+        </div>
+    </div>
+</div>

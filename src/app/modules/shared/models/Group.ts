@@ -47,6 +47,10 @@ export class Permission{
     action:string="";
 }
 
+export interface Permissions{
+    id:number;
+    action:string;
+}
 
 export class PermissiontoUseInUpdate{
     id:number=0;
