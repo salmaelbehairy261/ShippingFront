@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { getAllMerchants } from "src/app/modules/shared/models/Merchant";
 import { Params } from "src/app/modules/shared/models/Params";
 import { MerchantService } from "src/app/modules/shared/services/merchant.service";
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 
 
@@ -15,10 +16,13 @@ import { MerchantService } from "src/app/modules/shared/services/merchant.servic
 export class MarchantTableComponent implements OnInit {
 
   @ViewChild('search') searchTerms?: ElementRef;
+   @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
   marchants: getAllMerchants[] = [];
   merchantParams = new Params();
   totalCount = 0;
-  isDesc:boolean=false
+  isDesc: boolean = false
+   selecteduser: getAllMerchants | null = null;
+ 
   constructor(
     private merchantService: MerchantService,
     private router: Router,
@@ -48,14 +52,18 @@ export class MarchantTableComponent implements OnInit {
 
     this.router.navigate(['/employee/users/AddMerchant']);
   }
-  toggleDelete(merchant: getAllMerchants) {
-    if (merchant.isDeleted) {
-      return;
-    }
-    this.merchantService.Delete(merchant.id).subscribe(() => {
-      merchant.isDeleted = true;
-    });
+  toggleDelete() {
+    if (this.selecteduser) {
+      const Marchant = this.selecteduser
+      if (this.selecteduser.isDeleted) {
+        return;
+      }
+      this.merchantService.Delete(this.selecteduser.id).subscribe(() => {
+        Marchant.isDeleted = true;
+        this.deleteModal!.hide();
+      });
 
+    }
 
   }
 

@@ -33,7 +33,7 @@
       <div class="col-lg-12 col-md-10 col-8">
         <table class="table bg-white table-hover ">
           <thead class="table-dark">
-            <tr>
+            <tr class="text-center">
               <th>#</th>
               <th>الاسم</th>
               <th>البريد الالكتروني</th>
@@ -44,7 +44,7 @@
               <th>تعديل</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="text-center">
             <tr *ngFor="let employee of Employees; let id = index">
               <td>{{ id + 1 }}</td>
               <td>{{ employee.name }}</td>
@@ -55,7 +55,7 @@
               <td>
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" id="isDeleted{{id}}" [checked]="employee.isDeleted"
-                    (change)="toggleDelete(employee)" [disabled]="employee.isDeleted">
+                    (change)=" deleteModal.show();selectedEmployee = employee" [disabled]="employee.isDeleted">
                   <label class="form-check-label" for="isDeleted{{id}}">
                     {{ employee.isDeleted ? 'غير نشط' : 'نشط' }}
                   </label>
@@ -89,4 +89,24 @@
     </div>
   </div>
 </div>
+
+
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="staticBackdropLabel"> حذف موظف</h5>
+      </div>
+      <div class="modal-body text-secondary fw-bold">
+        هل انت تريد حذف هذه المدينة ؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="toggleDelete()">حذف</button>
+        <button type="button" class="btn btn-secondary" (click)="deleteModal.hide() ;loadEmployees();">اغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

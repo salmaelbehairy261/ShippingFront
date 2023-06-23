@@ -1,24 +1,30 @@
 <div class="container-fluid p-4">
-  <div class="row p-4">
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" *ngFor="let status of countOfOrders;let i=index" >
-         <a routerLink="/employee/orders/{{i}}" style="text-decoration: none;">
-          <div class="card shadow mb-5 rounded" style="background-color: #f8f9fa;">
-              <div class="card-body p-3">
-                  <div class="row">
-                      <div class="col-8">
-                          <div class="numbers pt-3">
-                              <p class="text-center text-sm mb-0 text-capitalize font-weight-bold">{{StatusNames[i]}}</p>
-                          </div>
-                      </div>
-                      <div class="col-4">
-                          <div class="shadow text-center rounded display-6" style="color: #1ca3c4;">
-                              <p>{{countOfOrders[i]}}</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-         </a>
-      </div>
-  </div>
+    <div class=" formbg p-4 mt-3">
+
+        <div class="container-fluid p-4">
+            <div class="row p-4">
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4" *ngFor="let status of countOfOrders;let i=index">
+                    <a routerLink="/employee/orders/{{i}}" style="text-decoration: none;">
+                        <div class="card shadow mb-5 rounded" style="background-color: #f8f9fa;">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers pt-3">
+                                            <p class="text-center textColor mb-0 ">
+                                                {{StatusNames[i]}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="shadow text-center rounded display-6" style="color: #1ca3c4;">
+                                            <p>{{countOfOrders[i]}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
