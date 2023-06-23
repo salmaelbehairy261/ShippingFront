@@ -144,7 +144,7 @@
           </a>
         </li>
       </ul>
-      <li class="nav-item w-100 px-3 rounded">
+      <li class="nav-item w-100 px-3 rounded" *ngIf="(hasPermission(2) && (hasAction('Show')||hasAction('Add')))||(hasPermission(2) && (hasAction('Show')||hasAction('Add')))">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isLocCollapsed = ! isLocCollapsed" [attr.aria-expanded]="!isLocCollapsed">
           <div>
@@ -157,7 +157,8 @@
         </a>
       </li>
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isLocCollapsed" class="m-0 px-3">
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
+        <!--Governorates-->
+        <li *ngIf="hasPermission(3) && hasAction('Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
           routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -165,7 +166,24 @@
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
+        <li *ngIf="hasPermission(3) && !hasAction('Show') && hasAction('Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
+          routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">المحافظات</span>
+            </div>
+          </a>
+        </li>
+        <!--Cities-->
+        <li *ngIf="hasPermission(2) && hasAction('Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">المدن</span>
+            </div>
+          </a>
+        </li>
+        <li *ngIf="hasPermission(2) && !hasAction('Show') && hasAction('Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
