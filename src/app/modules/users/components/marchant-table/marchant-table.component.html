@@ -33,7 +33,7 @@
             <div class="col-lg-12 col-md-10 col-8">
                 <table class="table bg-white table-hover ">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>#</th>
                             <th>الاسم</th>
                             <th>الايميل</th>
@@ -46,7 +46,7 @@
                             <th>تعديل</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <tr *ngFor="let merchant of marchants; let id = index">
                             <td>{{ id + 1 }}</td>
                             <td>{{ merchant.name }}</td>
@@ -59,7 +59,8 @@
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="isDeleted{{id}}"
-                                        [checked]="merchant.isDeleted" (change)="toggleDelete(merchant)"
+                                        [checked]="merchant.isDeleted"
+                                        (change)=" deleteModal.show(); selecteduser = merchant"
                                         [disabled]="merchant.isDeleted">
                                     <label class="form-check-label" for="isDeleted{{id}}">
                                         {{ merchant.isDeleted ? 'غير نشط' : 'نشط' }}
@@ -90,6 +91,24 @@
         <div class="d-flex justify-content-center" *ngIf="totalCount>0">
             <app-pager [totalCount]="totalCount" [pageSize]="merchantParams.pageSize"
                 (pageChanged)="onPageChanged($event)"></app-pager>
+        </div>
+    </div>
+</div>
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="staticBackdropLabel">حذف تاجر</h5>
+            </div>
+            <div class="modal-body text-secondary fw-bold">
+                هل انت تريد حذف هذا التاجر ؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="toggleDelete()">حذف</button>
+                <button type="button" class="btn btn-secondary"
+                    (click)="deleteModal.hide() ;loadMerchants();">اغلاق</button>
+            </div>
         </div>
     </div>
 </div>

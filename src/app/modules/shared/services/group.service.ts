@@ -30,7 +30,7 @@ export class GroupService {
       
   }
   public  UpdateGroup(group: GroupToUpdate) {
-    const url = `Group/${group.id}`;
+    const url = `Group/${Number(group.id)}`;
     return this.genericService.put<any,GroupToUpdate >(url, group).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);

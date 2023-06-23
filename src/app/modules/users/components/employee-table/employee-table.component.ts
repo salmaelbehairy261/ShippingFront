@@ -1,6 +1,7 @@
 import { NavTitleService } from './../../../shared/services/nav-title.service';
 import { OnInit, ElementRef, Component, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { getAllEmployees, employeeResponse } from "src/app/modules/shared/models/Employee";
 import { Params } from "src/app/modules/shared/models/Params";
 import { EmployeeService } from "src/app/modules/shared/services/employee.service";
@@ -15,11 +16,13 @@ import { EmployeeService } from "src/app/modules/shared/services/employee.servic
 })
 export class EmployeeTableComponent implements OnInit {
   @ViewChild('search') searchTerms?: ElementRef;
+  @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
   Employees: getAllEmployees[] = [];
   isDesc:boolean=false
   employeeParams = new Params();
   totalCount = 0;
-
+  selectedEmployee: getAllEmployees | null = null;
+ 
   
  constructor(
           private employeeService: EmployeeService,
@@ -53,14 +56,18 @@ export class EmployeeTableComponent implements OnInit {
     this.router.navigate(['/employee/users/AddEmployee']);
   }
   
-  toggleDelete(employee: getAllEmployees) {
-    if (employee.isDeleted) {
-      return;
-    }
+  toggleDelete() {
+    if (this.selectedEmployee) {
+      const emp = this.selectedEmployee;
+      if (emp.isDeleted) {
+        return;
+      }
 
-  this.employeeService.Delete(employee.id).subscribe(() => {
-    employee.isDeleted = true;
-  });
+      this.employeeService.Delete(emp.id).subscribe(() => {
+        emp.isDeleted = true;
+        this.deleteModal!.hide();
+      });
+    }
 }
 
   onPageChanged(event: any)
@@ -95,6 +102,11 @@ export class EmployeeTableComponent implements OnInit {
       this.employeeParams.pageSize=pageSize
       this.loadEmployees()
     }
+  }
+
+  refresh() {
+    
+
   }
 }
 

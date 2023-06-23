@@ -82,7 +82,7 @@ AddCity() {
       pickup:this.CityForm.value.Pickup,
       governorateId:Number(this.CityForm.value.GovernorateId),
     }
-    console.log(object)
+    
   this.cityService.addCity(object).subscribe(res=>{
         this.toastr.success("تم اضافة المدينة بنجاح")
         this.loadGovernorates(this.CityForm.value.GovernorateId);
@@ -99,7 +99,7 @@ AddCity() {
       if (options[i].value == optionValue) {
         this.selectElement.nativeElement.selectedIndex = i;
         this.changeDetectorRef.detectChanges();
-        console.log(i)
+        
         break;
       }
     }

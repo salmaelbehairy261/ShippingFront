@@ -33,18 +33,18 @@
             <div class="col-lg-12 col-md-10 col-8">
                 <table class="table bg-white table-hover ">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>#</th>
                             <th>الاسم</th>
                             <th>التاريخ</th>
                             <th>الاعدادات</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <tr *ngFor="let item of groups; let i =index">
                             <td>{{i+1}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.date}}</td>
+                            <td>{{item.date| date:'medium'}}</td>
                             <td>
                                 <a style="margin-left: 20px ;" (click)="deleteGroup(item.id)"><svg
                                         xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
