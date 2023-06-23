@@ -29,6 +29,9 @@ export class UpdateMerchantComponent implements OnInit {
   customSpecialPrice: specialPrice[] = [];
   merchant: getMerchant|null = null;
   merchantId: string='';
+  personalInfo=true
+  jobInfo=false
+  paymentInfo=false
   constructor(
      private toaster: MyToastrService,
     private location:Location,
@@ -65,6 +68,11 @@ export class UpdateMerchantComponent implements OnInit {
       returnerPercent: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       specialPrices: this.formBuilder.array([])
     });
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.jobInfo=step==3
+    this.paymentInfo=step==4
   }
 loadMerchant(merchantId:string) {
   this.merchantService.GetMerchant(merchantId).subscribe((response) => {

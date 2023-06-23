@@ -22,7 +22,9 @@ export class RepresentativeComponent implements OnInit {
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
   customArray: RepresentativeGovernateDto[] = [ ];
-
+  userInfo=false
+  personalInfo=true
+  jobInfo=false
 
   constructor(
     private toaster: MyToastrService,
@@ -42,7 +44,11 @@ export class RepresentativeComponent implements OnInit {
     this.loadBranches();
     this.loadGovernorates();
   }
-
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
+  }
 formBuilde() {
   this.representativeForm = this.formBuilder.group({
     name: ['', Validators.required],

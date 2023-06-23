@@ -20,7 +20,8 @@ import { Location } from '@angular/common';
 export class UpdateEmployeeComponent implements OnInit{
 
 updateEmployeeForm: FormGroup = new FormGroup({});
-
+  personalInfo=true
+  jobInfo=false
   groups: group[] = [];
   branches:branchList[] = [];
   employee: getEmployee|null =null;
@@ -46,6 +47,10 @@ updateEmployeeForm: FormGroup = new FormGroup({});
       this.employeeId = params['id'];
       this.loadEmployee(this.employeeId);
     });
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.jobInfo=step==3
   }
   formBuilde() {
     this.updateEmployeeForm = this.formBuilder.group({

@@ -9,8 +9,8 @@
               </div>
               <div *ngIf="personalInfo">
                 <div class="form-group mb-3">
-                  <label for="name" class="fw-bold">الاسم</label>
-                  <input formControlName="name" id="name" type="text" class="form-control" placeholder="ادخل الاسم">
+                  <label for="name" class="fw-bold mb-1">الاسم</label>
+                  <input formControlName="name" id="name" type="text" class="form-control p-2" placeholder="ادخل الاسم">
                   <div *ngIf="employeeForm.get('name')!.invalid && employeeForm.get('name')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('name')!.errors!['required']">
                           الاسم مطلوب
@@ -18,8 +18,8 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="phoneNumber" class="fw-bold">رقم الهاتف </label>
-                  <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control" placeholder="ادخل رقم الهاتف">
+                  <label for="phoneNumber" class="fw-bold mb-1">رقم الهاتف </label>
+                  <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control p-2" placeholder="ادخل رقم الهاتف">
                   <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
                           رقم الهاتف مطلوب
@@ -31,8 +31,8 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="address" class="fw-bold">العنوان</label>
-                  <input formControlName="address" id="address" type="text" class="form-control" placeholder="ادخل العنوان">
+                  <label for="address" class="fw-bold mb-1">العنوان</label>
+                  <input formControlName="address" id="address" type="text" class="form-control p-2" placeholder="ادخل العنوان">
                   <div *ngIf="employeeForm.get('phoneNumber')!.invalid && employeeForm.get('phoneNumber')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('phoneNumber')!.errors!['required']">
                           العنوان مطلوب
@@ -40,13 +40,15 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <a (click)="showInfo(2)">التالي</a>
+                  <a (click)="showInfo(2)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill" height="1.5em" viewBox="0 0 512 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/></svg>
+                  </a>
                 </div>
               </div>
               <div *ngIf="userInfo">
                 <div class="form-group mb-3">
-                  <label for="userName" class="fw-bold">اسم المستخدم</label>
-                  <input formControlName="userName" id="userName" type="text" class="form-control" placeholder="ادخل اسم المستخدم">
+                  <label for="userName" class="fw-bold mb-1">اسم المستخدم</label>
+                  <input formControlName="userName" id="userName" type="text" class="form-control p-2" placeholder="ادخل اسم المستخدم">
                   <div *ngIf="employeeForm.get('userName')!.invalid && employeeForm.get('userName')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('userName')!.errors!['required']">
                           اسم المستخدم مطلوب
@@ -54,8 +56,8 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="email" class="fw-bold">البريدالالكتروني</label>
-                  <input formControlName="email" id="email" type="email" class="form-control" placeholder="ادخل البريد الالكتروني">
+                  <label for="email" class="fw-bold mb-1">البريدالالكتروني</label>
+                  <input formControlName="email" id="email" type="email" class="form-control p-2" placeholder="ادخل البريد الالكتروني">
                   <div *ngIf="employeeForm.get('email')!.invalid && employeeForm.get('email')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('email')!.errors!['required']">
                           البريدالالكتروني مطلوب
@@ -66,8 +68,8 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="password" class="fw-bold">كلمة المرور</label>
-                  <input formControlName="password" id="password" type="password" class="form-control" placeholder="ادخل كلمة المرور">
+                  <label for="password" class="fw-bold mb-1">كلمة المرور</label>
+                  <input formControlName="password" id="password" type="password" class="form-control py-2" placeholder="ادخل كلمة المرور">
                   <div *ngIf="employeeForm.get('password')!.invalid && employeeForm.get('password')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('password')!.errors!['required']">
                           الرقم السري مطلوب
@@ -78,14 +80,18 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <a (click)="showInfo(1)">السابق</a>
-                  <a (click)="showInfo(3)">التالي</a>
+                  <a (click)="showInfo(1)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill" height="1.5em" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg>
+                  </a>
+                  <a (click)="showInfo(3)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill" height="1.5em" viewBox="0 0 512 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/></svg>
+                  </a>
                 </div>
               </div>
               <div *ngIf="jobInfo">
                 <div class="form-group mb-3">
-                  <label for="branch" class="fw-bold">الفرع</label>
-                  <select formControlName="branch" id="branch" class="form-control">
+                  <label for="branch" class="fw-bold mb-1">الفرع</label>
+                  <select formControlName="branch" id="branch" class="form-control p-2">
                       <option value="">اختر فرع</option>
                       <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
                   </select>
@@ -96,22 +102,24 @@
                   </div>
                 </div>
                 <div class="form-group mb-3">
-                  <label for="group" class="fw-bold">الصلاحيات</label>
-                  <select formControlName="group" id="group" class="form-control">
+                  <label for="group" class="fw-bold mb-1">الصلاحيات</label>
+                  <select formControlName="group" id="group" class="form-control p-2">
                       <option value="">اختر مجموعه</option>
                       <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
                   </select>
                   <div *ngIf="employeeForm.get('group')!.invalid && employeeForm.get('group')!.touched">
                       <div class="text-danger" *ngIf="employeeForm.get('group')!.errors!['required']">
-                          الصلحيات مطلوبة
+                          الصلاحيات مطلوبة
                       </div>
                   </div>
                 </div>
-                <div class="form-group d-flex justify-content-center">
+                <div class="form-group d-flex justify-content-center my-3">
                   <button type="submit" class="btn btn-primary w-25" [disabled]="employeeForm.invalid">حفظ</button>
                 </div>
                 <div class="d-flex justify-content-start">
-                  <a (click)="showInfo(2)">السابق</a>
+                  <a (click)="showInfo(2)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="fill" height="1.5em" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/></svg>
+                  </a>
                 </div>
               </div>
             </form>
