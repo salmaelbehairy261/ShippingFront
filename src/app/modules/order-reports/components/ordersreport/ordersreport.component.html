@@ -1,43 +1,46 @@
-<div class="container">
-    <div>
-        <label for="">
-            <select class="form-select mr-3" (change)="StatusSearch($event)">
-                <option value="0">اختر حالة</option>
-                <option *ngFor="let status of StatusNames;let i = index" value="{{i}}">{{status}}</option>
-            </select>
-        </label>
-       
-        <label for="من" class="m-3">
-            من
-            <input type="date" class="form-control" [(ngModel)]="fromDate" (change)="IsValid()" placeholder="From" name="من">
-        </label>
-        <label for="الى" class="m-3">
-            الى
-            <input type="date" class="form-control" [(ngModel)]="toDate" (change)="IsValid()" placeholder="To" name="الى">
-        </label>
-        <input type="button" class="btn btn-primary" value="بحث"  [disabled]="!isValid" (click)="SearchByDate()"/>
-    </div><br>
+<div class="container-fluid p-4">
+    <div class=" formbg p-4 mt-3">
+        <div>
+            <label for="">
+                <select class="form-select mr-3" (change)="StatusSearch($event)">
+                    <option value="0">اختر حالة</option>
+                    <option *ngFor="let status of StatusNames;let i = index" value="{{i}}">{{status}}</option>
+                </select>
+            </label>
 
-    <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
-        <option *ngFor="let size of tableSizes">{{size}}</option>
-    </select>
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>اسم التاجر</th>
-                <th>اسم العميل</th>
-                <th>الحاله</th>
-                <th>رقم الهاتف</th>
-                <th>المحافظة</th>
-                <th>المدينة</th> 
-                <th>تكلفة الطلب</th>
-                <th>تكلفة الشحن</th>
-                <th>التاريخ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="
+            <label for="من" class="m-3">
+                من
+                <input type="date" class="form-control" [(ngModel)]="fromDate" (change)="IsValid()" placeholder="From"
+                    name="من">
+            </label>
+            <label for="الى" class="m-3">
+                الى
+                <input type="date" class="form-control" [(ngModel)]="toDate" (change)="IsValid()" placeholder="To"
+                    name="الى">
+            </label>
+            <input type="button" class="btn btn-primary" value="بحث" [disabled]="!isValid" (click)="SearchByDate()" />
+        </div><br>
+
+        <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
+            <option *ngFor="let size of tableSizes">{{size}}</option>
+        </select>
+        <table class="table bg-white table-hover text-center my-3">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>اسم التاجر</th>
+                    <th>اسم العميل</th>
+                    <th>الحاله</th>
+                    <th>رقم الهاتف</th>
+                    <th>المحافظة</th>
+                    <th>المدينة</th>
+                    <th>تكلفة الطلب</th>
+                    <th>تكلفة الشحن</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="
             let order of CurrentOrders
               | paginate
                 : {
@@ -45,20 +48,22 @@
                     currentPage: pageNumber,
                     totalItems: count
                   };let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ order.merchant }}</td>
-                <td>{{ order.clientName }}</td>
-                <td>{{ StatusNames[order.orderStatus] }}</td>
-                <td>{{ order.firstPhoneNumber }}</td>
-                <td>{{ order.governorate }}</td>
-                <td>{{ order.city }}</td>
-                <td>{{ order.productTotalCost }}</td>
-                <td>{{ order.orderShippingTotalCost }}</td>
-                <td>{{ order.date | date:'medium' }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-center">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+                    <td>{{ i+1 }}</td>
+                    <td>{{ order.merchant }}</td>
+                    <td>{{ order.clientName }}</td>
+                    <td>{{ StatusNames[order.orderStatus] }}</td>
+                    <td>{{ order.firstPhoneNumber }}</td>
+                    <td>{{ order.governorate }}</td>
+                    <td>{{ order.city }}</td>
+                    <td>{{ order.productTotalCost }}</td>
+                    <td>{{ order.orderShippingTotalCost }}</td>
+                    <td>{{ order.date | date:'medium' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+            <pagination-controls previousLabel="Prev" nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"></pagination-controls>
+        </div>
     </div>
 </div>

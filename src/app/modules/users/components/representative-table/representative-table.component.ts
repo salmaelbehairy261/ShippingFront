@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { getAllRepresentative } from 'src/app/modules/shared/models/Representative';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
@@ -12,10 +13,12 @@ import { RepresentativeService } from 'src/app/modules/shared/services/represent
 })
 export class RepresentativeTableComponent implements OnInit {
   @ViewChild('search') searchTerms?: ElementRef;
+   @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
   representatives: getAllRepresentative[] = [];
   representativeParams= new Params();
   totalCount = 0;
-  isDesc:boolean=false
+  isDesc: boolean = false;
+  selecteduser: getAllRepresentative | null = null;
   constructor(
 
     private representativeService: RepresentativeService,
@@ -24,16 +27,18 @@ export class RepresentativeTableComponent implements OnInit {
   ) { }
    ngOnInit(): void {
     this.navTitleService.title.next('المناديب')
-    this.loadRepresentative();
+     this.loadRepresentative();
+     
   }
 
 
   loadRepresentative() {
     this.representativeService.GetRepresentatives(this.representativeParams).subscribe((response) => {
       this.representatives = response.data;
+
        this.representativeParams.pageNumper = response.pageIndex;
     this.representativeParams.pageSize = response.pageSize;
-    this.totalCount=response.pageCount
+      this.totalCount = response.pageCount;
 
     });
   }
@@ -47,14 +52,16 @@ export class RepresentativeTableComponent implements OnInit {
 
     this.router.navigate(['/employee/users/AddRepresentative']);
   }
-  toggleDelete(representative: getAllRepresentative) {
-    if (representative.isDeleted) {
-      return;
+  toggleDelete() {
+    if (this.selecteduser) {
+      const representative = this.selecteduser;
+      if (representative.isDeleted) {
+        return;
+      }
+      this.representativeService.Delete(representative.id).subscribe(() => {
+        representative.isDeleted = true;
+      });
     }
-    this.representativeService.Delete(representative.id).subscribe(() => {
-      representative.isDeleted = true;
-    });
-
 
   }
 

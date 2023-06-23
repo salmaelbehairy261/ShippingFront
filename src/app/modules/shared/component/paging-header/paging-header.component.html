@@ -1,7 +1,7 @@
 <header class="d-flex justify-content-end align-items-center pb-2 " *ngIf="totalCount && pageNumper && pageSize">
-    <span *ngIf="totalCount>0">Showing <strong>{{(pageNumper-1)*pageSize+1}}-
-            {{ pageNumper*pageSize>totalCount?totalCount: pageNumper*pageSize}}
-        </strong> Of <strong>{{totalCount}} </strong> Result </span>
+    <span *ngIf="totalCount>0">Showing <strong class="textColor">{{(pageNumper-1)*pageSize+1}}-{{
+            pageNumper*pageSize>totalCount?totalCount: pageNumper*pageSize}}
+        </strong> Of <strong class="textColor">{{totalCount}}</strong> Result </span>
     <span *ngIf="totalCount===0">
         there are <strong> 0 </strong> of results
     </span>

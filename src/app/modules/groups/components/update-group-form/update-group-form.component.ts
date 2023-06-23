@@ -203,7 +203,7 @@ export class UpdateGroupFormComponent implements OnInit{
       if (this.UpdateGroupForm.status=="VALID" && this.AllGroupPrivilages.length > 0)
       { 
         const GroupToBeUpdated :GroupToUpdate=new GroupToUpdate();
-        GroupToBeUpdated.id=this.id ;
+        GroupToBeUpdated.id= Number(this.id) ;
         if (this.UpdateGroupForm.controls["name"].value === String(this.UpdateGroupForm.value.name) ) 
           {
             this.flag=true;
@@ -212,7 +212,7 @@ export class UpdateGroupFormComponent implements OnInit{
           else{
             GroupToBeUpdated.name=this.name;
           }
-        GroupToBeUpdated.gropPermissions=this.AllGroupPrivilages;
+        GroupToBeUpdated.groupPermissions=this.AllGroupPrivilages;
   
         console.log(GroupToBeUpdated);
           ///API Call

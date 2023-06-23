@@ -1,16 +1,22 @@
-<div class="px-4 py-2">
-    <div class="page p-4 my-3  mx-auto  rounded">
-        <div>
-            <p class="font-weight-bold py-1 w-50 rounded ">اعدادات تكلفة الشحن الاضافيه بالنسبه لوزن الشحنه</p>
-        </div>
-        <form  class="flex flex-wrap" [formGroup]="DeliverToVillageForm" (ngSubmit)="submit($event)">
-            <div class="d-flex flex-row justify-content-center mt-4 gap-2">
-                <label for="" class="form-control w-50 mr-3">سعر الشحن للقري</label>
-                <input type="number" class="form-control w-25" formControlName="additionalCost"/>
-                <div for="" class="w-25 text-center"></div>
+<div class="container-fluid p-4">
+    <div class=" formbg p-4 mt-3" style="background-color:  #c0d6df71;">
+        <div class="px-4 py-2 ">
+            <div class="page p-4 my-3  mx-auto  rounded">
+                <div>
+                    <p class=" py-1 w-50 rounded " style="font-weight: 600; color: #4f6d7a;">اعدادات
+                        تكلفة
+                        الشحن الاضافيه بالنسبه لوزن الشحنه</p>
+                </div>
+                <form class="flex flex-wrap" [formGroup]="DeliverToVillageForm" (ngSubmit)="submit($event)">
+                    <div class="d-flex flex-row justify-content-center mt-4 gap-2">
+                        <label for="" class="form-control w-50  mr-3">سعر الشحن للقري</label>
+                        <input type="number" class="form-control w-25" formControlName="additionalCost" />
+                        <div for="" class="w-25 text-center"></div>
+                    </div>
+                    <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> لم يتم تعديل ايا من البيانات </div>
+                    <button type="button" class="btn btn-info mt-4" (click)="UpdateWeight()">حفظ</button>
+                </form>
             </div>
-            <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> لم يتم تعديل ايا من البيانات </div>
-            <button type="button" class="btn btn-outline-primary mt-4" (click)="UpdateWeight()">حفظ</button>
-        </form>
+        </div>
     </div>
 </div>

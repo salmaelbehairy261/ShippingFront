@@ -22,7 +22,7 @@ export class Group{
 export class GroupToUpdate{
     id:number=0;
     name:string="";
-    gropPermissions:Permission[]=[];
+    groupPermissions:Permission[]=[];
 }
 export class GroupPrivilageService {
     Privilages: any = [

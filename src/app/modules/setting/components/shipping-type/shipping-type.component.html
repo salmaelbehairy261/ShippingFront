@@ -1,117 +1,132 @@
-<div class="px-4 py-2">
-    <div class="page p-4 my-3  mx-auto  rounded">
-        <div class="d-flex flex-wrap justify-content-between">
-            <div>
-                <p class="font-weight-bold py-1 rounded ">اعدادات نوع الشحن</p>
+<div class="container-fluid p-4">
+    <div class=" formbg p-4 mt-3">
+        <div class="page p-4 my-3  mx-auto  rounded">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div>
+                    <p class="font-weight-bold py-1 rounded textColor ">اعدادات نوع
+                        الشحن
+                    </p>
+                </div>
+                <div>
+                    <button class="btn btn-outline-info" (click)="openAddingForm(content)">اضافه نوع شحن جديد</button>
+                </div>
             </div>
             <div>
-                <button class="btn btn-outline-info" (click)="openAddingForm(content)">اضافه نوع شحن جديد</button>
+                <table class="table bg-white table-hover ">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>قيمة الشحن الاضافيه</th>
+                            <th>الحاله</th>
+                            <th>الاعدادات</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr *ngFor="let item of shippingTypes; let i =index">
+                            <td class="py-4">{{i+1}}</td>
+                            <td class="py-4">{{item.name}}</td>
+                            <td class="py-4">{{item.cost}}</td>
+
+                            <td class="py-4 text-center" *ngIf="!item.status" (click)="toggleStatus(item.id)">
+                                <div class="form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch">
+                                </div>
+                            </td>
+                            <td class="py-4 text-center " *ngIf="item.status" (click)="toggleStatus(item.id)">
+                                <div class="form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" checked>
+                                </div>
+                            </td>
+                            <td class="py-3">
+                                <a style="margin-left: 20px ;" (click)="delete(item.id)"><svg
+                                        xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
+                                        <path
+                                            d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
+                                            style="fill:#dc3545;" />
+                                    </svg></a>
+
+
+                                <a (click)="openUpdateForm(content2,item)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
+                                        <path
+                                            d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"
+                                            style="fill : #ffc107 " />
+                                    </svg></a>
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div>
-            <table class="table ">
-                <thead >
-                    <tr class="text-center">
-                        <th>#</th>
-                        <th>الاسم</th>
-                        <th>قيمة الشحن الاضافيه</th>
-                        <th>الحاله</th>
-                        <th class="col-span-2">الاعدادات</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <tr *ngFor="let item of shippingTypes; let i =index">
-                        <td class="py-4">{{i+1}}</td>
-                        <td class="py-4">{{item.name}}</td>
-                        <td class="py-4">{{item.cost}}</td>
-                        
-                        <td class="py-4 text-center" *ngIf="!item.status" (click)="toggleStatus(item.id)">
-                            <div class="form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" >
-                            </div>
-                        </td>
-                        <td class="py-4 text-center " *ngIf="item.status" (click)="toggleStatus(item.id)">
-                            <div class="form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch"  checked>
-                            </div>
-                        </td>
-                        <td class="py-3">
-                            <a class=" btn btn-outline-warning rounded ms-2" (click)="openUpdateForm(content2,item)"> 
-                                تعديل
-                            </a>
-                            <a class=" btn btn-outline-danger rounded ms-2" (click)="delete(item.id)"> 
-                                حذف
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
 
+
+
 <!-- Adding New Shipping Type Modal -->
 <ng-template #content let-modal>
-	<div class="d-flex justify-content-between p-3">
-		<h5  >اضافه نوع شحن</h5>
-		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-        
-        <form  class="flex flex-wrap" [formGroup]="AddShippingTypeForm">
-                <div class="d-flex flex-row align-items-start gap-1">
-                    <label for="" class="form-control w-25">الاسم</label>
-                    <input type="text" class="form-control w-50" formControlName="Name"/>
+    <div class="d-flex justify-content-between p-3">
+        <h5>اضافه نوع شحن</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <form class="flex flex-wrap" [formGroup]="AddShippingTypeForm">
+            <div class="d-flex flex-row align-items-start gap-1">
+                <label for="" class="form-control w-25">الاسم</label>
+                <input type="text" class="form-control w-50" formControlName="Name" />
+            </div>
+            <ng-container *ngIf="getName.touched">
+                <div *ngIf="getName.hasError('required')" class="form-text text-danger">
+                    الاسم مطلوب
                 </div>
-                <ng-container *ngIf="getName.touched">
-                    <div *ngIf="getName.hasError('required')" 
-                        class="form-text text-danger">
-                        الاسم مطلوب
-                    </div>
-                </ng-container>
-                <div class="d-flex flex-row align-items-start  mt-4 gap-1">
-                    <label for="" class="form-control w-25 mr-3">سعر الشحن</label>
-                    <input type="number" class="form-control w-50" formControlName="Cost"/>
+            </ng-container>
+            <div class="d-flex flex-row align-items-start  mt-4 gap-1">
+                <label for="" class="form-control w-25 mr-3">سعر الشحن</label>
+                <input type="number" class="form-control w-50" formControlName="Cost" />
+            </div>
+            <ng-container *ngIf="getCost.touched ">
+                <div *ngIf="getCost.hasError('required')" class="form-text text-danger">
+                    سعرالشحن مطلوب
                 </div>
-                <ng-container *ngIf="getCost.touched ">
-                    <div *ngIf="getCost.hasError('required')" 
-                        class="form-text text-danger">
-                        سعرالشحن مطلوب
-                    </div>
-                </ng-container>
-                <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> حاول ادخال البيانات بطريقه صحيحه مره اخري </div>
-                <div class="p-3 d-flex align-items-start gap-2">
-                    <button type="submit" class="btn btn-outline-dark " (click)="AddShippingType();">حفظ</button>
-                    <button type="button" class="btn btn-outline-danger " (click)="modal.close('cancel click'); ">الغاء</button>
-                </div>
-		</form>
-	</div>
+            </ng-container>
+            <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> حاول ادخال البيانات بطريقه صحيحه مره اخري </div>
+            <div class="p-3 d-flex align-items-start gap-2">
+                <button type="submit" class="btn btn-outline-info" (click)="AddShippingType();">حفظ</button>
+                <button type="button" class="btn btn-outline-danger "
+                    (click)="modal.close('cancel click'); ">الغاء</button>
+            </div>
+        </form>
+    </div>
 </ng-template>
 
 <!-- Updating an exisiting shipping Type modal -->
 <ng-template #content2 let-modal>
-	<div class="d-flex justify-content-between p-3">
-		<h5 >تعديل نوع شحن</h5>
-		<button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-        <form  class="flex flex-wrap" [formGroup]="UpdateShippingTypeForm" >
-                <div class="d-flex flex-row align-items-start gap-1">
-                    <label for="" class="form-control w-25">الاسم</label>
-                    <input type="text" class="form-control w-50" formControlName="Name" >
-                </div>
-                
-                <div class="d-flex flex-row align-items-start  mt-4 gap-1">
-                    <label for="" class="form-control w-25 mr-3">سعر الشحن</label>
-                    <input type="number" class="form-control w-50" formControlName="Cost"/>
-                </div>
-                
-                <div class="h6 text-danger ms-5 mt-2" *ngIf="flag2"> لم يتم تعديل ايا من المدخلات  </div>
-                <div class="p-3 d-flex align-items-start gap-2">
-                    <button type="submit" class="btn btn-outline-dark " (click)="UpdateShippingType()">حفظ</button>
-                    <button type="button" class="btn btn-outline-danger " (click)="modal.close('cancel click'); resetFlag()">الغاء</button>
-                </div>
-		</form>
-	</div>
-</ng-template>
+    <div class="d-flex justify-content-between p-3">
+        <h5>تعديل نوع شحن</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form class="flex flex-wrap" [formGroup]="UpdateShippingTypeForm">
+            <div class="d-flex flex-row align-items-start gap-1">
+                <label for="" class="form-control w-25">الاسم</label>
+                <input type="text" class="form-control w-50" formControlName="Name">
+            </div>
 
+            <div class="d-flex flex-row align-items-start  mt-4 gap-1">
+                <label for="" class="form-control w-25 mr-3">سعر الشحن</label>
+                <input type="number" class="form-control w-50" formControlName="Cost" />
+            </div>
+
+            <div class="h6 text-danger ms-5 mt-2" *ngIf="flag2"> لم يتم تعديل ايا من المدخلات </div>
+            <div class="p-3 d-flex align-items-start gap-2">
+                <button type="submit" class="btn btn-outline-info " (click)="UpdateShippingType()">حفظ</button>
+                <button type="button" class="btn btn-outline-danger "
+                    (click)="modal.close('cancel click'); resetFlag()">الغاء</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
