@@ -47,3 +47,8 @@ export interface employeeResponse {
   data: getAllEmployees[];
 }
 
+export interface updatePassword{
+  id: string;
+  email: string;
+  password: string;
+}

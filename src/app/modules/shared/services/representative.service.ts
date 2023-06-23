@@ -6,6 +6,7 @@ import { ErrorMessageService } from './error-message.service';
 import { EMPTY, catchError } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { Params } from '../models/Params';
+import { updatePassword } from '../models/Employee';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,24 @@ export class RepresentativeService {
     )
     
   }
+
+
+ public UpdateRepresentativePassword(updatePassword:updatePassword,EId:any){
+    const url = `Representative/pass?id=${EId}`;
+  return  this.apiService.put<any,updatePassword>(url,updatePassword).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+    
+  }
+
+
+
+
+
   public AddRepresentative(representative: addRepresentative) {
       const url = `Representative`;
      return this.apiService.post<any,addRepresentative >(url, representative).pipe(

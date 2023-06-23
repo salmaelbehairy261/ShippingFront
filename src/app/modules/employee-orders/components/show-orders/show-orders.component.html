@@ -7,24 +7,27 @@
       <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
         <option *ngFor="let size of tableSizes">{{size}}</option>
       </select>
+
     </div>
-    <table class="table text-center my-4">
-      <thead class="table-dark">
-        <tr class="text-center">
-          <th>#</th>
-          <th>اسم العميل</th>
-          <th>التاريخ</th>
-          <th>المحافظة</th>
-          <th>المدينة</th>
-          <th>تكلفة الطلب</th>
-          <th *ngIf="orderStatusNow!=0">عرض الطلب</th>
-          <th *ngIf="orderStatusNow==1">اسناد لمندوب</th>
-          <th *ngIf="orderStatusNow==0">تغيير الحالة</th>
-          <th>طباعه</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <tr *ngFor="
+    <div class="row justify-content-center my-3">
+      <div class="col-12 ">
+        <table class="table text-center my-4">
+          <thead class="table-dark">
+            <tr class="text-center">
+              <th>#</th>
+              <th>اسم العميل</th>
+              <th>التاريخ</th>
+              <th>المحافظة</th>
+              <th>المدينة</th>
+              <th>تكلفة الطلب</th>
+              <th *ngIf="orderStatusNow!=0">عرض الطلب</th>
+              <th *ngIf="orderStatusNow==1">اسناد لمندوب</th>
+              <th *ngIf="orderStatusNow==0">تغيير الحالة</th>
+              <th>طباعه</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="
           let order of CurrentOrders
             | paginate
               : {
@@ -32,22 +35,24 @@
                   currentPage: pageNumber,
                   totalItems: count
                 };let i = index">
-          <td>{{ i+1 }}</td>
-          <td>{{ order.clientName }}</td>
-          <td>{{ order.date | date:'medium' }}</td>
-          <td>{{ order.governorate }}</td>
-          <td>{{ order.city }}</td>
-          <td>{{ order.cost }}</td>
-          <td *ngIf="orderStatusNow!=0"><a style="color: #00b4d8;font-size: larger;"
-              [routerLink]="['display/',order.id]"><i class="fa-solid fa-eye"></i></a></td>
-          <td *ngIf="orderStatusNow==1"><a class="btn btn-primary" (click)="open(mymodal,order.id)"
-              (click)="DropdownListRepresentative()">اسناد</a></td>
-          <td *ngIf="orderStatusNow==0"><a class="btn btn-primary" (click)="open(mymodal,order.id)">الحالة</a></td>
-          <td><a style="color: #00b4d8;font-size: larger;" [routerLink]="['display/',order.id]"><i
-                class="fa-solid fa-print"></i></a></td>
-        </tr>
-      </tbody>
-    </table>
+              <td>{{ i+1 }}</td>
+              <td>{{ order.clientName }}</td>
+              <td>{{ order.date | date:'medium' }}</td>
+              <td>{{ order.governorate }}</td>
+              <td>{{ order.city }}</td>
+              <td>{{ order.cost }}</td>
+              <td *ngIf="orderStatusNow!=0"><a style="color: #00b4d8;font-size: larger;"
+                  [routerLink]="['display/',order.id]"><i class="fa-solid fa-eye"></i></a></td>
+              <td *ngIf="orderStatusNow==1"><a class="btn btn-primary" (click)="open(mymodal,order.id)"
+                  (click)="DropdownListRepresentative()">اسناد</a></td>
+              <td *ngIf="orderStatusNow==0"><a class="btn btn-primary" (click)="open(mymodal,order.id)">الحالة</a></td>
+              <td><a style="color: #00b4d8;font-size: larger;" [routerLink]="['display/',order.id]"><i
+                    class="fa-solid fa-print"></i></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="d-flex justify-content-center">
       <pagination-controls previousLabel="Prev" nextLabel="Next"
         (pageChange)="onTableDataChange($event)"></pagination-controls>
@@ -92,7 +97,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">الغاء</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">الغاء</button>
     <button *ngIf="orderStatusNow!=1" type="button" class="btn btn-primary" (click)="modal.close('Save click')"
       (click)="ChangeOrderStatus()">حفظ</button>
     <button *ngIf="orderStatusNow==1" type="button" class="btn btn-primary" (click)="modal.close('Save click')"

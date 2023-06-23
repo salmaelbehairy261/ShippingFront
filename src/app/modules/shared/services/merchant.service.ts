@@ -6,6 +6,7 @@ import { ErrorMessageService } from './error-message.service';
 import { EMPTY, catchError } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { Params } from '../models/Params';
+import { updatePassword } from '../models/Employee';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +60,22 @@ public GetMerchant(Eid:any) {
    
 }
 
+ public UpdateMerchantPassword(updatePassword:updatePassword,EId:any){
+  
+    const url = `Merchant/pass?id=${EId}`;
+  return  this.apiService.put<any,updatePassword>(url,updatePassword).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+   
+}
+
+  
+  
+  
   public AddMerchant(merchant:addMerchant ) {
       const url = `Merchant`;
      return this.apiService.post<any,addMerchant >(url, merchant).pipe(
