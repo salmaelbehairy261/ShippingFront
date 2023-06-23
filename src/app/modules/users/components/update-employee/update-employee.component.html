@@ -47,12 +47,12 @@
             <div *ngIf="jobInfo">
               <div class="form-group mb-3">
                 <label for="branch" class="fw-bold mb-1">الفرع</label>
-                <select formControlName="branch" id="branch" class="form-control p-2">
+                <select formControlName="branchId" id="branch" class="form-control p-2">
                     <option value="">اختر فرع</option>
                     <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
                 </select>
-                <div *ngIf="updateEmployeeForm.get('branch')!.invalid && updateEmployeeForm.get('branch')!.touched">
-                    <div class="text-danger" *ngIf="updateEmployeeForm.get('branch')!.errors!['required']">
+                <div *ngIf="updateEmployeeForm.get('branchId')!.invalid && updateEmployeeForm.get('branchId')!.touched">
+                    <div class="text-danger" *ngIf="updateEmployeeForm.get('branchId')!.errors!['required']">
                         الفرع مطلوب
                     </div>
                 </div>

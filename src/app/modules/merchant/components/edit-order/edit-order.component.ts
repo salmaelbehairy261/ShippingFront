@@ -45,8 +45,6 @@ export class EditOrderComponent implements OnInit{
       const order:OrderToUpdate=res
       this.displayData(order)
     })
-
-
   }
   cities: city[]=[]
   governorates: governorateWithCities[]=[]
@@ -65,7 +63,16 @@ export class EditOrderComponent implements OnInit{
     { name: 'الاستلام من الفرع', value: orderType.ReceiveFromTheBranch },
     { name: 'الاستلام من التاجر', value: orderType.ReceiveFromTheTrader }
   ];
-
+  orderInfo=true
+  clientInfo=false
+  productInfo=false
+  notes=false
+  showInfo(step:number){
+    this.orderInfo=step==1
+    this.clientInfo=step==2
+    this.productInfo=step==3
+    this.notes=step==4
+  }
   orderForm = this.fb.group(
     {
       orderType: new FormControl('', [Validators.required]),
