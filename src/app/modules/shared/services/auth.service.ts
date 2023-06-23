@@ -111,15 +111,10 @@ Permissions : Permissions []=[]
   }
 
 
-  hasPermission(id: number) {
-  const permission = this.Permissions.find(p => p.id === id);
+  hasPermission(id: number ,action: string) {
+  const permission = this.Permissions.find(p => p.id === id && p.action===action);
   return !!permission; 
   }
-
-  hasAction(action: string)
-  {
-    const permission = this.Permissions.find(p => p.action === action)
-     return !!permission; 
-  }  
+ 
 
 }

@@ -12,8 +12,8 @@
 
 
       <!--Brach-->
-      <li *ngIf="hasPermission(1) && hasAction('Show')" class="nav-item w-100 px-3 rounded"
-        [routerLink]="['employee/branch']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <li *ngIf=" hasPermission(1,'Show')" class="nav-item w-100 px-3 rounded" [routerLink]="['employee/branch']"
+        routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
           <div>
             <svg width="30px" height="30px" class="stroke" viewBox="0 0 24 24" version="1.1"
@@ -33,7 +33,7 @@
         </a>
       </li>
 
-      <li *ngIf="hasPermission(1) && !hasAction('Show' ) && hasAction('Add' ) " class="nav-item w-100 px-3 rounded"
+      <li *ngIf=" !hasPermission(1 ,'Show') && hasPermission(1 ,'Add' ) " class="nav-item w-100 px-3 rounded"
         [routerLink]="['employee/addBranch']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
           <div>
@@ -53,6 +53,7 @@
           </div>
         </a>
       </li>
+
 
 
 
@@ -119,24 +120,57 @@
         </a>
       </li>
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isUsersCollapsed" class="m-0 px-3">
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/users/ShowEmployee"
-          routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+        <!-- employee-->
+        <li *ngIf=" hasPermission(4,'Show')" class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/ShowEmployee" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">الموظفين</span>
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/users/ShowMerchant"
-          routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf=" !hasPermission(4,'Show') && hasPermission(4 ,'Add' ) " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/AddEmployee" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">الموظفين</span>
+            </div>
+          </a>
+        </li>
+        <!-- merchant-->
+        <li *ngIf="hasPermission(6,'Show')  " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/ShowMerchant" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">التجار</span>
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/users/ShowRepresentative"
-          routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf=" !hasPermission(6 ,'Show') && hasPermission(6 ,'Add' ) " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/AddMerchant" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">التجار</span>
+            </div>
+          </a>
+        </li>
+        <!--Representative-->
+        <li *ngIf="hasPermission(5,'Show')  " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/ShowRepresentative" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">المناديب</span>
+            </div>
+          </a>
+        </li>
+        <li *ngIf=" !hasPermission(5 ,'Show') && hasPermission(5 ,'Add' ) " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/users/AddRepresentative" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">المناديب</span>

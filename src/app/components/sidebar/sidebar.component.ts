@@ -37,14 +37,11 @@ export class SidebarComponent implements OnInit {
  
 
 
-  hasPermission(id: number) {
-    return this.authService.hasPermission(id); 
+  hasPermission(id: number,action:string) {
+    return this.authService.hasPermission(id,action); 
   }
 
-  hasAction(action: string)
-  {
-    return this.authService.hasAction(action);
-  }  
+ 
 
 
 }

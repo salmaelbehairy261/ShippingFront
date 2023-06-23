@@ -14,7 +14,8 @@ export class CityService {
     private toastr:MyToastrService,
     private errorMessageService:ErrorMessageService
   ) { }
-  public addCity(addCity:AddCity){
+
+  public addCity(addCity: AddCity) {
     const url='City'
     return this.apiService.post<any,AddCity>(url,addCity).pipe(
       catchError(error => {
