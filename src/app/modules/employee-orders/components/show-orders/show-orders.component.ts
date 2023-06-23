@@ -42,7 +42,7 @@ export class ShowOrdersComponent implements OnInit{
     })
   }
 
-  //Pagination
+ 
   countOfTotalOrders(searchText:string): void {
     this.employeeOrdersService.GetCountOrdersForEmployee(searchText,this.statusId).subscribe((res) => {
       this.count=Number(res);
@@ -77,7 +77,7 @@ export class ShowOrdersComponent implements OnInit{
     this.countOfTotalOrders(this.searchText);
   }
 
-  //modal
+ 
   closeResult: string = '';
 
   open(content:any,orderId:any) {
@@ -113,7 +113,7 @@ export class ShowOrdersComponent implements OnInit{
 
   }
 
-  //Representative
+  
   DropdownListRepresentative()
   {
     this.employeeOrdersService.DropdownListRepresentative(this.orderId).subscribe((res) => {
