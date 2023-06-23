@@ -97,7 +97,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">الغاء</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">الغاء</button>
     <button *ngIf="orderStatusNow!=1" type="button" class="btn btn-primary" (click)="modal.close('Save click')"
       (click)="ChangeOrderStatus()">حفظ</button>
     <button *ngIf="orderStatusNow==1" type="button" class="btn btn-primary" (click)="modal.close('Save click')"
