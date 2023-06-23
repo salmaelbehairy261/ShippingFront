@@ -11,6 +11,10 @@ import { governorateWithCities } from 'src/app/modules/shared/models/Governorate
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { branchList } from 'src/app/modules/shared/models/Branch';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OrderConfirmationComponent } from '../order-confirmation/order-confirmation.component';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -26,7 +30,10 @@ export class NewOrderComponent implements OnInit {
     private orderService: OrderService,
     private fb: FormBuilder,
     private navTitleService:NavTitleService,
-    private authService:AuthService
+    private authService:AuthService,
+    private modalService: NgbModal,
+    private toastr:MyToastrService,
+    private location:Location
   ) { }
   ngOnInit(): void {
     this.navTitleService.title.next('إضافة طلب')
@@ -135,7 +142,18 @@ export class NewOrderComponent implements OnInit {
       products:this.productsArr
     }
     this.orderService.addOrder(order).subscribe(res => {
-      //modal to view data
+      const modalRef = this.modalService.open(OrderConfirmationComponent, {
+        size: 'lg',
+        centered: true,
+      });
+      modalRef.componentInstance.productCost =res.result.productTotalCost
+      modalRef.componentInstance.shippingCost =res.result.orderShippingTotalCost
+      modalRef.componentInstance.weight =res.result.totalWeight
+      modalRef.componentInstance.message="تم إضافة الطلب بنجاح"
+      modalRef.hidden.subscribe(()=>{
+        this.toastr.success("تم إضافة الطلب بنجاح")
+        this.location.back()
+      })
       console.log(res.result)
     });
     console.log(order)

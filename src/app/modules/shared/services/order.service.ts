@@ -46,9 +46,6 @@ export class OrderService {
         return EMPTY;
       })
     )
-    .subscribe(res=>{
-      this.toastr.success("تم تحديث الطلب بنجاح")
-    })
   }
   deleteOrder(orderId:any)
   {
@@ -98,7 +95,7 @@ export class OrderService {
     {name:"رفض مع سداد جزء",value:OrderStatus.RejectWithPartialPaying},
   ]
 
-  
+
   //Start Employee
   CountOrdersForEmployeeByStatus() {
     const url = "Order/CountOrdersForEmployeeByStatus";
@@ -146,7 +143,7 @@ export class OrderService {
         return EMPTY;
       })
     )
-    
+
   }
 
 
@@ -162,7 +159,7 @@ export class OrderService {
         })
       )
   }
-  
+
   GetOrdersForMerchant(searchText:string,statusId:any,pageNumber:any,pageSize:any) {
       const url = `Order/GetOrdersForMerchant?searchText=${searchText}&merchantId=${this.merchantId}&statusId=${statusId}&pageNubmer=${pageNumber}&pageSize=${pageSize}`;
       return this.apiService.get(url).pipe(
@@ -173,7 +170,7 @@ export class OrderService {
         })
       )
   }
-  
+
   GetCountOrdersForMerchant(searchText:string,statusId: any) {
       const url = `Order/GetCountOrdersForMerchant?searchText=${searchText}&merchantId=${this.merchantId}&statusId=${statusId}`;
       return this.apiService.get(url).pipe(
@@ -289,7 +286,7 @@ export class OrderService {
     })
   )
   }
- 
+
   //Display Order
   GetAllDataById(id:any) {
     const url = `Order/GetAllDataById?id=${id}`;
@@ -301,5 +298,5 @@ export class OrderService {
       })
     )
   }
-  
+
 }

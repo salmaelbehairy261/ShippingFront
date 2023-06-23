@@ -5,12 +5,12 @@
   .inner-addon {
     position: relative;
   }
-  .inner-addon .far, .inner-addon .fas {
+  .inner-addon svg, .inner-addon svg{
   position: absolute;
   z-index: 100;
   cursor: pointer;
   top: 60%;
-  left: 2%; 
+  left: 2%;
   }
   .hide{
     display: none;
