@@ -141,11 +141,6 @@ loadMerchant(merchantId:string) {
   }
 
 
-
-
-
-
-
   get specialPricesControls() {
     return this.updateMerchantForm.get('specialPrices') as FormArray;
   }
@@ -206,7 +201,8 @@ loadMerchant(merchantId:string) {
 
 
     this.merchantService.UpdateMerchant(Data,this.merchantId) .subscribe(res => {
-      this.toaster.success("تم تعديل التاجر بنجاح")
+      this.location.back();
+      this.toaster.success("تم تعديل التاجر بنجاح");
     });
   }
 }

@@ -60,17 +60,13 @@ export class OrdersreportComponent {
     this.pageNumber = event;
     this.fetchOrders(this.pageNumber,this.pageSize);
   }
-
   onTableSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.pageNumber = 1;
     this.fetchOrders(this.pageNumber,this.pageSize);
   }
 
-  StatusSearch(event:any)
-  {
-    this.statusSearch=event.target.value;
-  }
+  
   IsValid()
   {
     if(this.fromDate!=undefined&&this.toDate!=undefined&&this.statusSearch!=undefined&& new Date(this.fromDate) < new Date(this.toDate))
@@ -82,10 +78,19 @@ export class OrdersreportComponent {
       this.isValid=false;
     }
   }
-
+  StatusSearch(event:any)
+  {
+    this.statusSearch=event.target.value;
+  }
   SearchByDate()
   {
     this.fetchOrders(this.pageNumber,this.pageSize);
     this.countOfTotalOrders();
+  }
+  Reset()
+  {
+    this.isValid=false;
+    this.countOfTotalOrders();
+    this.fetchOrders(this.pageNumber,this.pageSize);
   }
 }
