@@ -1,4 +1,4 @@
-import { addEmployee, employeeResponse, getEmployee, updateEmployee } from '../models/Employee';
+import { addEmployee, employeeResponse, getEmployee, updateEmployee, updatePassword } from '../models/Employee';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { MyToastrService } from './my-toastr.service';
@@ -52,9 +52,25 @@ public UpdateEmployee(updateEmployee:updateEmployee,EId:any){
         this.toastr.error(err);
         return EMPTY;
       })
-    )
-    
+    ) 
+  }
+  
+
+  public UpdateEmployeePassword(updatePassword:updatePassword,EId:any){
+    const url = `Employee/pass?id=${EId}`;
+   return this.apiService.put<any,updatePassword>(url,updatePassword).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    ) 
 }
+
+
+
+
+
 
 public GetEmployees(employeeParams:Params){
   const url = `Employee`;

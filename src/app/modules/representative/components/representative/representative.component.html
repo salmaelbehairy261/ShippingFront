@@ -1,23 +1,27 @@
-<div class="container">
-    <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
+<div class="container-fluid p-4">
+  <div class=" formbg p-4 mt-3">
+    <div class="d-flex flex-wrap justify-content-between">
+      <input type="search" style="width: 20%;float: left;" class="form-control" placeholder="ابحث...."
+        (input)="Search($event)" />
+      <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
         <option *ngFor="let size of tableSizes">{{size}}</option>
-    </select>
-    <input type="search" style="width: 20%;float: left;" class="form-control" placeholder="ابحث...." (input)="Search($event)"/>
-    <table class="table text-center">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>اسم العميل</th>
-                <th>التاريخ</th>
-                <th>المحافظة</th>
-                <th>المدينة</th> 
-                <th>تكلفة الطلب</th>
-                <th>الحالة</th> 
-                <!-- <th>طباعه</th> -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="
+      </select>
+    </div>
+    <table class="table text-center  my-4">
+      <thead class="table-dark">
+        <tr class="text-center">
+          <th>#</th>
+          <th>اسم العميل</th>
+          <th>التاريخ</th>
+          <th>المحافظة</th>
+          <th>المدينة</th>
+          <th>تكلفة الطلب</th>
+          <th>الحالة</th>
+
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="
             let order of CurrentOrders
               | paginate
                 : {
@@ -25,52 +29,54 @@
                     currentPage: pageNumber,
                     totalItems: count
                   };let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ order.clientName }}</td>
-                <td>{{ order.date | date:'medium' }}</td>
-                <td>{{ order.governorate }}</td>
-                <td>{{ order.city }}</td>
-                <td>{{ order.cost }}</td>
-                <td><a class="btn btn-primary" (click)="open(mymodal,order.id)">الحالة</a></td>
-               <!-- <td><a style="color: #00b4d8;font-size: larger;" routerLink=""><i class="fa-solid fa-print"></i></a></td> -->
-            </tr>
-        </tbody>
+          <td>{{ i+1 }}</td>
+          <td>{{ order.clientName }}</td>
+          <td>{{ order.date | date:'medium' }}</td>
+          <td>{{ order.governorate }}</td>
+          <td>{{ order.city }}</td>
+          <td>{{ order.cost }}</td>
+          <td><a class="btn btn-primary" (click)="open(mymodal,order.id)">الحالة</a></td>
+          <!-- <td><a style="color: #00b4d8;font-size: larger;" routerLink=""><i class="fa-solid fa-print"></i></a></td> -->
+        </tr>
+      </tbody>
     </table>
     <div class="d-flex justify-content-center">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+      <pagination-controls previousLabel="Prev" nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"></pagination-controls>
     </div>
-</div> 
-
+  </div>
+</div>>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-   
+
 
 <ng-template #mymodal let-modal>
-    <div class="modal-header">
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class>
-          <p>الحالة</p>
-          <select id="ddlneworder" class="form-select" style="width: 50%;" (change)="IsSelectReason($event)" >
-  
-              <option *ngFor="let status of StatusNamesExpectNewPendingAndReject" [value]="status.value">{{status.name}}</option>
-  
-          </select><br>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class>
+      <p>الحالة</p>
+      <select id="ddlneworder" class="form-select" style="width: 50%;" (change)="IsSelectReason($event)">
 
-          <div *ngIf="reasonFlag" >
-            <p>سبب الرفض</p>
-          <select  id="ddlreason" class="form-select" style="width: 50%;" >
-            <option *ngFor="let reason of reasonsRefusalTypes" [value]="reason.id">{{reason.name}}</option>
-           </select> 
-          </div>
-          
+        <option *ngFor="let status of StatusNamesExpectNewPendingAndReject" [value]="status.value">{{status.name}}
+        </option>
+
+      </select><br>
+
+      <div *ngIf="reasonFlag">
+        <p>سبب الرفض</p>
+        <select id="ddlreason" class="form-select" style="width: 50%;">
+          <option *ngFor="let reason of reasonsRefusalTypes" [value]="reason.id">{{reason.name}}</option>
+        </select>
       </div>
+
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">الغاء</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"  (click)="ChangeStatusAndReasonRefusal()">حفظ</button>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">الغاء</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('Save click')"
+      (click)="ChangeStatusAndReasonRefusal()">حفظ</button>
+  </div>
 </ng-template>
-  

@@ -8,7 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NewOrderComponent } from './components/new-order/new-order.component';
 import { EditOrderComponent } from './components/edit-order/edit-order.component';
-import { DisplayOrderComponent } from './components/display-order/display-order.component'
+import { DisplayOrderComponent } from './components/display-order/display-order.component';
+import { UpdateAccountComponent } from './components/update-account/update-account.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DisplayOrderComponent } from './components/display-order/display-order.
     ShowOrdersComponent,
     NewOrderComponent,
     EditOrderComponent,
-    DisplayOrderComponent
+    DisplayOrderComponent,
+    UpdateAccountComponent
   ],
   imports: [
     CommonModule,
