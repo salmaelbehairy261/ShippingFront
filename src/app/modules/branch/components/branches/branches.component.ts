@@ -102,22 +102,16 @@ export class BranchesComponent {
 
   
 
-  hasAction(action: string)
+  hasPermission(action: string)
   {
-    return this.authService.hasAction(action);
+    return this.authService.hasPermission(1,action);
   }  
-  // DeleteBranch() {
-  //   this.branchService.delete(Number(this.currentID)).subscribe({
-  //     next: (data) => {
-  //       this.GetAllBranches();
-  //       this.deleteModal!.hide();
-  //     }
-  //   })
-  // }
+
+
   DeleteBranch() {
     this.branchService.delete(Number(this.currentID)).pipe(
       tap((response:any) => {
-        // console.log(response)
+        
         if (response['message'] === "Branch Deleted Successfully") {
           this.toasterSuccess();
           this.deleteModal!.hide();

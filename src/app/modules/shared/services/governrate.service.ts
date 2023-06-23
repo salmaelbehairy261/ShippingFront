@@ -30,7 +30,8 @@ export class GovernrateService {
       })
     )
   }
-  public GetGovernorateWithCitiesList(){
+  
+  public GetGovernorateWithCitiesList() {
     const url = `Governorate/allCitiesWithGovernorate`;
     return this.apiService.get<governorateWithCity[]>(url).pipe(
       catchError(error => {
@@ -50,6 +51,7 @@ export class GovernrateService {
       })
     )
   }
+
   public GetAllGovernorates(govParams:Params){
     const url = `Governorate/all`;
   let p = new HttpParams();
