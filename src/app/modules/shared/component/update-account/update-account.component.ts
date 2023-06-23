@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MyToastrService } from '../../services/my-toastr.service';
 
 @Component({
   selector: 'app-update-account',
@@ -17,7 +18,8 @@ export class UpdateAccountComponent {
     private authService:AuthService,
     private employeeService:EmployeeService,
     private merchantService:MerchantService,
-    private representativeService:RepresentativeService
+    private representativeService:RepresentativeService,
+    private toastr:MyToastrService
     ){}
   showPassword=false
   showConfirmPassword=false
@@ -50,6 +52,7 @@ export class UpdateAccountComponent {
       else{
         this.employeeService.UpdateEmployeePassword(updatePassword,this.authService.getUserId()).subscribe(res=>{
           this.activeModal.close()
+          this.toastr.success("تم تحديث كلمة المرور بنجاح")
         })
       }
     }

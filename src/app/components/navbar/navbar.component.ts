@@ -22,8 +22,7 @@ export class NavbarComponent implements OnInit {
     private authService:AuthService,
     private router:Router,
     private cookieService:CookieService,
-    private modalService: NgbModal,
-    private toastr:MyToastrService,){}
+    private modalService: NgbModal,){}
   ngOnInit(): void {
     this.navTitleService.title.subscribe(res=>{
       this.title=res
@@ -39,8 +38,5 @@ export class NavbarComponent implements OnInit {
   }
   updatePassword(){
     const modalRef = this.modalService.open(UpdateAccountComponent, {centered: true,});
-    modalRef.hidden.subscribe(()=>{
-      this.toastr.success("تم تحديث كلمة المرور بنجاح")
-    })
   }
 }
