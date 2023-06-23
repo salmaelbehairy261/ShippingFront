@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { catchError, of, tap } from 'rxjs';
 import { addBranch, getAllBranch, updateBranch } from 'src/app/modules/shared/models/Branch';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
@@ -21,6 +22,7 @@ export class BranchesComponent {
   totalCount = 0;
   isDesc:boolean=false
   constructor(private branchService: BranchService,
+    private myToastrService:MyToastrService,
     private toastr:MyToastrService,
     private navTitleService:NavTitleService) {}
   term: string = "";
@@ -97,13 +99,40 @@ export class BranchesComponent {
     })
   }
 
+  // DeleteBranch() {
+  //   this.branchService.delete(Number(this.currentID)).subscribe({
+  //     next: (data) => {
+  //       this.GetAllBranches();
+  //       this.deleteModal!.hide();
+  //     }
+  //   })
+  // }
   DeleteBranch() {
-    this.branchService.delete(Number(this.currentID)).subscribe({
-      next: (data) => {
-        this.GetAllBranches();
-        this.deleteModal!.hide();
-      }
-    })
+    this.branchService.delete(Number(this.currentID)).pipe(
+      tap((response:any) => {
+        // console.log(response)
+        if (response['message'] === "Branch Deleted Successfully") {
+          this.toasterSuccess();
+          this.deleteModal!.hide();
+          this.GetAllBranches();
+        }
+        else if (response['message'] === "Delete Employee First") {
+          this.deleteModal!.hide();
+          this.toasterError();
+        }
+      }),
+      catchError((error) => {
+        console.error('API request error:', error);
+        return of(null);
+      })
+    ).subscribe();
+  
+  }
+  toasterSuccess(){
+    this.myToastrService.success("تم حذف الفرع بنجاح");
+  }
+  toasterError(){
+    this.myToastrService.error("لا يمكن حذف فرع يوجد به موظفين");
   }
 
   onPageChanged(event: any)
