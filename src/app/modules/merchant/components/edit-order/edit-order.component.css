@@ -1,8 +1,21 @@
 textarea{
-    resize: none;
-    height: 200px;
-  }
-  .btn-main{
-    background-color: #4F6D7A;
-    color: #fff;
-  }
+  resize: none;
+  height: 200px;
+}
+.step{
+  font-weight: bold;
+  cursor: pointer;
+  color:  #69a7bf;
+}
+a{
+  font-weight: bold;
+  cursor: pointer;
+  color:  #69a7bf;
+}
+.active{
+  color: #4f6d7a;
+  border-bottom: 2px solid #4f6d7a;
+}
+.fill{
+  fill: #4f6d7a;
+}

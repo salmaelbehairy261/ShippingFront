@@ -33,18 +33,19 @@ export class ShowOrdersComponent implements OnInit{
     private navTitleService:NavTitleService) { }
 
   ngOnInit(): void {
-    this.navTitleService.title.next("عرض الطلبات")
-    this.countOfTotalOrders(this.searchText);
-    this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+    this.activeRoute.params.subscribe(params => {
+      this.statusId = +params['id'];
+      this.orderStatusNow=this.statusId
+      this.navTitleService.title.next("عرض الطلبات")
+      this.countOfTotalOrders(this.searchText);
+      this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
+    })
   }
 
-  //Pagination
+ 
   countOfTotalOrders(searchText:string): void {
-    this.statusId = this.activeRoute.snapshot.params['id'];
-
     this.employeeOrdersService.GetCountOrdersForEmployee(searchText,this.statusId).subscribe((res) => {
       this.count=Number(res);
-
     })
   }
 
@@ -76,7 +77,7 @@ export class ShowOrdersComponent implements OnInit{
     this.countOfTotalOrders(this.searchText);
   }
 
-  //modal
+ 
   closeResult: string = '';
 
   open(content:any,orderId:any) {
@@ -109,10 +110,10 @@ export class ShowOrdersComponent implements OnInit{
       this.fetchOrders(this.searchText,this.pageNumber,this.pageSize);
     })
 
-    
+
   }
 
-  //Representative
+  
   DropdownListRepresentative()
   {
     this.employeeOrdersService.DropdownListRepresentative(this.orderId).subscribe((res) => {

@@ -8,6 +8,8 @@ import { governates } from 'src/app/modules/shared/models/Governorate';
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-representative',
@@ -20,9 +22,13 @@ export class RepresentativeComponent implements OnInit {
   governorates: governates[] = [];
   dropdownSettings: IDropdownSettings = {};
   customArray: RepresentativeGovernateDto[] = [ ];
-
+  userInfo=false
+  personalInfo=true
+  jobInfo=false
 
   constructor(
+    private toaster: MyToastrService,
+    private location :Location,
     private representativeService: RepresentativeService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
@@ -38,7 +44,11 @@ export class RepresentativeComponent implements OnInit {
     this.loadBranches();
     this.loadGovernorates();
   }
-
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
+  }
 formBuilde() {
   this.representativeForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -145,7 +155,10 @@ formBuilde() {
     };
 
     console.log(Data);
-    this.representativeService.AddRepresentative(Data);
+    this.representativeService.AddRepresentative(Data).subscribe(res => {
+      this.toaster.success("تم إضافة المندوب بنجاح");
+      this.location.back();
+      });
   }
 
 }

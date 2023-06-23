@@ -3,12 +3,13 @@ import { getEmployee, updateEmployee } from '../../../shared/models/Employee';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../../shared/services/employee.service';
-
 import { BranchService } from 'src/app/modules/shared/services/branch.service';
 import { GroupService } from 'src/app/modules/shared/services/group.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { branchList } from 'src/app/modules/shared/models/Branch';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -19,12 +20,15 @@ import { branchList } from 'src/app/modules/shared/models/Branch';
 export class UpdateEmployeeComponent implements OnInit{
 
 updateEmployeeForm: FormGroup = new FormGroup({});
-
+  personalInfo=true
+  jobInfo=false
   groups: group[] = [];
   branches:branchList[] = [];
   employee: getEmployee|null =null;
   employeeId: string='';
   constructor(
+    private toaster:MyToastrService ,
+    private location:Location,
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
     private groupService: GroupService,
@@ -43,6 +47,10 @@ updateEmployeeForm: FormGroup = new FormGroup({});
       this.employeeId = params['id'];
       this.loadEmployee(this.employeeId);
     });
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.jobInfo=step==3
   }
   formBuilde() {
     this.updateEmployeeForm = this.formBuilder.group({
@@ -97,7 +105,10 @@ updateEmployeeForm: FormGroup = new FormGroup({});
 
     };
      console.log(updateEmployeeData);
-  this.employeeService.UpdateEmployee(updateEmployeeData,this.employeeId);
+    this.employeeService.UpdateEmployee(updateEmployeeData,this.employeeId).subscribe(res => {
+    this.toaster.success("تم تعديل الموظف بنجاح");
+    this.location.back();
+    });;
 
   }
 

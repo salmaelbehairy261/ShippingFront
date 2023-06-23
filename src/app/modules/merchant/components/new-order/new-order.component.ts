@@ -57,7 +57,6 @@ export class NewOrderComponent implements OnInit {
     { name: 'الاستلام من الفرع', value: orderType.ReceiveFromTheBranch },
     { name: 'الاستلام من التاجر', value: orderType.ReceiveFromTheTrader }
   ];
-
   orderForm = this.fb.group(
     {
       orderType: new FormControl('', [Validators.required]),
@@ -75,6 +74,16 @@ export class NewOrderComponent implements OnInit {
       village: new FormControl(false, []),
       products: this.fb.array([])
     })
+  orderInfo=true
+  clientInfo=false
+  productInfo=false
+  notes=false
+  showInfo(step:number){
+    this.orderInfo=step==1
+    this.clientInfo=step==2
+    this.productInfo=step==3
+    this.notes=step==4
+  }
   selectGovernorate() {
     this.orderForm.controls['city'].enable()
     this.selectedGov=this.governorates.find((gov: any) => gov.id == this.orderForm.value.governorate!)

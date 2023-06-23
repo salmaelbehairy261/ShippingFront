@@ -10,6 +10,8 @@ import { governorateWithCities } from "src/app/modules/shared/models/Governorate
 import { BranchService } from "src/app/modules/shared/services/branch.service";
 import { GovernrateService } from "src/app/modules/shared/services/governrate.service";
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-merchant',
@@ -17,6 +19,10 @@ import { NavTitleService } from "src/app/modules/shared/services/nav-title.servi
   styleUrls: ['./merchant.component.css']
 })
 export class MerchantComponent implements OnInit {
+  userInfo=false
+  personalInfo=true
+  jobInfo=false
+  paymentInfo=false
   merchantForm: FormGroup = new FormGroup({});
   governorates: governorateWithCities[] = [];
   cities: city[] = [];
@@ -25,13 +31,20 @@ export class MerchantComponent implements OnInit {
   customSpecialPrice: specialPrice[] = [];
 
   constructor(
+    private toaster: MyToastrService,
+    private location:Location,
     private merchantService: MerchantService,
     private branchService:BranchService,
     private governorateService:GovernrateService,
     private formBuilder: FormBuilder,
     private navTitleService:NavTitleService
   ) {}
-
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
+    this.paymentInfo=step==4
+  }
   ngOnInit(): void {
     this.navTitleService.title.next('اضافة تاجر')
     this.merchantForm = this.formBuilder.group({
@@ -139,6 +152,9 @@ onGovernorateChangeList(i: number) {
     };
 
 
-   this.merchantService.AddMerchant(merchantData);
+   this.merchantService.AddMerchant(merchantData).subscribe(res => {
+     this.toaster.success("تم إضافة التاجر بنجاح");
+     this.location.back();
+      });
   }
 }

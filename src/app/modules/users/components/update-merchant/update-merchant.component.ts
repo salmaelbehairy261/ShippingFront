@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -9,6 +10,7 @@ import { specialPrice } from "src/app/modules/shared/models/SpecialPrice";
 import { BranchService } from "src/app/modules/shared/services/branch.service";
 import { GovernrateService } from "src/app/modules/shared/services/governrate.service";
 import { MerchantService } from "src/app/modules/shared/services/merchant.service";
+import { MyToastrService } from "src/app/modules/shared/services/my-toastr.service";
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
 
 
@@ -27,7 +29,12 @@ export class UpdateMerchantComponent implements OnInit {
   customSpecialPrice: specialPrice[] = [];
   merchant: getMerchant|null = null;
   merchantId: string='';
+  personalInfo=true
+  jobInfo=false
+  paymentInfo=false
   constructor(
+     private toaster: MyToastrService,
+    private location:Location,
     private merchantService: MerchantService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -61,6 +68,11 @@ export class UpdateMerchantComponent implements OnInit {
       returnerPercent: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       specialPrices: this.formBuilder.array([])
     });
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.jobInfo=step==3
+    this.paymentInfo=step==4
   }
 loadMerchant(merchantId:string) {
   this.merchantService.GetMerchant(merchantId).subscribe((response) => {
@@ -129,11 +141,6 @@ loadMerchant(merchantId:string) {
   }
 
 
-
-
-
-
-
   get specialPricesControls() {
     return this.updateMerchantForm.get('specialPrices') as FormArray;
   }
@@ -193,6 +200,9 @@ loadMerchant(merchantId:string) {
     };
 
 
-    this.merchantService.UpdateMerchant(Data,this.merchantId);
+    this.merchantService.UpdateMerchant(Data,this.merchantId) .subscribe(res => {
+      this.location.back();
+      this.toaster.success("تم تعديل التاجر بنجاح");
+    });
   }
 }

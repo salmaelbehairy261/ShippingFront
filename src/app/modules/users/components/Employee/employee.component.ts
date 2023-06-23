@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { branchList } from "src/app/modules/shared/models/Branch";
@@ -6,6 +7,7 @@ import { group } from "src/app/modules/shared/models/Group";
 import { BranchService } from "src/app/modules/shared/services/branch.service";
 import { EmployeeService } from "src/app/modules/shared/services/employee.service";
 import { GroupService } from "src/app/modules/shared/services/group.service";
+import { MyToastrService } from "src/app/modules/shared/services/my-toastr.service";
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
 
 
@@ -16,13 +18,16 @@ import { NavTitleService } from "src/app/modules/shared/services/nav-title.servi
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-
- employeeForm: FormGroup = new FormGroup({});
+userInfo=false
+personalInfo=true
+jobInfo=false
+employeeForm: FormGroup = new FormGroup({});
 
   groups: group[] = [];
   branches:branchList[] = [];
 
-  constructor(
+  constructor(private toaster:MyToastrService ,
+    private location:Location,
     private employeeService: EmployeeService,
     private groupService: GroupService,
     private branchService:BranchService,
@@ -36,6 +41,11 @@ export class EmployeeComponent implements OnInit {
     this.formBuilde();
     this.loadBranches();
     this.loadGroups();
+  }
+  showInfo(step:number){
+    this.personalInfo=step==1
+    this.userInfo=step==2
+    this.jobInfo=step==3
   }
   formBuilde() {
     this.employeeForm = this.formBuilder.group({
@@ -80,7 +90,10 @@ onSubmit() {
 
     };
   console.log(employeeData);
-  this.employeeService.AddEmployee(employeeData);
+  this.employeeService.AddEmployee(employeeData).subscribe(res => {
+    this.toaster.success("تم إضافة الموظف بنجاح");
+     this.location.back();
+      });
 
   }
 

@@ -1,17 +1,12 @@
 <div class="px-4 py-2">
     <div class="page p-4 my-3  mx-auto  rounded">
-        <form class="flex flex-wrap" [formGroup]="AddGroupForm">
+        <form class="flex flex-wrap" [formGroup]="UpdateGroupForm">
             <div class="d-flex flex-row align-items-start gap-1">
                 <label for="" class="form-control w-25">الاسم</label>
                 <input type="text" class="form-control w-50" formControlName="name" />
             </div>
-            <ng-container *ngIf="getName.touched">
-                <div *ngIf="getName.hasError('required')" class="form-text text-danger">
-                    الاسم مطلوب
-                </div>
-            </ng-container>
             <table class="table mt-3 rounded">
-                <thead class="table-dark">
+                <thead>
                     <tr class="text-center">
                         <th>#</th>
                         <th>الاسم</th>
@@ -26,25 +21,31 @@
                         <td class="py-4">{{i+1}}</td>
                         <td class="py-4">{{item.name}}</td>
                         <td class="py-4">
-                            <input class="form-check-input" type="checkbox"
-                                (click)="AddOrRemovePermission(item.value,AddAction)" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" 
+                                (click)="AddOrRemovePermission(item.value,AddAction)" 
+                                [checked]="isChecked[i][zero]"
+                                id="flexCheckDefault">
                         </td>
                         <td class="py-4">
                             <input class="form-check-input" type="checkbox"
+                            [checked]="isChecked[i][one]"
                                 (click)="AddOrRemovePermission(item.value,DeleteAction)" id="flexCheckDefault">
                         </td>
                         <td class="py-4">
                             <input class="form-check-input" type="checkbox"
+                            [checked]="isChecked[i][two]"
                                 (click)="AddOrRemovePermission(item.value,EditAction)" id="flexCheckDefault">
                         </td>
                         <td class="py-4">
                             <input class="form-check-input" type="checkbox"
+                                [checked]="isChecked[i][three]"
                                 (click)="AddOrRemovePermission(item.value,ShowAction)" id="flexCheckDefault">
                         </td>
+                        
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-primary w-25" (click)="SubmitGroupFrom()">حفظ</button>
+            <button class="btn btn-primary w-25" [disabled]="saveBtnFlag" (click)="SubmitGroupFrom()">حفظ</button>
         </form>
 
     </div>
