@@ -2,9 +2,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { catchError, of, tap } from 'rxjs';
 import { governate, governateName, governates, governorateResponse } from 'src/app/modules/shared/models/Governorate';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 
 
@@ -23,7 +25,7 @@ export class GovernorateComponent {
   @ViewChild('search') searchTerms?: ElementRef;
   isDesc:boolean=false
   governerates: governates[] = []
-  constructor(private governorateService:GovernrateService,
+  constructor(private governorateService:GovernrateService,private myToastrService:MyToastrService,
     private navTitleService:NavTitleService) {}
   term: string = "";
   currentID: number = 0;
@@ -83,11 +85,35 @@ export class GovernorateComponent {
   }
 
   DeleteGovernorate() {
-    this.governorateService.DeleteGovernorate(this.currentID).subscribe((data) => {
-        this.GetAllGovernorates();
-        this.deleteModal!.hide();
+    this.governorateService.DeleteGovernorate(this.currentID).pipe(
+      tap((response:any) => {
+        console.log(response)
+        if (response['message'] === "Government Deleted Successfully") {
+  
+          this.toasterSuccess();
+          this.GetAllGovernorates();
+          this.deleteModal!.hide();
+        }
+        else if (response['message'] === "Delete Cities First") {
+          this.deleteModal!.hide();
+          this.toasterError();
+        }
+      }),
+      catchError((error) => {
+  
+        console.error('API request error:', error);
+        return of(null);
       })
+    ).subscribe();
+  
   }
+  toasterSuccess(){
+    this.myToastrService.success("تم حذف المجموعه بنجاح");
+  }
+  toasterError(){
+    this.myToastrService.error("لا يمكن حذف محافظه يوجد بها مدن");
+  }
+
 
 
   onPageChanged(event: any)
