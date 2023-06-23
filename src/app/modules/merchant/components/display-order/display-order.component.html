@@ -14,7 +14,6 @@
 
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">وسيلة الدفع :</span>
-
           <span *ngIf="orderData.paymentType==0" style="font-size: large;" class="p-2">دفع عند التوصيل</span>
           <span *ngIf="orderData.paymentType==1" style="font-size: large;" class="p-2">دفع مقدم </span>
           <span *ngIf="orderData.paymentType==2" style="font-size: large;" class="p-2">طرد مقابل طرد</span>
