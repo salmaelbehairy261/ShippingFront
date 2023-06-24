@@ -9,8 +9,9 @@
                 </div>
                 <form class="flex flex-wrap" [formGroup]="DeliverToVillageForm" (ngSubmit)="submit($event)">
                     <div class="d-flex flex-row justify-content-center mt-4 gap-2">
-                        <label for="" class="form-control w-50  mr-3">سعر الشحن للقري</label>
+                        <label for="" class="form-control w-25  mr-3">سعر الشحن للقري</label>
                         <input type="number" class="form-control w-25" formControlName="additionalCost" />
+                        <div for="" class="w-25 text-center"></div>
                         <div for="" class="w-25 text-center"></div>
                     </div>
                     <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> لم يتم تعديل ايا من البيانات </div>

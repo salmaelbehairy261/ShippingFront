@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { shippingType } from '../../../shared/models/shippingType';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 
 
@@ -20,7 +21,7 @@ export class ShippingTypeComponent implements OnInit{
   constructor(private shippingTypeService:ShippingTypeService,
     private modalService: NgbModal,
     private myToastrService:MyToastrService,
-    private navTitleService:NavTitleService) {  }
+    private navTitleService:NavTitleService, private authService:AuthService,) {  }
   shippingTypes:any;
 
   ngOnInit():void{
@@ -88,6 +89,10 @@ export class ShippingTypeComponent implements OnInit{
   //
   //
 
+   hasPermission(action: string)
+  {
+    return this.authService.hasPermission(11,action);
+  }  
 
   //add form
   flag: boolean = false;

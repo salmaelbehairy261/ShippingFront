@@ -5,6 +5,7 @@ import { getAllMerchants } from "src/app/modules/shared/models/Merchant";
 import { Params } from "src/app/modules/shared/models/Params";
 import { MerchantService } from "src/app/modules/shared/services/merchant.service";
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 
 
@@ -21,9 +22,10 @@ export class MarchantTableComponent implements OnInit {
   merchantParams = new Params();
   totalCount = 0;
   isDesc: boolean = false
-   selecteduser: getAllMerchants | null = null;
+  selecteduser: getAllMerchants | null = null;
  
   constructor(
+     private authService:AuthService,
     private merchantService: MerchantService,
     private router: Router,
     private navTitleService:NavTitleService) { }
@@ -43,6 +45,10 @@ export class MarchantTableComponent implements OnInit {
     });
   }
 
+  hasPermission(action: string)
+  {
+    return this.authService.hasPermission(6,action);
+  }  
 
   editMerchant(merchantId: string) {
 

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { getAllEmployees, employeeResponse } from "src/app/modules/shared/models/Employee";
 import { Params } from "src/app/modules/shared/models/Params";
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { EmployeeService } from "src/app/modules/shared/services/employee.service";
 
 
@@ -27,7 +28,8 @@ export class EmployeeTableComponent implements OnInit {
  constructor(
           private employeeService: EmployeeService,
           private router: Router,
-          private navTitleService:NavTitleService
+          private navTitleService: NavTitleService,
+          private authService:AuthService,
 ) {}
 
   ngOnInit(): void {
@@ -68,7 +70,11 @@ export class EmployeeTableComponent implements OnInit {
         this.deleteModal!.hide();
       });
     }
-}
+  }
+   hasPermission(action: string)
+  {
+    return this.authService.hasPermission(4,action);
+  }  
 
   onPageChanged(event: any)
   {

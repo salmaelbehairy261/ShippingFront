@@ -1,6 +1,6 @@
 <div class="container-fluid p-4">
     <div class=" formbg p-4 mt-3">
-        <div class="d-flex flex-wrap justify-content-end">
+        <div *ngIf=" hasPermission('Add')" class="d-flex flex-wrap justify-content-end">
             <div>
                 <button class="btn btn-outline-info" (click)="addModal.show()">اضافة موظف</button>
             </div>

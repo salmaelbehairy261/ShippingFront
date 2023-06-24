@@ -3,20 +3,22 @@
         <div class="px-4 p-2  ">
 
             <div>
-                <p class=" py-3 w-50 rounded " style="font-weight: 800; color: #4f6d7a;">اضافة فرع</p>
+                <h5 class=" py-3 w-50 rounded " style="font-weight: 800; color: #4f6d7a;">اضافة فرع</h5>
             </div>
+
             <form class="d-flex flex-wrap  gap-3" [formGroup]="BranchForm" (ngSubmit)="AddBranch()">
+                <div>
+                    <input type="text" class="form-control" placeholder="اسم الفرع" formControlName="Name">
 
-                <input type="text" class="form-control w-25" placeholder="اسم الفرع" formControlName="Name">
-
-                <div class="errs" *ngIf="BranchForm.get('Name')?.errors && BranchForm.get('Name')?.touched">
-                    <p class="text-danger" *ngIf="BranchForm.get('Name')?.errors?.['required']">الاسم
-                        مطلوب
-                    </p>
+                    <div class="errs" *ngIf="BranchForm.get('Name')?.errors && BranchForm.get('Name')?.touched">
+                        <p class="text-danger" *ngIf="BranchForm.get('Name')?.errors?.['required']">الاسم
+                            مطلوب
+                        </p>
+                    </div>
                 </div>
-
-                <button [disabled]="BranchForm.invalid" type="submit" class="special btn btn-primary">اضافة</button>
-
+                <div>
+                    <button [disabled]="BranchForm.invalid" type="submit" class="special btn btn-primary">اضافة</button>
+                </div>
 
             </form>
         </div>

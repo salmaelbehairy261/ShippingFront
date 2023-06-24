@@ -6,6 +6,7 @@ import { ReasonsRefusalTypeUpdate } from '../../../shared/models/ReasonsRefusalT
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReasonsRefusalTypeAdd } from 'src/app/modules/shared/models/ReasonsRefusalType';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 @Component({
   selector: 'app-reasons-refusal-type',
@@ -17,7 +18,8 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   constructor(private reasonsRefusalTypeService:ReasonsRefusalServiceService,
     private modalService: NgbModal,
     private myToastrService:MyToastrService,
-    private navTitleService:NavTitleService) {  }
+    private navTitleService: NavTitleService,
+   private authService:AuthService,) { }
   reasonsRefusalTypes:any;
 
   ngOnInit():void{
@@ -32,6 +34,10 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   updateReasonRefusal(reasonsRefusalType:ReasonsRefusalTypeUpdate){
     this.reasonsRefusalTypeService.updateReasonsRefusalType(reasonsRefusalType)
   }
+   hasPermission(action: string)
+  {
+    return this.authService.hasPermission(10,action);
+  } 
 
   deleteReasonRefusal(item:ReasonsRefusalTypeUpdate){
     this.reasonsRefusalTypeService.DeleteReasonsRefusalType(item.id).subscribe();
@@ -50,6 +56,7 @@ export class ReasonsRefusalTypeComponent implements OnInit{
 		);
 	}
 ///////////////////////////////////////////
+  
   ReasonRefusalTypeToUpdate:ReasonsRefusalTypeUpdate={id:0,name:""}
   openUpdateForm(content:any,item:ReasonsRefusalTypeUpdate) {
     this.ReasonRefusalTypeToUpdate=item;

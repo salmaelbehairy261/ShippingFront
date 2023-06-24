@@ -1,0 +1,25 @@
+<div class="container-fluid p-4">
+    <div class=" formbg p-4 mt-3" style="background-color:  #c0d6df71;">
+        <div class="px-4 py-2">
+            <div class="d-flex justify-content-between p-3">
+                <h5 class="textColor">اضافة سبب رفض</h5>
+
+            </div>
+            <form class="d-flex flex-wrap  gap-3" [formGroup]="AddReasonRefusalForm">
+                <div class="form-group w-50">
+                    <input placeholder="سبب الرفض" type="text" class="form-control " formControlName="name" />
+                    <ng-container *ngIf="getName.touched">
+                        <div *ngIf="getName.hasError('required')" class="form-text text-danger">
+                            سبب الرفض مطلوب
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div>
+                    <button type="submit" [disabled]="AddReasonRefusalForm.invalid" class="btn btn-primary"
+                        (click)="AddReasonRefusal();">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

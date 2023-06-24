@@ -87,6 +87,7 @@
           </div>
         </a>
       </li>
+
       <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee/groups']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
@@ -107,7 +108,10 @@
           </div>
         </a>
       </li>
-      <li class="nav-item w-100 px-3 rounded">
+
+      <li
+        *ngIf=" hasPermission(4,'Show') || hasPermission(4 ,'Add' ) || hasPermission(5,'Show') || hasPermission(5 ,'Add' ) || hasPermission(6,'Show') || hasPermission(6 ,'Add' ) "
+        class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isUsersCollapsed = ! isUsersCollapsed" [attr.aria-expanded]="!isUsersCollapsed">
           <div>
@@ -119,6 +123,8 @@
           </div>
         </a>
       </li>
+
+
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isUsersCollapsed" class="m-0 px-3">
         <!-- employee-->
         <li *ngIf=" hasPermission(4,'Show')" class="nav-item w-100 px-1 ms-3 rounded"
@@ -159,7 +165,8 @@
           </a>
         </li>
         <!--Representative-->
-        <li *ngIf="hasPermission(5,'Show')  " class="nav-item w-100 px-1 ms-3 rounded"
+
+        <li *ngIf="hasPermission(5,'Show')" class="nav-item w-100 px-1 ms-3 rounded"
           routerLink="employee/users/ShowRepresentative" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
@@ -168,6 +175,7 @@
             </div>
           </a>
         </li>
+
         <li *ngIf=" !hasPermission(5 ,'Show') && hasPermission(5 ,'Add' ) " class="nav-item w-100 px-1 ms-3 rounded"
           routerLink="employee/users/AddRepresentative" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
@@ -177,7 +185,11 @@
             </div>
           </a>
         </li>
+
       </ul>
+
+
+
       <li class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isLocCollapsed = ! isLocCollapsed" [attr.aria-expanded]="!isLocCollapsed">
@@ -208,7 +220,11 @@
           </a>
         </li>
       </ul>
-      <li class="nav-item w-100 px-3 rounded">
+
+
+
+
+      <li *ngIf=" hasPermission(13,'Show') || hasPermission(13,'Add')" class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isSettingCollapsed = ! isSettingCollapsed" [attr.aria-expanded]="!isSettingCollapsed">
           <div>
@@ -220,32 +236,52 @@
           </div>
         </a>
       </li>
+
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isSettingCollapsed" class="m-0 px-3">
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/weight" routerLinkActive="sub-active"
-          [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf=" hasPermission(13,'Show') || hasPermission(13,'Edit') " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/weight" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">اعدادات الوزن</span>
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/village" routerLinkActive="sub-active"
-          [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf=" hasPermission(12,'Show') || hasPermission(12,'Edit') " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/village" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">اعدادات التوصيل لقرية</span>
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/shipping"
-          routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf="hasPermission(11,'Show')" class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/shipping" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
               <span class="ms-1 px-3 d-none d-md-inline">انواع الشحن</span>
             </div>
           </a>
         </li>
-        <li class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/setting/reasons" routerLinkActive="sub-active"
+        <li *ngIf=" !hasPermission(11,'Show') && hasPermission(11,'Add') " class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/Addshipping" routerLinkActive="sub-active"
+          [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">انواع الشحن</span>
+            </div>
+          </a>
+        </li>
+
+        <li *ngIf="hasPermission(10,'Show')" class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/reasons" routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
+            <div class="fs-sub">
+              <span class="ms-1 px-3 d-none d-md-inline">اسباب الرفض</span>
+            </div>
+          </a>
+        </li>
+        <li *ngIf="!hasPermission(10,'Show') && hasPermission(10,'Add')" class="nav-item w-100 px-1 ms-3 rounded"
+          routerLink="employee/setting/Addreasons" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -254,6 +290,7 @@
           </a>
         </li>
       </ul>
+
       <li class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isStatCollapsed = ! isStatCollapsed" [attr.aria-expanded]="!isStatCollapsed">
