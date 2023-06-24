@@ -34,12 +34,8 @@ export class GroupPrivilageService {
         {name:"التاجر",value:6},
         {name:"الطلبات",value:7},
         {name:"تقرير الطلبات",value:8},
-        {name:"المجموعات",value:9},
+        {name:"الصلاحيات",value:9},
         {name:"الاعدادات",value:10},
-        // {name:"اسباب الرفض",value:9},
-        // {name:"نوع الشحن",value:10},
-        // {name:"الشحن لقريه",value:11},
-        // {name:"الوزن",value:12}
     ]
 }
 export class Permission{

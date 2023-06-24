@@ -1,9 +1,9 @@
 <div class="px-4 py-2">
-    <div class="page p-4 my-3  mx-auto  rounded">
+    <div class="page   p-4 my-3  mx-auto  rounded">
         <form class="flex flex-wrap" [formGroup]="AddGroupForm">
-            <div class="d-flex flex-row align-items-start gap-1">
-                <label for="" class="form-control w-25">الاسم</label>
-                <input type="text" class="form-control w-50" formControlName="name" />
+            <div class="form-group">
+                <label for="" class="form-label  textColor">اسم الصلاحية</label>
+                <input type="text" class="form-control w-50" placeholder="اسم الصلاحية" formControlName="name" />
             </div>
             <ng-container *ngIf="getName.touched">
                 <div *ngIf="getName.hasError('required')" class="form-text text-danger">

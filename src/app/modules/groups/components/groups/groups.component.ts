@@ -6,6 +6,7 @@ import { getAllGroups, groupResponse } from 'src/app/modules/shared/models/Group
 import { Params } from 'src/app/modules/shared/models/Params';
 import { Router } from '@angular/router';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 @Component({
   selector: 'app-groups',
@@ -16,7 +17,8 @@ export class GroupsComponent implements OnInit{
 
   constructor(private groupsService:GroupService,
     private myToastrService:MyToastrService,
-    private router:Router,
+    private router: Router,
+    private authService: AuthService,
     private navTitleService:NavTitleService) { }
   @ViewChild('search') searchTerms?: ElementRef;
   groups:getAllGroups[]=[];
@@ -38,8 +40,6 @@ export class GroupsComponent implements OnInit{
     this.totalCount=response.pageCount
   });
   }
-
-
 
   deleteGroup(id:number){
     this.groupsService.deleteGroup(id).pipe(
@@ -111,7 +111,13 @@ export class GroupsComponent implements OnInit{
 }
 updateGroup(id:number){
   this.router.navigate(["/employee/updateGroups",id]);
-}
+  }
+  
+ hasPermission(action: string)
+  {
+    return this.authService.hasPermission(9,action);
+  }  
+
 }
 
 

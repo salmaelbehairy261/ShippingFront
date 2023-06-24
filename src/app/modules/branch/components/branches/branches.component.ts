@@ -25,7 +25,8 @@ export class BranchesComponent {
   constructor(private branchService: BranchService,
     private myToastrService:MyToastrService,
     private toastr:MyToastrService,
-    private navTitleService:NavTitleService,private authService: AuthService) {}
+    private navTitleService: NavTitleService,
+    private authService: AuthService) { }
   term: string = "";
   currentID: number = 0;
   currentBranch: any = null;
