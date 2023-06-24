@@ -1,20 +1,35 @@
-.step{
+.inner-addon {
+  position: relative;
+}
+.inner-addon svg,
+.inner-addon svg {
+  position: absolute;
+  z-index: 100;
+  cursor: pointer;
+  top: 60%;
+  left: 2%;
+}
+.hide {
+  display: none;
+}
+
+.step {
   font-weight: bold;
   cursor: pointer;
-  color:  #69a7bf;
+  color: #69a7bf;
 }
-a{
+a {
   font-weight: bold;
   cursor: pointer;
-  color:  #69a7bf;
+  color: #69a7bf;
 }
-.active{
+.active {
   color: #4f6d7a;
   border-bottom: 2px solid #4f6d7a;
 }
-.fill{
+.fill {
   fill: #4f6d7a;
 }
-table tbody :nth-last-child(tr){
+table tbody :nth-last-child(tr) {
   border: none;
 }
