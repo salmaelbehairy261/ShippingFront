@@ -3,11 +3,14 @@
     <div class="d-flex flex-wrap justify-content-between">
       <input type="search" style="width: 20%;float: left;" class="form-control" placeholder="ابحث...."
         (input)="Search($event)" />
+    <div class="d-flex">
       <select class="form-select mr-3" style="width:70px;" (change)="onTableSizeChange($event)">
         <option *ngFor="let size of tableSizes">{{size}}</option>
       </select>
+      <img (click)="exportToExcel()" src="https://w7.pngwing.com/pngs/670/803/png-transparent-excel-logo-logos-logos-and-brands-icon-thumbnail.png" style="width: 70px; height: 50px;" class="btn mr-5" title="excel icons"/>
     </div>
-    <table class="table text-center  my-4">
+    </div>
+    <table class="table text-center  my-4" id="tableId">
       <thead class="table-dark">
         <tr class="text-center">
           <th>#</th>

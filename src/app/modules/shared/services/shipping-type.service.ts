@@ -59,7 +59,7 @@ export class ShippingTypeService {
   }
 
   toggleShippingTypeStatus(id : number){
-    return this.genericService.delete<any>(`ShippingType/changeState?id=${id}`).pipe(
+    return this.genericService.put(`ShippingType/changeState?id=${id}`,null).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);

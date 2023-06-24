@@ -3,7 +3,7 @@
     <button class="btn btn-primary m-3" style="float: left;" (click)="Print()">Print</button>
     <!-- <button class="btn btn-primary m-3" printSectionId="print-section" ngxPrint style="float: left;">Print</button>  -->
     <div class="rounded bg-light p-4">
-      <form class="d-flex flex-column align-items-center justify-content-center" id="print-section">
+      <form #printContainer class="d-flex flex-column align-items-center justify-content-center" id="print-section">
         <h3 class="mb-2 text-center " style="color: #4f6d7a;">تفاصيل الطلب </h3><br>
 
         <div class="mb-3">
@@ -54,7 +54,7 @@
           <span style="font-size: x-large;color: #4f6d7a;" class="p-4">الفرع :</span>
           <span style="font-size: large;" class="p-2">{{orderData.branch}}</span>
         </div>
-        <div class="mb-3">
+        <div *ngIf="orderData.notes" class="mb-3">
           <span style="font-size: x-large;color: #4f6d7a;" class="p-4">الملاحظات :</span>
           <span style="font-size: large;" class="p-2">{{orderData.notes}}</span>
         </div>

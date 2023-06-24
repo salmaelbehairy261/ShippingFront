@@ -17,31 +17,30 @@ export class ReasonsRefusalTypeComponent implements OnInit{
 
   constructor(private reasonsRefusalTypeService:ReasonsRefusalServiceService,
     private modalService: NgbModal,
-    private myToastrService:MyToastrService,
+    private toastr:MyToastrService,
     private navTitleService: NavTitleService,
    private authService:AuthService,) { }
   reasonsRefusalTypes:any;
 
   ngOnInit():void{
     this.navTitleService.title.next("اسباب الرفض")
+    this.getAllReasonRefusal();
+  }
+
+  getAllReasonRefusal(){
     this.reasonsRefusalTypeService.getAllReasonsRefusalTypes().subscribe(res=>this.reasonsRefusalTypes=res);
   }
 
-  addReasonRefusal(reasonsRefusalType:ReasonsRefusalTypeAdd){
-    this.reasonsRefusalTypeService.addReasonsRefusalType(reasonsRefusalType)
-  }
 
-  updateReasonRefusal(reasonsRefusalType:ReasonsRefusalTypeUpdate){
-    this.reasonsRefusalTypeService.updateReasonsRefusalType(reasonsRefusalType)
-  }
-   hasPermission(action: string)
+  hasPermission(action: string)
   {
     return this.authService.hasPermission(10,action);
   } 
 
   deleteReasonRefusal(item:ReasonsRefusalTypeUpdate){
-    this.reasonsRefusalTypeService.DeleteReasonsRefusalType(item.id).subscribe();
-    window.location.reload();
+    this.reasonsRefusalTypeService.DeleteReasonsRefusalType(item.id).subscribe(res=>{
+      this.getAllReasonRefusal()
+    });
   }
   //modal
   closeResult = '';
@@ -92,11 +91,11 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   flag: boolean = false;
 
   AddReasonRefusalForm=new FormGroup({
-    name:new FormControl('',[Validators.required])
+    nameForAdd:new FormControl('',[Validators.required])
   });
 
   get getName(){
-    return this.AddReasonRefusalForm.controls["name"];
+    return this.AddReasonRefusalForm.controls["nameForAdd"];
   }
 
 
@@ -107,12 +106,15 @@ export class ReasonsRefusalTypeComponent implements OnInit{
     if (this.AddReasonRefusalForm.status=="VALID")
       {
         const body:ReasonsRefusalTypeAdd ={
-          name:String(this.AddReasonRefusalForm.value.name)
+          name:String(this.AddReasonRefusalForm.value.nameForAdd)
         };
-        this.addReasonRefusal(body);
-        this.flag=false;
-        this.modalService.dismissAll("saved");
-        this.ngOnInit();
+        this.reasonsRefusalTypeService.addReasonsRefusalType(body).subscribe(res => {
+          this.toastr.success("تم اضافة سبب الرفض بنجاح")
+          this.flag=false;
+          this.modalService.dismissAll("saved");
+          this.getAllReasonRefusal();
+          this.AddReasonRefusalForm.reset()
+        });
       }
       else{
         this.flag=true;
@@ -166,10 +168,12 @@ export class ReasonsRefusalTypeComponent implements OnInit{
           id:this.ReasonRefusalTypeToUpdate.id,
           name:reasonRefusalName
         };
-        this.flag2=false;
-        this.updateReasonRefusal(body);
-        this.modalService.dismissAll("saved");
-        this.ngOnInit();
+        this.reasonsRefusalTypeService.updateReasonsRefusalType(body).subscribe(res => {
+          this.toastr.success("تم تعديل سبب الرفض بنجاح")
+          this.flag2=false;
+          this.modalService.dismissAll("saved");
+          this.getAllReasonRefusal()
+        });
         }
   }
 }

@@ -26,17 +26,20 @@ export class WeightSettingComponent implements OnInit{
     {
       this.getAdditionalWeight.disable();
       this.getDefaultWeight.disable();
-      }
+    }
     this.navTitleService.title.next("اعدادات الوزن")
     this.weightService.getWeightById(1).subscribe(res=>{this.weight=res;
       this.WeightForm.patchValue({
         defaultWeight:this.weight.defaultWeight.toString(),
         additionalWeight:this.weight.additionalPrice.toString()
-      });
+      },{emitEvent:false});
+    });
+    this.WeightForm.valueChanges.subscribe(value => {
+      this.saveBtnFlag=false;
     });
   }
   flag: boolean = false;
-
+  saveBtnFlag:boolean=true;
   WeightForm=new FormGroup({
     defaultWeight:new FormControl(''),
     additionalWeight:new FormControl('')
@@ -66,7 +69,7 @@ export class WeightSettingComponent implements OnInit{
 
   UpdateWeight(){
     this.requireOneControl();
-    if (!this.flag)
+    if (!this.flag && Number(this.WeightForm.value.defaultWeight)!=0 && Number(this.WeightForm.value.additionalWeight)!=0)
       {
         const body:Weight ={
           id:this.weight.id,
@@ -78,6 +81,9 @@ export class WeightSettingComponent implements OnInit{
         this.myToastrService.success("تمت تعديل تكلفه الشحن بنجاح");
         this.flag=false;
       }
+    else if(Number(this.WeightForm.value.defaultWeight)!=0 || Number(this.WeightForm.value.additionalWeight)!=0){
+      this.myToastrService.error("من فضلك ادخل قيم صحيحه")
+    }
   }
 
   submit(e:any){e.e.preventDefault();}

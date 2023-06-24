@@ -28,10 +28,14 @@ export class DeliverToVillageComponent implements OnInit{
     this.deliverToVillageService.getDeliverToVillageById(1).subscribe(res=>{this.defaultDeliver=res;
       this.DeliverToVillageForm.patchValue({
         additionalCost:this.defaultDeliver.additionalCost.toString()
-      });
+      },{emitEvent:false});
     });
-
+    this.DeliverToVillageForm.valueChanges.subscribe(value => {
+      this.saveBtnFlag=false;
+    });
   }
+  saveBtnFlag:boolean=true;
+
   flag: boolean = false;
 
   DeliverToVillageForm=new FormGroup({
@@ -58,7 +62,7 @@ export class DeliverToVillageComponent implements OnInit{
   } 
   UpdateWeight(){
     this.requireOneControl();
-    if (!this.flag)
+    if (!this.flag && Number(this.DeliverToVillageForm.value.additionalCost)!=0)
       {
         const body:DeliverToVillage ={
           id:this.defaultDeliver.id,
@@ -68,6 +72,9 @@ export class DeliverToVillageComponent implements OnInit{
         this.deliverToVillageService.updateDeliverToVillage(body).subscribe();
         this.myToastrService.success("تمت تعديل تكلفه الشحن للقريه بنجاح");
         this.flag=false;
+      }
+      else if(Number(this.DeliverToVillageForm.value.additionalCost)==0 ){
+        this.myToastrService.error("من فضلك ادخل قيم صحيحه")
       }
   }
 

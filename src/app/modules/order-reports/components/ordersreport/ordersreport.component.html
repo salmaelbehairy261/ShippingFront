@@ -27,16 +27,19 @@
             </svg>
           </button>
       </form>
-      <div>
-        <select class="form-select mt-5 m-3" style="width:70px;" (change)="onTableSizeChange($event)">
+      <div class="d-flex">
+        <select class="form-select mt-5" style="width:70px;" (change)="onTableSizeChange($event)">
           <option *ngFor="let size of tableSizes">{{size}}</option>
-      </select>
+        </select>
+        <img (click)="exportToExcel()" class="btn mt-5" src="https://w7.pngwing.com/pngs/670/803/png-transparent-excel-logo-logos-logos-and-brands-icon-thumbnail.png" style="width: 70px; height: 50px;" title="excel icons"/>
       </div>
       </div>
+      
+      
     <br>
 
 
-        <table class="table bg-white table-hover text-center my-3">
+        <table class="table bg-white table-hover text-center my-3" id="tableId">
             <thead class="table-dark">
                 <tr class="text-center">
                     <th>#</th>

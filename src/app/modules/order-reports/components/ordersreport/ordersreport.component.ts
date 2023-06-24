@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-ordersreport',
@@ -92,5 +93,13 @@ export class OrdersreportComponent {
     this.isValid=false;
     this.countOfTotalOrders();
     this.fetchOrders(this.pageNumber,this.pageSize);
+  }
+
+  exportToExcel(): void {
+    const element = document.getElementById('tableId');
+    const worksheet = XLSX.utils.table_to_sheet(element);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    XLSX.writeFile(workbook, ' تقارير الطلبات.xlsx');
   }
 }

@@ -46,9 +46,7 @@ export class ReasonsRefusalServiceService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم اضافة سبب الرفض بنجاح")
-    });
+    
   }
 
   updateReasonsRefusalType(r : ReasonsRefusalTypeUpdate){
@@ -59,9 +57,7 @@ export class ReasonsRefusalServiceService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم تعديل سبب الرفض بنجاح")
-    });
+    
   }
 
 
