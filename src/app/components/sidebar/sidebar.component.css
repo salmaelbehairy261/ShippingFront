@@ -10,7 +10,8 @@
 .nav-link .fill path{
   fill:#d1cfcf;
 }
-.nav-link .stroke path{
+.nav-link .stroke path ,
+.nav-link .stroke circle {
   stroke: #d1cfcf;
 }
 ul{
@@ -22,7 +23,8 @@ ul{
 .nav-item:hover .nav-link .fill path{
   fill:#ffffff
 }
-.nav-item:hover .nav-link .stroke path{
+.nav-item:hover .nav-link .stroke path,
+.nav-item:hover .nav-link .stroke circle{
   stroke:#ffffff
 }
 .nav-item.active {

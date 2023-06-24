@@ -69,14 +69,14 @@
             <form [formGroup]="CityForm" (ngSubmit)="AddCity()">
                 <div class="modal-body">
                     <div class="name mb-3">
-                      <h5  class="my-2 textColor">المحافظة</h5>
+                      <h5  class="my-2 textColor">المدينة</h5>
                         <input type="text" class="form-control p-2" placeholder="اسم المدينة" formControlName="Name">
                         <div class="errs" *ngIf="CityForm.get('Name')?.errors && CityForm.get('Name')?.touched">
                             <p class="text-danger" *ngIf="CityForm.get('Name')?.errors?.['required']">الاسم مطلوب
                             </p>
                         </div>
                         <div class="form-group mb-3">
-                            <h5  class="my-2 textColor">اسم المدينة</h5>
+                            <h5  class="my-2 textColor">المحافظة</h5>
                             <select id="governorate" class="form-control p-2" formControlName="GovernorateId">
                                 <option value="" selected>اختر المحافظة</option>
                                 <option *ngFor="let gov of governorates" [value]="gov.id">{{ gov.name }}</option>
