@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddCity, cityData } from 'src/app/modules/shared/models/City';
-import { governorateWithCity } from 'src/app/modules/shared/models/Governorate';
+import { governates, governorateWithCity } from 'src/app/modules/shared/models/Governorate';
 import { CityService } from 'src/app/modules/shared/services/city.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
@@ -13,17 +13,18 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
   styleUrls: ['./new-city.component.css']
 })
 export class NewCityComponent implements OnInit{
+   governorates: governates[] = [];
+    cities: cityData[]=[];
   constructor(private cityService:CityService,
     private toastr:MyToastrService,
     private location:Location,
     private governorateService:GovernrateService,){}
   ngOnInit(): void {
-    this.governorateService.GetGovernorateWithCitiesList().subscribe((response) => {
+    this.governorateService.GetGovernorates().subscribe((response) => {
       this.governorates = response
     });
   }
-    governorates: governorateWithCity[] = [];
-    cities: cityData[]=[];
+   
   CityForm: FormGroup = new FormGroup({
     Name: new FormControl(null, [Validators.required]),
     Price: new FormControl(null, [Validators.required]),
@@ -42,9 +43,5 @@ export class NewCityComponent implements OnInit{
         this.location.back()
       })
   }
-  onGovernorateChange(selectedValue:any) {
-    const currentGovernorateId = Number(selectedValue);
-    const selectedGovernorate = this.governorates.find((gov) => gov.id == currentGovernorateId);
-    this.cities = selectedGovernorate ? selectedGovernorate.cities : [];
-  }
+ 
 }
