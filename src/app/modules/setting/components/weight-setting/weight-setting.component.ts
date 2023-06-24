@@ -4,6 +4,7 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
 import { FormControl, FormGroup } from '@angular/forms';
 import { Weight } from '../../../shared/models/weight';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 @Component({
   selector: 'app-weight-setting',
@@ -14,12 +15,18 @@ export class WeightSettingComponent implements OnInit{
 
   constructor(public weightService:WeightSettingService,
     private myToastrService:MyToastrService,
-    private navTitleService:NavTitleService)
+    private navTitleService: NavTitleService,
+   private authService:AuthService,)
   {
 
   }
   weight:any;
   ngOnInit(): void {
+    if (!this.hasPermission('Edit'))
+    {
+      this.getAdditionalWeight.disable();
+      this.getDefaultWeight.disable();
+      }
     this.navTitleService.title.next("اعدادات الوزن")
     this.weightService.getWeightById(1).subscribe(res=>{this.weight=res;
       this.WeightForm.patchValue({
@@ -51,6 +58,12 @@ export class WeightSettingComponent implements OnInit{
       this.flag=false;
     }
   }
+
+ hasPermission(action: string)
+  {
+    return this.authService.hasPermission(13,action);
+  }  
+
   UpdateWeight(){
     this.requireOneControl();
     if (!this.flag)

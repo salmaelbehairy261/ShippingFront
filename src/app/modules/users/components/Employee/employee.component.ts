@@ -42,7 +42,9 @@ employeeForm: FormGroup = new FormGroup({});
     this.loadBranches();
     this.loadGroups();
   }
-  showInfo(step:number){
+  
+
+  showInfo(step: number) {
     this.personalInfo=step==1
     this.userInfo=step==2
     this.jobInfo=step==3
@@ -96,5 +98,7 @@ onSubmit() {
       });
 
   }
+
+
 
 }

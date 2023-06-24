@@ -1,6 +1,6 @@
 <div class="container-fluid p-4">
   <div class=" formbg p-4 mt-3">
-    <div class="d-flex flex-wrap justify-content-end">
+    <div *ngIf=" hasPermission('Add')" class="d-flex flex-wrap justify-content-end">
       <div>
         <button class="btn btn-outline-info" (click)="addEmployee()">اضافة موظف</button>
       </div>
@@ -40,8 +40,8 @@
               <th>رقم الهاتف</th>
               <th>الفرع</th>
               <th>الصلحيات</th>
-              <th>الحالة</th>
-              <th>تعديل</th>
+              <th *ngIf=" hasPermission('Delete')">الحالة</th>
+              <th *ngIf=" hasPermission('Edit')">تعديل</th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -52,7 +52,7 @@
               <td>{{ employee.phone }}</td>
               <td>{{ employee.branchName }}</td>
               <td>{{ employee.groupName }}</td>
-              <td>
+              <td *ngIf=" hasPermission('Delete')">
                 <div class="form-check form-switch">
                   <input class="form-check-input" type="checkbox" id="isDeleted{{id}}" [checked]="employee.isDeleted"
                     (change)=" deleteModal.show();selectedEmployee = employee" [disabled]="employee.isDeleted">
@@ -62,7 +62,7 @@
                 </div>
 
               </td>
-              <td>
+              <td *ngIf=" hasPermission('Edit')">
                 <a class="" *ngIf="!employee.isDeleted" (click)="editEmployee(employee.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512">
                     <path

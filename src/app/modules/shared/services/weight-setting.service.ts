@@ -28,7 +28,8 @@ export class WeightSettingService {
       })
     )
   }
-  updateWeight(body:Weight){
+  
+  updateWeight(body: Weight) {
     return this.genericService.put<any,Weight>(`Weight`,body).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
@@ -37,6 +38,7 @@ export class WeightSettingService {
       })
     )
   }
+
   getWeightById(id:number){
     return this.genericService.get<any>(`Weight/${id}`).pipe(
       catchError(error => {

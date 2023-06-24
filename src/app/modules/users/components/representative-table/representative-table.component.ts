@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { getAllRepresentative } from 'src/app/modules/shared/models/Representative';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { RepresentativeService } from 'src/app/modules/shared/services/representative.service';
 
@@ -20,7 +21,7 @@ export class RepresentativeTableComponent implements OnInit {
   isDesc: boolean = false;
   selecteduser: getAllRepresentative | null = null;
   constructor(
-
+  private authService:AuthService,
     private representativeService: RepresentativeService,
     private router: Router,
     private navTitleService:NavTitleService
@@ -43,7 +44,10 @@ export class RepresentativeTableComponent implements OnInit {
     });
   }
 
-
+ hasPermission(action: string)
+  {
+    return this.authService.hasPermission(5,action);
+  }  
   editRepresentative(representativeId: string) {
 
     this.router.navigate(['/employee/users/UpdateRepresentative', representativeId]);

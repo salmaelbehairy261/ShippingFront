@@ -8,6 +8,8 @@ import { DeliverToVillageComponent } from './components/deliver-to-village/deliv
 import { ReasonsRefusalTypeComponent } from './components/reasons-refusal-type/reasons-refusal-type.component';
 import { ShippingTypeComponent } from './components/shipping-type/shipping-type.component';
 import { WeightSettingComponent } from './components/weight-setting/weight-setting.component';
+import { AddShippingComponent } from './components/add-shipping/add-shipping.component';
+import { AddreasonComponent } from './components/addreason/addreason.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { WeightSettingComponent } from './components/weight-setting/weight-setti
     DeliverToVillageComponent,
     ReasonsRefusalTypeComponent,
     ShippingTypeComponent,
-    WeightSettingComponent
+    WeightSettingComponent,
+    AddShippingComponent,
+    AddreasonComponent
   ],
   imports: [
     CommonModule,

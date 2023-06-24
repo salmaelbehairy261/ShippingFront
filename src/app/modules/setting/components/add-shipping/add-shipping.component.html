@@ -1,0 +1,39 @@
+<div class="container-fluid p-4">
+    <div class=" formbg p-4 mt-3" style="background-color:  #c0d6df71;">
+        <div class="px-4 py-2">
+            <div class="d-flex justify-content-between p-3">
+                <h5 class="textColor"> اضافه نوع شحن </h5>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="AddShippingTypeForm">
+
+                    <div class="row ">
+                        <div class="form-group col-lg-4 col-7">
+                            <label for="" class="form-lable">الاسم</label>
+                            <input type="text" class="form-control  " formControlName="Name" />
+                            <ng-container *ngIf="getName.touched">
+                                <div *ngIf="getName.hasError('required')" class="form-text text-danger">
+                                    الاسم مطلوب
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="form-group col-lg-2 col-4">
+                            <label for="" class="form-lable ">سعر الشحن</label>
+                            <input type="number" class="form-control" formControlName="Cost" />
+                            <ng-container *ngIf="getCost.touched ">
+                                <div *ngIf="getCost.hasError('required')" class="form-text text-danger">
+                                    سعرالشحن مطلوب
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> حاول ادخال البيانات بطريقه صحيحه مره اخري </div>
+                    <div class="p-3 d-flex align-items-start gap-2">
+                        <button type="submit" class="btn btn-outline-info" (click)="AddShippingType();">حفظ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
