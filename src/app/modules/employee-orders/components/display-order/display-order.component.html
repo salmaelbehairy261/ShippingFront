@@ -3,7 +3,7 @@
     <button class="btn btn-primary m-3" style="float: left;" (click)="Print()">Print</button>
     <!-- <button class="btn btn-primary m-3" printSectionId="print-section" ngxPrint style="float: left;">Print</button>  -->
     <div class="rounded bg-light p-4">
-      <form class="d-flex flex-column align-items-center justify-content-center" id="print-section">
+      <form #printContainer class="d-flex flex-column"  id="print-content">
         <h3 class="mb-2 text-center" style="color: #4f6d7a;">تفاصيل الطلب</h3><br>
 
         <div class="mb-3">
@@ -21,43 +21,43 @@
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">اسم العميل :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.clientName}}</span>
+          <span style="font-size: large;">{{orderData.clientName}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">رقم الهاتف الأول :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.firstPhoneNumber}}</span>
+          <span style="font-size: large;">{{orderData.firstPhoneNumber}}</span>
         </div>
         <div class="mb-3" *ngIf="orderData.secondPhoneNumber">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">رقم الهاتف الثاني :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.secondPhoneNumber}}</span>
+          <span style="font-size: large;">{{orderData.secondPhoneNumber}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">البريد الإلكتروني :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.email}}</span>
+          <span style="font-size: large;">{{orderData.email}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">المحافظة :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.governorate}}</span>
+          <span style="font-size: large;">{{orderData.governorate}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">المدينة :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.city}}</span>
+          <span style="font-size: large;">{{orderData.city}}</span>
         </div>
         <div class="mb-3">
-          <span style="font-size: x-large; color: #4f6d7a;" class="p-4">الشارع</span>
-          <span style="font-size: large;" class="p-2">{{orderData.street}}</span>
+          <span style="font-size: x-large; color: #4f6d7a;" class="p-4">الشارع :</span>
+          <span style="font-size: large;" >{{orderData.street}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">نوع الشحن :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.shippingType}}</span>
+          <span style="font-size: large;">{{orderData.shippingType}}</span>
         </div>
         <div class="mb-3">
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">الفرع :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.branch}}</span>
+          <span style="font-size: large;">{{orderData.branch}}</span>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="orderData.notes" >
           <span style="font-size: x-large; color: #4f6d7a;" class="p-4">الملاحظات :</span>
-          <span style="font-size: large;" class="p-2">{{orderData.notes}}</span>
+          <span style="font-size: large;">{{orderData.notes}}</span>
         </div>
         <table class="table text-center">
           <thead class="table-dark">

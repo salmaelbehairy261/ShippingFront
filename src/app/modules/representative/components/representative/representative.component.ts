@@ -6,7 +6,7 @@ import { Order } from 'src/app/modules/shared/models/Order';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReasonsRefusalServiceService } from 'src/app/modules/shared/services/reasons-refusal-service.service';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-representative',
   templateUrl: './representative.component.html',
@@ -122,9 +122,15 @@ export class RepresentativeComponent {
     if(Number(status)==8||Number(status)==9)
     {
       this.reasonFlag=true;
-      this.reasonsRefusalTypeService.getAllReasonsRefusalTypes().subscribe((res)=>this.reasonsRefusalTypes=res);
-      console.log(this.reasonsRefusalTypes)
+      this.reasonsRefusalTypeService.getAllReasonsRefusalForRep().subscribe((res)=>this.reasonsRefusalTypes=res);
+      //console.log(this.reasonsRefusalTypes)
     }
  }
-
+ exportToExcel(): void {
+  const element = document.getElementById('tableId');
+  const worksheet = XLSX.utils.table_to_sheet(element);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+  XLSX.writeFile(workbook, 'الطلبات.xlsx');
+}
 }

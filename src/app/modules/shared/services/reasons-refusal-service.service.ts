@@ -29,6 +29,16 @@ export class ReasonsRefusalServiceService {
       })
     )
   }
+
+  getAllReasonsRefusalForRep(){
+    return this.genericService.get<any>("ReasonsRefusalType/GetAllForDropDown").pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
   getReasonsRefusalTypeById(id:number){
     return this.genericService.get<any>(`ReasonsRefusalType/GetById?ReasonsRefusalTypeId=${id}`).pipe(
       catchError(error => {
@@ -46,9 +56,7 @@ export class ReasonsRefusalServiceService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم اضافة سبب الرفض بنجاح")
-    });
+    
   }
 
   updateReasonsRefusalType(r : ReasonsRefusalTypeUpdate){
@@ -59,9 +67,7 @@ export class ReasonsRefusalServiceService {
         return EMPTY;
       })
     )
-    .subscribe(res => {
-      this.toastr.success("تم تعديل سبب الرفض بنجاح")
-    });
+    
   }
 
 

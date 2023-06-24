@@ -3,6 +3,8 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-show-orders',
@@ -96,5 +98,12 @@ export class ShowOrdersComponent {
       this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
     })
 
+  }
+  exportToExcel(): void {
+    const element = document.getElementById('tableId');
+    const worksheet = XLSX.utils.table_to_sheet(element);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    XLSX.writeFile(workbook, 'الطلبات.xlsx');
   }
 }

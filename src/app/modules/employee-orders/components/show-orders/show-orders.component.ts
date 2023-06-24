@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-show-orders',
   templateUrl: './show-orders.component.html',
@@ -132,4 +132,11 @@ export class ShowOrdersComponent implements OnInit{
     })
   }
 
+  exportToExcel(): void {
+    const element = document.getElementById('tableId');
+    const worksheet = XLSX.utils.table_to_sheet(element);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    XLSX.writeFile(workbook, 'الطلبات.xlsx');
+  }
 }

@@ -19,7 +19,7 @@
                         <div for="" class="m-1 text-center" style="font-weight: 600; color: #4f6d7a;">جم</div>
                     </div>
                     <div class="h6 text-danger ms-5 mt-2" *ngIf="flag"> لم يتم تعديل ايا من البيانات </div>
-                    <button type="button" class="btn btn-info mt-4" [disabled]=" WeightForm.invalid"
+                    <button type="button" class="btn btn-info mt-4" [disabled]="saveBtnFlag"
                         (click)="UpdateWeight()">حفظ</button>
                 </form>
             </div>
