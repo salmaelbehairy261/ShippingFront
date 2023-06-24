@@ -55,11 +55,6 @@
           </div>
         </a>
       </li>
-
-
-
-
-
       <!--Brach-->
       <li *ngIf=" hasPermission(1,'Show')" class="nav-item w-100 px-3 rounded" [routerLink]="['employee/branch']"
         routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
@@ -301,7 +296,7 @@
         </li>
       </ul>
 
-      <li class="nav-item w-100 px-3 rounded">
+      <li *ngIf="hasPermission(7,'Show')" class="nav-item w-100 px-3 rounded">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isStatCollapsed = ! isStatCollapsed" [attr.aria-expanded]="!isStatCollapsed">
           <div>
@@ -323,8 +318,8 @@
           </a>
         </li>
       </ul>
-      <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee/reports']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact:true}" *ngIf="hasPermission(8,'Show')">
+      <li *ngIf="hasPermission(8,'Show') " class="nav-item w-100 px-3 rounded" [routerLink]="['employee/reports']"
+        routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="fill" viewBox="0 0 16 16">
