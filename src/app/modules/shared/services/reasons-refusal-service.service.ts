@@ -29,6 +29,16 @@ export class ReasonsRefusalServiceService {
       })
     )
   }
+
+  getAllReasonsRefusalForRep(){
+    return this.genericService.get<any>("ReasonsRefusalType/GetAllForDropDown").pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
   getReasonsRefusalTypeById(id:number){
     return this.genericService.get<any>(`ReasonsRefusalType/GetById?ReasonsRefusalTypeId=${id}`).pipe(
       catchError(error => {

@@ -122,8 +122,8 @@ export class RepresentativeComponent {
     if(Number(status)==8||Number(status)==9)
     {
       this.reasonFlag=true;
-      this.reasonsRefusalTypeService.getAllReasonsRefusalTypes().subscribe((res)=>this.reasonsRefusalTypes=res);
-      console.log(this.reasonsRefusalTypes)
+      this.reasonsRefusalTypeService.getAllReasonsRefusalForRep().subscribe((res)=>this.reasonsRefusalTypes=res);
+      //console.log(this.reasonsRefusalTypes)
     }
  }
  exportToExcel(): void {

@@ -15,6 +15,18 @@ export class CityService {
     private errorMessageService:ErrorMessageService
   ) { }
 
+ 
+ public getAllCities(id:number){
+    const url=`City?id=${id}`
+    return this.apiService.get<UpdateCity[]>(url).pipe(
+      catchError(error => {
+        const err=this.errorMessageService.getServerErrorMessage(error);
+        this.toastr.error(err);
+        return EMPTY;
+      })
+    )
+  }
+
   public addCity(addCity: AddCity) {
     const url='City'
     return this.apiService.post<any,AddCity>(url,addCity).pipe(
@@ -25,6 +37,7 @@ export class CityService {
       })
     )
   }
+
   public getCity(id:number){
     const url=`City/${id}`
     return this.apiService.get<UpdateCity>(url).pipe(
@@ -45,6 +58,7 @@ export class CityService {
       })
     )
   }
+
   public deleteCity(id:number){
     const url=`City/${id}`
     return this.apiService.delete<any>(url).pipe(
