@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { loginData } from '../../../shared/models/Login';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { EMPTY, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  errorMessageService: any;
+  toastr: any;
   constructor(
     private authService:AuthService,
     private router:Router){}

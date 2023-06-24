@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addBranch } from 'src/app/modules/shared/models/Branch';
@@ -10,17 +11,20 @@ import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.servi
   styleUrls: ['./new-branch.component.css']
 })
 export class NewBranchComponent {
-  
- 
-  constructor(private branchService: BranchService, private toastr:MyToastrService) {
-    
+
+
+  constructor(
+    private branchService: BranchService,
+    private toastr:MyToastrService,
+    private location:Location) {
+
   }
 BranchForm: FormGroup = new FormGroup({
     'Name': new FormControl(null, [Validators.required]),
 })
-  
-  
-  
+
+
+
     AddBranch() {
     if (this.BranchForm.invalid) return;
     let object:addBranch = {
@@ -31,11 +35,12 @@ BranchForm: FormGroup = new FormGroup({
       next: () => {
         this.BranchForm.reset();
         this.toastr.success("تم إضافة الفرع بنجاح");
+        this.location.back()
       }
     })
 
   }
-  
-  
+
+
 }
 

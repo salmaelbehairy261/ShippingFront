@@ -26,16 +26,14 @@ Permissions : Permissions []=[]
   ) { }
   secretKey=environment.secretKey
   login(data: loginData) {
-    
+
     const url='Account/login'
     return this.apiService.post<any,loginData>(url,data).pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
-
         return EMPTY;
       })
-
     )
     .subscribe(res=>{
       const tokenData:any=jwt_decode(res.token)
@@ -57,8 +55,6 @@ Permissions : Permissions []=[]
         this.router.navigate(['/representative'])
       else
         this.router.navigate(['/employee'])
-      
-        
       })
   }
   logout(){
@@ -96,7 +92,7 @@ Permissions : Permissions []=[]
   }
 
   getPermissions() {
-   
+
     this.groupService.getGroupById(Number(this.getUserRole())).subscribe((response) => {
       response.permissions.forEach((element:any) => {
         const permission: Permissions = {
@@ -106,15 +102,15 @@ Permissions : Permissions []=[]
         this.Permissions.push(permission)
       });
       console.log(this.Permissions);
-      console.log(response); 
+      console.log(response);
     });
   }
 
 
   hasPermission(id: number ,action: string) {
   const permission = this.Permissions.find(p => p.id === id && p.action===action);
-  return !!permission; 
+  return !!permission;
   }
- 
+
 
 }

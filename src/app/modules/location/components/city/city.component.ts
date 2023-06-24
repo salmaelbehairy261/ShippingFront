@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup , Validators } from '@angular/forms';
@@ -29,11 +30,16 @@ export class CityComponent  implements OnInit{
     private governorateService:GovernrateService,
     private toastr:MyToastrService,
     private changeDetectorRef: ChangeDetectorRef,
-    private navTitleService:NavTitleService
+    private navTitleService:NavTitleService,
+    private authService:AuthService
     ) {}
   ngOnInit(): void {
     this.navTitleService.title.next("المدن")
     this.loadGovernorates(1);
+  }
+  hasPermission(action: string)
+  {
+    return this.authService.hasPermission(2,action);
   }
   loadGovernorates(id:any) {
     this.governorateService.GetGovernorateWithCitiesList().subscribe((response) => {
@@ -82,7 +88,7 @@ AddCity() {
       pickup:this.CityForm.value.Pickup,
       governorateId:Number(this.CityForm.value.GovernorateId),
     }
-    
+
   this.cityService.addCity(object).subscribe(res=>{
         this.toastr.success("تم اضافة المدينة بنجاح")
         this.loadGovernorates(this.CityForm.value.GovernorateId);
@@ -99,7 +105,7 @@ AddCity() {
       if (options[i].value == optionValue) {
         this.selectElement.nativeElement.selectedIndex = i;
         this.changeDetectorRef.detectChanges();
-        
+
         break;
       }
     }

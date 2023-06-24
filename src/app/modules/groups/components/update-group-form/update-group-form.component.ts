@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { Group, GroupPrivilageService, GroupToUpdate, Permission, PermissiontoUseInUpdate } from 'src/app/modules/shared/models/Group';
@@ -32,9 +32,9 @@ export class UpdateGroupFormComponent implements OnInit{
       [false, false, false,false],
       [false, false, false,false]
     ];
-    
+
     ngOnInit(): void {
-      
+
       const groupsPrivilages:GroupPrivilageService=new GroupPrivilageService();
       this.groupPrivilagesArr=groupsPrivilages.Privilages;
       this.route.params.subscribe(Params=>{this.id = Params['id']});
@@ -58,7 +58,7 @@ export class UpdateGroupFormComponent implements OnInit{
         });
         this.AllGroupPrivilages=AllGroupPrivilages2;
       });
-      
+
     }
     createIsCheckedArr(groupPermission:any){
       const modifiedArray = groupPermission.map((obj: { id: any; action: any; }) => {
@@ -69,10 +69,10 @@ export class UpdateGroupFormComponent implements OnInit{
       const isChecked2:boolean[][]=[];
       const arrForLastFourPermissions:boolean[]=[false,false,false,false]
       for(let i=1 ; i<=13 ;i++)
-      { 
+      {
         if(i<10)
         {
-          
+
           const targetObj1: PermissiontoUseInUpdate = { id: i, action: this.AddAction };
           const targetObj2: PermissiontoUseInUpdate = { id: i, action: this.DeleteAction };
           const targetObj3: PermissiontoUseInUpdate = { id: i, action: this.EditAction };
@@ -118,7 +118,7 @@ export class UpdateGroupFormComponent implements OnInit{
 
       }
 
-      
+
       //console.log(isChecked2)
       return isChecked2;
     };
@@ -132,7 +132,7 @@ export class UpdateGroupFormComponent implements OnInit{
     one:number=1;
     two:number=2;
     three:number=3;
-  
+
     ////////handling permissions Array
     AllGroupPrivilages: Permission[] = [];
     saveBtnFlag:boolean=true;
@@ -161,9 +161,9 @@ export class UpdateGroupFormComponent implements OnInit{
         }
     }
     }
-  
-  
-  
+
+
+
     flag:boolean=false;
     checkAndModifyArray(array:Permission[], ObjectsToAddOrRemove:Permission[]) {
       // Check if objectsToAdd are not already present in the array
@@ -190,21 +190,21 @@ export class UpdateGroupFormComponent implements OnInit{
       }
       return array;
     }
-  
+
     UpdateGroupForm=new FormGroup({
       name:new FormControl('',[Validators.required])
     });
-  
+
     get getName(){
       return this.UpdateGroupForm.controls["name"];
     }
-  
+
     SubmitGroupFrom(){
       if (this.UpdateGroupForm.status=="VALID" && this.AllGroupPrivilages.length > 0)
-      { 
+      {
         const GroupToBeUpdated :GroupToUpdate=new GroupToUpdate();
         GroupToBeUpdated.id= Number(this.id) ;
-        if (this.UpdateGroupForm.controls["name"].value === String(this.UpdateGroupForm.value.name) ) 
+        if (this.UpdateGroupForm.controls["name"].value === String(this.UpdateGroupForm.value.name) )
           {
             this.flag=true;
             GroupToBeUpdated.name=String(this.UpdateGroupForm.value.name);
@@ -213,15 +213,15 @@ export class UpdateGroupFormComponent implements OnInit{
             GroupToBeUpdated.name=this.name;
           }
         GroupToBeUpdated.groupPermissions=this.AllGroupPrivilages;
-  
+
         console.log(GroupToBeUpdated);
           ///API Call
 
         this.groupService.UpdateGroup(GroupToBeUpdated).subscribe(res => {
             this.toaster.success("تم تعديل المجموعة بنجاح")
             this.location.back();
-          });;  
-          ///  
+          });;
+          ///
       }
       else if(this.AllGroupPrivilages.length == 0)
       {
@@ -230,7 +230,7 @@ export class UpdateGroupFormComponent implements OnInit{
       else if(this.UpdateGroupForm.value.name=='' ){
         this.toaster.error("ادخل اسم مجموعه ")
       }
-  
+
     }
-  
+
 }

@@ -178,7 +178,7 @@
           </a>
         </li>
       </ul>
-      <li class="nav-item w-100 px-3 rounded" *ngIf="(hasPermission(2) && (hasAction('Show')||hasAction('Add')))||(hasPermission(2) && (hasAction('Show')||hasAction('Add')))">
+      <li class="nav-item w-100 px-3 rounded" *ngIf="hasPermission(2,'Show')||hasPermission(2,'Add')||hasPermission(3,'Show')||hasPermission(3,'Add')">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row "
           (click)="isLocCollapsed = ! isLocCollapsed" [attr.aria-expanded]="!isLocCollapsed">
           <div>
@@ -192,7 +192,7 @@
       </li>
       <ul #collapse="ngbCollapse" [(ngbCollapse)]="isLocCollapsed" class="m-0 px-3">
         <!--Governorates-->
-        <li *ngIf="hasPermission(3) && hasAction('Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
+        <li *ngIf="hasPermission(3,'Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
           routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -200,7 +200,7 @@
             </div>
           </a>
         </li>
-        <li *ngIf="hasPermission(3) && !hasAction('Show') && hasAction('Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/governorates"
+        <li *ngIf="!hasPermission(3,'Show') && hasPermission(3,'Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/addgovernorate"
           routerLinkActive="sub-active" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -209,7 +209,7 @@
           </a>
         </li>
         <!--Cities-->
-        <li *ngIf="hasPermission(2) && hasAction('Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
+        <li *ngIf="hasPermission(2,'Show')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -217,7 +217,7 @@
             </div>
           </a>
         </li>
-        <li *ngIf="hasPermission(2) && !hasAction('Show') && hasAction('Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/city" routerLinkActive="sub-active"
+        <li *ngIf="!hasPermission(2,'Show') && hasPermission(2,'Add')" class="nav-item w-100 px-1 ms-3 rounded" routerLink="employee/location/addcity" routerLinkActive="sub-active"
           [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link px-0 justify-content-center justify-content-md-between  d-flex flex-row ">
             <div class="fs-sub">
@@ -295,7 +295,7 @@
         </li>
       </ul>
       <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee/reports']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact:true}">
+        [routerLinkActiveOptions]="{exact:true}" *ngIf="hasPermission(8,'Show')">
         <a class="nav-link px-0 justify-content-center justify-content-md-between d-flex flex-row ">
           <div>
             <svg width="30px" height="30px" class="stroke" viewBox="0 0 24 24" version="1.1"

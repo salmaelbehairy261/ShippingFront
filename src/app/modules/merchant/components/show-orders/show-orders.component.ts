@@ -18,7 +18,7 @@ export class ShowOrdersComponent {
   tableSizes: any = [8, 16, 30, 50];
   statusId: number = 0;
   AllOrders: any;
-  orderStatusNow: number = this.activeRoute.snapshot.params['id'];
+  orderStatusNow: number =0
   searchText: string = "";
   orderId: any;
 
@@ -31,6 +31,7 @@ export class ShowOrdersComponent {
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
       this.statusId = +params['id'];
+      this.orderStatusNow=this.statusId
       this.navTitleService.title.next('عرض الطلبات')
       this.countOfTotalOrders(this.searchText);
       this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
@@ -94,6 +95,6 @@ export class ShowOrdersComponent {
       this.countOfTotalOrders(this.searchText);
       this.fetchOrders(this.searchText, this.pageNumber, this.pageSize);
     })
-    
+
   }
 }

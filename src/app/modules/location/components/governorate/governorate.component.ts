@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -25,8 +26,11 @@ export class GovernorateComponent {
   @ViewChild('search') searchTerms?: ElementRef;
   isDesc:boolean=false
   governerates: governates[] = []
-  constructor(private governorateService:GovernrateService,private myToastrService:MyToastrService,
-    private navTitleService:NavTitleService) {}
+  constructor(
+    private governorateService:GovernrateService,
+    private myToastrService:MyToastrService,
+    private navTitleService:NavTitleService,
+    private authService:AuthService) {}
   term: string = "";
   currentID: number = 0;
   currentGovernorate: any = null;
@@ -61,7 +65,10 @@ export class GovernorateComponent {
         this.totalCount=data.pageCount
       });
   }
-
+  hasPermission(action: string)
+  {
+    return this.authService.hasPermission(3,action);
+  }
   AddGovernorate() {
     const object:governateName = {
       name:this.GovernorateForm.value.name,

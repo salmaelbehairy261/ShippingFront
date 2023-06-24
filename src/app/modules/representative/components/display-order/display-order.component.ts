@@ -17,7 +17,7 @@ export class DisplayOrderComponent implements OnInit {
   }
 
   DisplayOrderById(): void {
-    this.orderId = this.activeRoute.snapshot.params['id'];
+    this.orderId = this.activeRoute.snapshot.params['id']
     this.orderService.GetAllDataById(this.orderId).subscribe((res) => {
     this.orderData=res;
     console.log(this.orderData)
