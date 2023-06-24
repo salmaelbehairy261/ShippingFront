@@ -26,24 +26,22 @@ export class ShippingTypeComponent implements OnInit{
 
   ngOnInit():void{
     this.navTitleService.title.next("انواع الشحن")
+    this.getAllShippingType();
+  }
+
+  getAllShippingType(){
     this.shippingTypeService.getAllShippingTypes().subscribe(res=>this.shippingTypes=res);
+
   }
 
-
-  addShippingType(shippingType:shippingTypeAdd){
-    this.shippingTypeService.addShippingType(shippingType).subscribe(err=>console.log(err));
-  }
-
-  updateShippingType(shippingType:shippingTypeUpdate){
-    this.shippingTypeService.updateShippingType(shippingType).subscribe(err=>console.log(err));
-  }
   //toggle status
   toggleStatus(id:number){
-    this.shippingTypeService.toggleShippingTypeStatus(id).subscribe();
+    this.shippingTypeService.toggleShippingTypeStatus(id).subscribe(err=>console.log(err));
   }
-  delete(id:number){
-    this.shippingTypeService.DeleteShippingType(id).subscribe();
-    this.ngOnInit()
+  Delete(id:number){
+    this.shippingTypeService.DeleteShippingType(id).subscribe(err=>{
+      this.getAllShippingType();
+      console.log(err)});
   }
   //modal
   closeResult = '';
@@ -121,11 +119,13 @@ export class ShippingTypeComponent implements OnInit{
           Cost:Number(this.AddShippingTypeForm.value.Cost)
         };
         //console.log(body);
-      this.shippingTypeService.addShippingType(body).subscribe(err => console.log(err) );
-        this.flag=false;
-        this.modalService.dismissAll("saved");
-        this.ngOnInit();
-        this.myToastrService.success("تمت اضافه نوع الشحن بنجاح");
+        this.shippingTypeService.addShippingType(body).subscribe(err=>{
+          this.getAllShippingType();
+          this.flag=false;
+          this.modalService.dismissAll("saved");
+          this.myToastrService.success("تمت اضافه نوع الشحن بنجاح");
+          this.AddShippingTypeForm.reset()
+          console.log(err)});
       }
       else{
         this.flag=true;
@@ -192,10 +192,12 @@ export class ShippingTypeComponent implements OnInit{
           Cost:shippingCost
         };
         this.flag2=false;
-        this.shippingTypeService.updateShippingType(body).subscribe(err=>console.log(err));
-        this.modalService.dismissAll("saved");
-        this.ngOnInit()
-        this.myToastrService.success("تمت تعديل نوع الشحن بنجاح");
+        this.shippingTypeService.updateShippingType(body).subscribe(err=>{
+          this.getAllShippingType();
+          this.myToastrService.success("تمت تعديل نوع الشحن بنجاح");
+          this.modalService.dismissAll("saved");
+          console.log(err)});
+        //this.ngOnInit()
         }
   }
 }
