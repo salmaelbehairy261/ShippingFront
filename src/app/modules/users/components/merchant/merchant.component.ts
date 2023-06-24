@@ -29,7 +29,7 @@ export class MerchantComponent implements OnInit {
   citiesPrice: city[][] = [];
   branches:branchList[] = [];
   customSpecialPrice: specialPrice[] = [];
-
+  showPassword = false;
   constructor(
     private toaster: MyToastrService,
     private location:Location,
@@ -49,9 +49,9 @@ export class MerchantComponent implements OnInit {
     this.navTitleService.title.next('اضافة تاجر')
     this.merchantForm = this.formBuilder.group({
       name: ['', Validators.required],
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, Validators.pattern('^(?!.*[\u0600-\u06FF]).*$')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required,  Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).{8,}$')]],
       phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       address: ['', Validators.required],
       branch: ['', Validators.required],

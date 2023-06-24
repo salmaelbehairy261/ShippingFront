@@ -20,7 +20,8 @@ import { NavTitleService } from "src/app/modules/shared/services/nav-title.servi
 export class EmployeeComponent implements OnInit {
 userInfo=false
 personalInfo=true
-jobInfo=false
+jobInfo = false
+showPassword = false;
 employeeForm: FormGroup = new FormGroup({});
 
   groups: group[] = [];
@@ -52,9 +53,9 @@ employeeForm: FormGroup = new FormGroup({});
   formBuilde() {
     this.employeeForm = this.formBuilder.group({
       name: ['', Validators.required],
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, Validators.pattern('^(?!.*[\u0600-\u06FF]).*$')]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required,  Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).{8,}$')]],
       phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       address: ['', Validators.required],
       branch: ['', Validators.required],
