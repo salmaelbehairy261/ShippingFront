@@ -1,12 +1,9 @@
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
-
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup , Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-//import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddCity, UpdateCity, cityData } from 'src/app/modules/shared/models/City';
-import { governorateWithCity } from 'src/app/modules/shared/models/Governorate';
+import { AddCity, UpdateCity } from 'src/app/modules/shared/models/City';
+import { governates } from 'src/app/modules/shared/models/Governorate';
 import { CityService } from 'src/app/modules/shared/services/city.service';
 import { GovernrateService } from 'src/app/modules/shared/services/governrate.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
@@ -23,8 +20,8 @@ export class CityComponent  implements OnInit{
   @ViewChild('addModal') addModal: BsModalRef | undefined;
   @ViewChild('updateModal') updateModal: BsModalRef | undefined;
   @ViewChild('deleteModal') deleteModal: BsModalRef | undefined;
-  governorates: governorateWithCity[] = [];
-  cities: cityData[] = [];
+  governorates: governates[] = [];
+  cities: UpdateCity[] = [];
   constructor(private formBuilder: FormBuilder,
     private cityService:CityService,
     private governorateService:GovernrateService,
@@ -32,25 +29,28 @@ export class CityComponent  implements OnInit{
     private changeDetectorRef: ChangeDetectorRef,
     private navTitleService:NavTitleService,
     private authService:AuthService
-    ) {}
+  ) { }
+  
   ngOnInit(): void {
     this.navTitleService.title.next("المدن")
     this.loadGovernorates(1);
   }
+  
   hasPermission(action: string)
   {
     return this.authService.hasPermission(2,action);
   }
   loadGovernorates(id:any) {
-    this.governorateService.GetGovernorateWithCitiesList().subscribe((response) => {
+    this.governorateService.GetGovernorates().subscribe((response) => {
       this.governorates = response;
       this.onGovernorateChange(id);
     });
   }
   onGovernorateChange(selectedValue:any) {
     this.currentGovernorateId = Number(selectedValue);
-    const selectedGovernorate = this.governorates.find((gov) => gov.id == this.currentGovernorateId);
-    this.cities = selectedGovernorate ? selectedGovernorate.cities : [];
+    this.cityService.getAllCities(this.currentGovernorateId).subscribe((reponse) => {
+      this.cities = reponse
+    })
   }
 currentGovernorateId:any
 CityForm: FormGroup = new FormGroup({
