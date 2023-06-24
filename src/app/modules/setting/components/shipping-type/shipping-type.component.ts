@@ -121,7 +121,7 @@ export class ShippingTypeComponent implements OnInit{
           Cost:Number(this.AddShippingTypeForm.value.Cost)
         };
         //console.log(body);
-        this.shippingTypeService.addShippingType(body).subscribe(err=>console.log(err));
+      this.shippingTypeService.addShippingType(body).subscribe(err => console.log(err) );
         this.flag=false;
         this.modalService.dismissAll("saved");
         this.ngOnInit();
