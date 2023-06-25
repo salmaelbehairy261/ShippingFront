@@ -1,3 +1,4 @@
+import { UsernameEmailService } from './../../../shared/services/username-email.service';
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -22,6 +23,8 @@ userInfo=false
 personalInfo=true
 jobInfo = false
 showPassword = false;
+isEmailValid=true
+isUserNameValid=true
 employeeForm: FormGroup = new FormGroup({});
 
   groups: group[] = [];
@@ -33,7 +36,8 @@ employeeForm: FormGroup = new FormGroup({});
     private groupService: GroupService,
     private branchService:BranchService,
     private formBuilder: FormBuilder,
-    private navTitleService:NavTitleService
+    private navTitleService:NavTitleService,
+    private usernameEmailService:UsernameEmailService
   ) {}
 
 
@@ -43,7 +47,7 @@ employeeForm: FormGroup = new FormGroup({});
     this.loadBranches();
     this.loadGroups();
   }
-  
+
 
   showInfo(step: number) {
     this.personalInfo=step==1
@@ -92,14 +96,32 @@ onSubmit() {
       groupId: this.employeeForm.value.group as number,
 
     };
-  console.log(employeeData);
   this.employeeService.AddEmployee(employeeData).subscribe(res => {
     this.toaster.success("تم إضافة الموظف بنجاح");
-     this.location.back();
+    this.location.back();
       });
 
   }
-
-
-
+  checkUserName(){
+    if(this.employeeForm.controls['userName'].valid){
+      this.usernameEmailService.isUniqueUserName(this.employeeForm.value.userName).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isUserNameValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isUserNameValid=false
+        }
+      })
+    }
+  }
+  checkEmail(){
+    if(this.employeeForm.controls['email'].valid){
+      this.usernameEmailService.isUniqueEmail(this.employeeForm.value.email).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isEmailValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isEmailValid=false
+        }
+      })
+    }
+  }
 }

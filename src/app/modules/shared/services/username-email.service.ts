@@ -14,8 +14,8 @@ export class UsernameEmailService {
     private errorMessageService:ErrorMessageService
   ) { }
   public isUniqueUserName(userName:string){
-    const url=''
-    return this.apiService.post<any,string>(url,userName).pipe(
+    const url=`Account/userName?userName=${userName}`
+    return this.apiService.post<any,string>(url,'').pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);
@@ -24,8 +24,8 @@ export class UsernameEmailService {
     )
   }
   public isUniqueEmail(email:string){
-    const url=''
-    return this.apiService.post<any,string>(url,email).pipe(
+    const url=`Account/email?email=${email}`
+    return this.apiService.post<any,string>(url,'').pipe(
       catchError(error => {
         const err=this.errorMessageService.getServerErrorMessage(error);
         this.toastr.error(err);

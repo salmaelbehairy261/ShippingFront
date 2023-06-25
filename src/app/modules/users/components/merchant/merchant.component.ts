@@ -12,6 +12,7 @@ import { GovernrateService } from "src/app/modules/shared/services/governrate.se
 import { NavTitleService } from "src/app/modules/shared/services/nav-title.service";
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { Location } from '@angular/common';
+import { UsernameEmailService } from 'src/app/modules/shared/services/username-email.service';
 
 @Component({
   selector: 'app-merchant',
@@ -30,6 +31,8 @@ export class MerchantComponent implements OnInit {
   branches:branchList[] = [];
   customSpecialPrice: specialPrice[] = [];
   showPassword = false;
+  isEmailValid=true
+  isUserNameValid=true
   constructor(
     private toaster: MyToastrService,
     private location:Location,
@@ -37,7 +40,8 @@ export class MerchantComponent implements OnInit {
     private branchService:BranchService,
     private governorateService:GovernrateService,
     private formBuilder: FormBuilder,
-    private navTitleService:NavTitleService
+    private navTitleService:NavTitleService,
+    private usernameEmailService:UsernameEmailService
   ) {}
   showInfo(step:number){
     this.personalInfo=step==1
@@ -156,5 +160,27 @@ onGovernorateChangeList(i: number) {
      this.toaster.success("تم إضافة التاجر بنجاح");
      this.location.back();
       });
+  }
+  checkUserName(){
+    if(this.merchantForm.controls['userName'].valid){
+      this.usernameEmailService.isUniqueUserName(this.merchantForm.value.userName).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isUserNameValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isUserNameValid=false
+        }
+      })
+    }
+  }
+  checkEmail(){
+    if(this.merchantForm.controls['email'].valid){
+      this.usernameEmailService.isUniqueEmail(this.merchantForm.value.email).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isEmailValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isEmailValid=false
+        }
+      })
+    }
   }
 }

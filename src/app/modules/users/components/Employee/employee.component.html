@@ -54,7 +54,7 @@
           <div class="form-group mb-3">
             <label for="userName" class="fw-bold mb-1">اسم المستخدم</label>
             <input formControlName="userName" id="userName" type="text" class="form-control p-2"
-              placeholder="ادخل اسم المستخدم باللغه الانجليزية">
+              placeholder="ادخل اسم المستخدم باللغه الانجليزية" (input)="checkUserName()">
             <div *ngIf="employeeForm.get('userName')!.invalid && employeeForm.get('userName')!.touched">
               <div class="text-danger" *ngIf="employeeForm.get('userName')!.errors!['required']">
                 اسم المستخدم مطلوب
@@ -63,11 +63,14 @@
                 اسم المستخدم يجب ان يكون باللغة الانجليزية
               </div>
             </div>
+            <div class="text-danger" *ngIf="!isUserNameValid">
+              اسم المستخدم موجود مسبقا
+            </div>
           </div>
           <div class="form-group mb-3">
             <label for="email" class="fw-bold mb-1">البريدالالكتروني</label>
             <input formControlName="email" id="email" type="email" class="form-control p-2"
-              placeholder="ادخل البريد الالكتروني">
+              placeholder="ادخل البريد الالكتروني" (input)="checkEmail()">
             <div *ngIf="employeeForm.get('email')!.invalid && employeeForm.get('email')!.touched">
               <div class="text-danger" *ngIf="employeeForm.get('email')!.errors!['required']">
                 البريدالالكتروني مطلوب
@@ -75,6 +78,9 @@
               <div class="text-danger" *ngIf="employeeForm.get('email')?.hasError('email')">
                 البريد الإلكتروني غير صحيح
               </div>
+            </div>
+            <div class="text-danger" *ngIf="!isEmailValid">
+              البريد الإلكتروني موجود مسبقا
             </div>
           </div>
           <div class="form-group  inner-addon  right-addon">
@@ -96,7 +102,7 @@
           </div>
           <div *ngIf="employeeForm.get('password')!.invalid && employeeForm.get('password')!.touched">
             <div class="text-danger" *ngIf="employeeForm.get('password')!.errors!['required']">
-              الرقم السري مطلوب
+              كلمة المرور مطلوبة
             </div>
             <div class="text-danger" *ngIf="employeeForm.get('password')!.errors!['pattern']">
               يجب أن تحتوي كلمة المرور على الأقل 8 أحرف ( كبير و صغير ورقم وحرف خاص).
@@ -143,7 +149,7 @@
             </div>
           </div>
           <div class="form-group d-flex justify-content-center my-3">
-            <button type="submit" class="btn btn-primary w-25" [disabled]="employeeForm.invalid">حفظ</button>
+            <button type="submit" class="btn btn-primary w-25" [disabled]="employeeForm.invalid && !isEmailValid && !isUserNameValid">إضافة</button>
           </div>
           <div class="d-flex justify-content-start">
             <a (click)="showInfo(2)">

@@ -35,31 +35,29 @@ export class AuthService {
         return EMPTY;
       })
     )
-      .subscribe(res => {
-     
-        const tokenData: any = jwt_decode(res.token.tokenData);
-        const token = CryptoJS.AES.encrypt(res.token.tokenData, this.secretKey).toString();
-        const name = CryptoJS.AES.encrypt(res.token.name, this.secretKey).toString();
-        var gId = res.token.groupId.toString();
-        const groupId = CryptoJS.AES.encrypt(gId, this.secretKey).toString();
-        const id = CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"], this.secretKey).toString();
-        const role = CryptoJS.AES.encrypt(tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"], this.secretKey).toString();
-        const email = CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"], this.secretKey).toString();
-        const exp = new Date(tokenData["exp"] * 1000)
-        this.cookieService.set('token', token, exp, undefined, undefined, true, 'Strict');
-        this.cookieService.set('user_id', id, exp, undefined, undefined, true, 'Strict');
-        this.cookieService.set('user_groupId', groupId, exp, undefined, undefined, true, 'Strict');
-        this.cookieService.set('user_role', role, exp, undefined, undefined, true, 'Strict');
-        this.cookieService.set('user_name', name, exp, undefined, undefined, true, 'Strict');
-        this.cookieService.set('user_email', email, exp, undefined, undefined, true, 'Strict');
-        if (this.getUserRole() == 'Merchant')
-          this.router.navigate(['/merchant'])
-        else if (this.getUserRole() == 'Representative')
-          this.router.navigate(['/representative'])
-        else if (this.getUserRole() == 'Employee')
-          this.router.navigate(['/employee']);
-        
-      })
+  }
+  handleLogin(res:any){
+    const tokenData: any = jwt_decode(res.token.tokenData);
+    const token = CryptoJS.AES.encrypt(res.token.tokenData, this.secretKey).toString();
+    const name = CryptoJS.AES.encrypt(res.token.name, this.secretKey).toString();
+    var gId = res.token.groupId.toString();
+    const groupId = CryptoJS.AES.encrypt(gId, this.secretKey).toString();
+    const id = CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"], this.secretKey).toString();
+    const role = CryptoJS.AES.encrypt(tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"], this.secretKey).toString();
+    const email = CryptoJS.AES.encrypt(tokenData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"], this.secretKey).toString();
+    const exp = new Date(tokenData["exp"] * 1000)
+    this.cookieService.set('token', token, exp, undefined, undefined, true, 'Strict');
+    this.cookieService.set('user_id', id, exp, undefined, undefined, true, 'Strict');
+    this.cookieService.set('user_groupId', groupId, exp, undefined, undefined, true, 'Strict');
+    this.cookieService.set('user_role', role, exp, undefined, undefined, true, 'Strict');
+    this.cookieService.set('user_name', name, exp, undefined, undefined, true, 'Strict');
+    this.cookieService.set('user_email', email, exp, undefined, undefined, true, 'Strict');
+    if (this.getUserRole() == 'Merchant')
+      this.router.navigate(['/merchant'])
+    else if (this.getUserRole() == 'Representative')
+      this.router.navigate(['/representative'])
+    else if (this.getUserRole() == 'Employee')
+      this.router.navigate(['/employee']);
   }
   logout() {
     const url = 'Account/logout'
@@ -97,7 +95,7 @@ export class AuthService {
     return CryptoJS.AES.decrypt(groupId, this.secretKey).toString(CryptoJS.enc.Utf8);
   }
   getPermissions() {
- 
+
     this.groupService.getGroupById(Number(this.getUserGroupId())).subscribe((response) => {
       response.permissions.forEach((element: any) => {
         const permission: Permissions = {
@@ -106,7 +104,7 @@ export class AuthService {
         }
         this.Permissions.push(permission)
       });
-    
+
     });
   }
 
