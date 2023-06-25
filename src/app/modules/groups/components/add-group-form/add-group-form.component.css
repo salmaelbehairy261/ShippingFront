@@ -1,2 +1,33 @@
-
+input[type="checkbox"] {
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #1ca3c4;
+  border-radius: 4px;
+  appearance: none;
+  outline: 0;
+  cursor: pointer;
+  &::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 2px;
+    left: 7px;
+    width: 8px;
+    height: 14px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+  &:checked {
+    color: #1ca3c4;
+    border-color: #1ca3c4;
+    background: #1ca3c4;
+    &::before {
+      opacity: 1;
+    }
+  }
+}
 
