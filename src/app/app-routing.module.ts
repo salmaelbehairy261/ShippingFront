@@ -15,6 +15,7 @@ import { BranchRoutingModule } from './modules/branch/branch-routing.module';
 import { OrderReportsRoutingModule } from './modules/order-reports/order-reports-routing.module';
 import { EmployeeOrdersRoutingModule } from './modules/employee-orders/employee-orders-routing.module';
 import { EmployeeGuard } from 'src/guards/employee.guard';
+import { PermissionGuard } from 'src/guards/permission.guard';
 
 const routes: Routes = [
   ...LoginRoutingModule.routes,
@@ -38,7 +39,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

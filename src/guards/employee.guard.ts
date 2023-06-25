@@ -19,5 +19,5 @@ export class EmployeeGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
   }
-  
+
 }

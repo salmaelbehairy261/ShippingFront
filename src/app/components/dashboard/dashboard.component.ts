@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit{
     else if (role == "Representative")
       this.router.navigate(['/representative'])
     else if (role == 'Employee')
-           {
+    {
       this.router.navigate(['/employee']);
       this.authService.getPermissions();
     }

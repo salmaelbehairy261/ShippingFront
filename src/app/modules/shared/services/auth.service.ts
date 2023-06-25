@@ -31,7 +31,7 @@ export class AuthService {
     return this.apiService.post<any, loginData>(url, data).pipe(
       catchError(error => {
         const err = this.errorMessageService.getServerErrorMessage(error);
-        this.toastr.error("البريد الالكتروني او كلمة المرور غير صحيحة");
+        this.toastr.error(err);
         return EMPTY;
       })
     )
@@ -106,6 +106,7 @@ export class AuthService {
       });
 
     });
+    return this.Permissions
   }
 
 
