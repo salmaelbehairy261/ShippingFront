@@ -23,6 +23,7 @@ export class ShippingTypeComponent implements OnInit{
     private myToastrService:MyToastrService,
     private navTitleService:NavTitleService, private authService:AuthService,) {  }
   shippingTypes:any;
+  idToDelete:number=0;
 
   ngOnInit():void{
     this.navTitleService.title.next("انواع الشحن")
@@ -38,8 +39,11 @@ export class ShippingTypeComponent implements OnInit{
   toggleStatus(id:number){
     this.shippingTypeService.toggleShippingTypeStatus(id).subscribe(err=>console.log(err));
   }
-  Delete(id:number){
-    this.shippingTypeService.DeleteShippingType(id).subscribe(err=>{
+  GetCurrentId(id:number){
+    this.idToDelete=id;
+  }
+  Delete(){
+    this.shippingTypeService.DeleteShippingType(this.idToDelete).subscribe(err=>{
       this.getAllShippingType();
       console.log(err)});
   }

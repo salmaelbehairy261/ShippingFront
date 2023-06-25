@@ -36,9 +36,12 @@ export class ReasonsRefusalTypeComponent implements OnInit{
   {
     return this.authService.hasPermission(10,action);
   } 
-
-  deleteReasonRefusal(item:ReasonsRefusalTypeUpdate){
-    this.reasonsRefusalTypeService.DeleteReasonsRefusalType(item.id).subscribe(res=>{
+  idToDelete:number=0;
+  GetCurrentId(id:number){
+    this.idToDelete=id;
+  }
+  deleteReasonRefusal(){
+    this.reasonsRefusalTypeService.DeleteReasonsRefusalType(this.idToDelete).subscribe(res=>{
       this.getAllReasonRefusal()
     });
   }
