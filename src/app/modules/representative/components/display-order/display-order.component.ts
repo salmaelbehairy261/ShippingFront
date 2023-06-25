@@ -35,7 +35,8 @@ export class DisplayOrderComponent implements OnInit {
 
     
     window.print();
-    document.body.innerHTML = originalContents;
+    //document.body.innerHTML = originalContents;
+    window.location.reload()
 
   }
 }
