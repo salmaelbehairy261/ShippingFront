@@ -23,7 +23,6 @@ import { SettingModule } from './modules/setting/setting.module';
 import { LocationModule } from './modules/location/location.module';
 import { GroupsModule } from './modules/groups/groups.module';
 import { BranchModule } from './modules/branch/branch.module';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { EmployeeOrdersModule } from './modules/employee-orders/employee-orders.module';
 import { OrderReportsModule } from './modules/order-reports/order-reports.module';
 import { Location } from '@angular/common';
@@ -59,8 +58,7 @@ import { Location } from '@angular/common';
     Location,
     CookieService,
     AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }],
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

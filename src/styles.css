@@ -10,6 +10,7 @@ body {
 .nav-link:focus,
 .nav-link:active,
 .nav-link:hover,
+.form-check-input:focus,
 .form-control:focus,
 .form-control:active,
 .form-control:hover {
@@ -106,3 +107,5 @@ td a:hover {
 .formbg {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
+

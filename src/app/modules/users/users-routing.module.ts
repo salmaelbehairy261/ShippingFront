@@ -10,20 +10,21 @@ import { RepresentativeTableComponent } from './components/representative-table/
 import { UpdateMerchantComponent } from './components/update-merchant/update-merchant.component';
 import { EmployeeComponent } from './components/Employee/employee.component';
 import { MerchantComponent } from './components/merchant/merchant.component';
+import { PermissionGuard } from 'src/guards/permission.guard';
 
 
 const routes: Routes = [
-  {path: "users/ShowMerchant", component: MarchantTableComponent },
-  {path: "users/AddMerchant", component: MerchantComponent },
-  {path: "users/UpdateMerchant/:id", component: UpdateMerchantComponent },
+  {path: "users/ShowMerchant", component: MarchantTableComponent,data:{'permission':6,'action':['Show']},canActivate:[PermissionGuard]},
+  {path: "users/AddMerchant", component: MerchantComponent,data:{'permission':6,'action':['Add']}},
+  {path: "users/UpdateMerchant/:id", component: UpdateMerchantComponent,data:{'permission':6,'action':['Edit']}},
 
-  {path: "users/ShowEmployee", component: EmployeeTableComponent },
-  {path: "users/AddEmployee", component: EmployeeComponent },
-  {path: "users/UpdateEmployee/:id", component: UpdateEmployeeComponent},
+  {path: "users/ShowEmployee", component: EmployeeTableComponent,data:{'permission':4,'action':['Show']},canActivate:[PermissionGuard]},
+  {path: "users/AddEmployee", component: EmployeeComponent,data:{'permission':4,'action':['Add']}},
+  {path: "users/UpdateEmployee/:id", component: UpdateEmployeeComponent,data:{'permission':4,'action':['Edit']}},
 
-  {path: "users/ShowRepresentative", component: RepresentativeTableComponent},
-  {path: "users/AddRepresentative", component: RepresentativeComponent},
-  {path: "users/UpdateRepresentative/:id", component:UpdateRepresentativeComponent},
+  {path: "users/ShowRepresentative", component: RepresentativeTableComponent,data:{'permission':5,'action':['Show']}},
+  {path: "users/AddRepresentative", component: RepresentativeComponent,data:{'permission':5,'action':['Add']}},
+  {path: "users/UpdateRepresentative/:id", component:UpdateRepresentativeComponent,data:{'permission':5,'action':['Edit']}},
 
 ];
 

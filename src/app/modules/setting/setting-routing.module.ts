@@ -6,15 +6,15 @@ import { ShippingTypeComponent } from './components/shipping-type/shipping-type.
 import { WeightSettingComponent } from './components/weight-setting/weight-setting.component';
 import { AddShippingComponent } from './components/add-shipping/add-shipping.component';
 import { AddreasonComponent } from './components/addreason/addreason.component';
+import { PermissionGuard } from 'src/guards/permission.guard';
 
 const routes: Routes = [
-  {path:'setting/village',component:DeliverToVillageComponent},
-  {path:'setting/reasons',component:ReasonsRefusalTypeComponent},
-  {path:'setting/Addreasons',component:AddreasonComponent},
-  { path: 'setting/shipping', component: ShippingTypeComponent },
-   {path:'setting/Addshipping',component:AddShippingComponent},
-  {path:'setting/weight',component:WeightSettingComponent},
- 
+  {path:'setting/reasons',component:ReasonsRefusalTypeComponent,data:{'permission':10,'action':['Show']},canActivate:[PermissionGuard]},
+  {path:'setting/Addreasons',component:AddreasonComponent,data:{'permission':10,'action':['Add']},canActivate:[PermissionGuard]},
+  {path:'setting/shipping', component: ShippingTypeComponent,data:{'permission':11,'action':['Show']},canActivate:[PermissionGuard]},
+  {path:'setting/Addshipping',component:AddShippingComponent,data:{'permission':11,'action':['Add']},canActivate:[PermissionGuard]},
+  {path:'setting/village',component:DeliverToVillageComponent,data:{'permission':12,'action':['Show','Edit']},canActivate:[PermissionGuard]},
+  {path:'setting/weight',component:WeightSettingComponent,data:{'permission':13,'action':['Show','Edit']},canActivate:[PermissionGuard]},
 ];
 
 @NgModule({

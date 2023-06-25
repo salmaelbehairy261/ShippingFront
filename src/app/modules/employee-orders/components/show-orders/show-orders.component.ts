@@ -1,6 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { OrderService } from 'src/app/modules/shared/services/order.service';
@@ -30,7 +31,8 @@ export class ShowOrdersComponent implements OnInit{
     private activeRoute: ActivatedRoute,
     private router: Router,
     private toastr:MyToastrService,
-    private navTitleService:NavTitleService) { }
+    private navTitleService:NavTitleService,
+    private authService:AuthService) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
@@ -42,7 +44,7 @@ export class ShowOrdersComponent implements OnInit{
     })
   }
 
- 
+
   countOfTotalOrders(searchText:string): void {
     this.employeeOrdersService.GetCountOrdersForEmployee(searchText,this.statusId).subscribe((res) => {
       this.count=Number(res);
@@ -77,7 +79,7 @@ export class ShowOrdersComponent implements OnInit{
     this.countOfTotalOrders(this.searchText);
   }
 
- 
+
   closeResult: string = '';
 
   open(content:any,orderId:any) {
@@ -113,7 +115,7 @@ export class ShowOrdersComponent implements OnInit{
 
   }
 
-  
+
   DropdownListRepresentative()
   {
     this.employeeOrdersService.DropdownListRepresentative(this.orderId).subscribe((res) => {
@@ -138,5 +140,10 @@ export class ShowOrdersComponent implements OnInit{
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
     XLSX.writeFile(workbook, 'الطلبات.xlsx');
+  }
+
+
+  hasPermission(action: string){
+    return this.authService.hasPermission(7,action);
   }
 }

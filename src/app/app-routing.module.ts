@@ -13,8 +13,9 @@ import { LocationRoutingModule } from './modules/location/location-routing.modul
 import { GroupsRoutingModule } from './modules/groups/groups-routing.module';
 import { BranchRoutingModule } from './modules/branch/branch-routing.module';
 import { OrderReportsRoutingModule } from './modules/order-reports/order-reports-routing.module';
-import { EmployeeOrdersModule } from './modules/employee-orders/employee-orders.module';
 import { EmployeeOrdersRoutingModule } from './modules/employee-orders/employee-orders-routing.module';
+import { EmployeeGuard } from 'src/guards/employee.guard';
+import { PermissionGuard } from 'src/guards/permission.guard';
 
 const routes: Routes = [
   ...LoginRoutingModule.routes,
@@ -33,12 +34,12 @@ const routes: Routes = [
       ...BranchRoutingModule.routes,
       ...OrderReportsRoutingModule.routes,
       ...EmployeeOrdersRoutingModule.routes
-    ]},
+    ],canActivate:[EmployeeGuard]},
   ],canActivate:[AuthGuard]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

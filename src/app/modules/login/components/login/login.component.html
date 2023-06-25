@@ -36,6 +36,9 @@
                 كلمة المرور مطلوبة
               </div>
             </div>
+            <div class="text-danger" *ngIf="!isValid">
+              البريد الإلكتروني او كلمة المرور غير صحيحة
+            </div>
             <div class="form-group my-4 text-center ">
                 <input type="submit" value="تسجيل الدخول" class="btn btn-main px-5" [disabled]="!loginForm.valid">
             </div>

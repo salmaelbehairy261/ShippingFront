@@ -11,6 +11,7 @@ import { EMPTY, catchError } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  isValid=true
   errorMessageService: any;
   toastr: any;
   constructor(
@@ -26,6 +27,13 @@ export class LoginComponent {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!
     }
-    this.authService.login(data)
+    this.authService.login(data).subscribe(res=>{
+      if(res['message']=="Invalid")
+        this.isValid=false
+      else{
+        this.isValid=true
+        this.authService.handleLogin(res)
+      }
+    })
   }
 }

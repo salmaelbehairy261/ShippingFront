@@ -10,6 +10,7 @@ import { GovernrateService } from 'src/app/modules/shared/services/governrate.se
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { Location } from '@angular/common';
+import { UsernameEmailService } from 'src/app/modules/shared/services/username-email.service';
 
 @Component({
   selector: 'app-representative',
@@ -25,7 +26,9 @@ export class RepresentativeComponent implements OnInit {
   userInfo=false
   personalInfo=true
   jobInfo=false
-showPassword = false;
+  showPassword = false;
+  isEmailValid=true
+  isUserNameValid=true
   constructor(
     private toaster: MyToastrService,
     private location :Location,
@@ -33,7 +36,8 @@ showPassword = false;
     private branchService:BranchService,
     private governorateService:GovernrateService,
     private formBuilder: FormBuilder,
-    private navTitleService:NavTitleService
+    private navTitleService:NavTitleService,
+    private usernameEmailService:UsernameEmailService
   ) {
 
   }
@@ -160,5 +164,26 @@ formBuilde() {
       this.location.back();
       });
   }
-
+  checkUserName(){
+    if(this.representativeForm.controls['userName'].valid){
+      this.usernameEmailService.isUniqueUserName(this.representativeForm.value.userName).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isUserNameValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isUserNameValid=false
+        }
+      })
+    }
+  }
+  checkEmail(){
+    if(this.representativeForm.controls['email'].valid){
+      this.usernameEmailService.isUniqueEmail(this.representativeForm.value.email).subscribe(res=>{
+        if(res["message"]=="Valid"){
+          this.isEmailValid=true
+        }else if(res["message"]=="Invalid"){
+          this.isEmailValid=false
+        }
+      })
+    }
+  }
 }
