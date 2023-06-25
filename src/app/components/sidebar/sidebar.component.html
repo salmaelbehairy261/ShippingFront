@@ -7,7 +7,7 @@
   <div>
     <!--Employee-->
     <ul class="nav px-2 flex-column mb-sm-auto mb-0 align-items-between justify-content-between h-100"
-      *ngIf="role!='Representative' && role !='Merchant'">
+      *ngIf="role =='Employee'">
 
       <li class="nav-item w-100 px-3 rounded" [routerLink]="['employee']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact:true}">
