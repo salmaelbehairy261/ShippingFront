@@ -152,7 +152,7 @@ export class NewOrderComponent implements OnInit {
       modalRef.componentInstance.message="تم إضافة الطلب بنجاح"
       modalRef.hidden.subscribe(()=>{
         this.toastr.success("تم إضافة الطلب بنجاح")
-        this.location.back()
+      window.location.reload()
       })
       console.log(res.result)
     });

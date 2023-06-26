@@ -46,8 +46,8 @@
                             <td>{{i+1}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.dateTime| date:'medium'}}</td>
-                            <td *ngIf=" hasPermission('Edit')">
-                                <div class="form-check form-switch p-0">
+                            <td *ngIf=" hasPermission('Edit')" >
+                                <div class="form-check form-switch p-0 ">
                                     <input class="form-check-input" type="checkbox" role="switch"
                                         id="flexSwitchCheckChecked" [checked]="item.status"
                                         (change)="changeStatus(item.id)">
