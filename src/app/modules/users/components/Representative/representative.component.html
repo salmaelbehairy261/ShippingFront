@@ -56,7 +56,7 @@
           <div class="form-group mb-3">
             <label for="userName" class="fw-bold mb-1">اسم المستخدم</label>
             <input formControlName="userName" id="userName" type="text" class="form-control p-2"
-              placeholder="ادخل اسم المستخدم باللغه الانجليزية">
+              placeholder="ادخل اسم المستخدم باللغه الانجليزية" (input)="checkUserName()">
             <div *ngIf="representativeForm.get('userName')!.invalid && representativeForm.get('userName')!.touched">
               <div class="text-danger" *ngIf="representativeForm.get('userName')!.errors!['required']">
                 اسم المستخدم مطلوب
@@ -72,7 +72,7 @@
           <div class="form-group mb-3">
             <label for="email" class="fw-bold mb-1">البريدالالكتروني</label>
             <input formControlName="email" id="email" type="email" class="form-control p-2"
-              placeholder="ادخل البريد الالكتروني">
+              placeholder="ادخل البريد الالكتروني" (input)="checkEmail()">
             <div *ngIf="representativeForm.get('email')!.invalid && representativeForm.get('email')!.touched">
               <div class="text-danger" *ngIf="representativeForm.get('email')!.errors!['required']">
                 البريدالالكتروني مطلوب

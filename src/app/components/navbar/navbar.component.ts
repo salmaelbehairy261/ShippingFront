@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout().subscribe(res=>{
       this.cookieService.deleteAll()
+      window.location.reload();
       this.router.navigate(['/login'])
     })
   }

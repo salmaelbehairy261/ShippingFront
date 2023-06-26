@@ -42,11 +42,13 @@ export class UpdateAccountComponent {
       if(role=='Merchant'){
         this.merchantService.UpdateMerchantPassword(updatePassword,this.authService.getUserId()).subscribe(res=>{
           this.activeModal.close()
+          this.toastr.success("تم تحديث كلمة المرور بنجاح")
         })
       }
       else if(role=='Representative'){
         this.representativeService.UpdateRepresentativePassword(updatePassword,this.authService.getUserId()).subscribe(res=>{
           this.activeModal.close()
+          this.toastr.success("تم تحديث كلمة المرور بنجاح")
         })
       }
       else{

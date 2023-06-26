@@ -24,6 +24,7 @@ export class RepresentativeComponent {
   StatusNamesExpectNewPendingAndReject:any=this.orderService.StatusNamesExpectNewPendingAndReject;
   reasonFlag=false;
   reasonsRefusalTypes:any=[];
+  orderStatusNow:number=this.activeRoute.snapshot.params['id'];
   constructor(
     private orderService:OrderService,
     private modalService: NgbModal,

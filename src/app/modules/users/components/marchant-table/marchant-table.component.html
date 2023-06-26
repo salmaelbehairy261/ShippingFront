@@ -59,7 +59,7 @@
                             <td *ngIf=" hasPermission('Delete')">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="isDeleted{{id}}"
-                                        [checked]="merchant.isDeleted"
+                                        [checked]="!merchant.isDeleted"
                                         (change)=" deleteModal.show(); selecteduser = merchant"
                                         [disabled]="merchant.isDeleted">
                                     <label class="form-check-label" for="isDeleted{{id}}">

@@ -54,7 +54,7 @@
               <td>{{ employee.groupName }}</td>
               <td *ngIf=" hasPermission('Delete')">
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="isDeleted{{id}}" [checked]="employee.isDeleted"
+                  <input class="form-check-input" type="checkbox" id="isDeleted{{id}}" [checked]="!employee.isDeleted"
                     (change)=" deleteModal.show();selectedEmployee = employee" [disabled]="employee.isDeleted">
                   <label class="form-check-label" for="isDeleted{{id}}">
                     {{ employee.isDeleted ? 'غير نشط' : 'نشط' }}

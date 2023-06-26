@@ -57,10 +57,9 @@ export class AuthService {
     else if (this.getUserRole() == 'Representative')
       this.router.navigate(['/representative'])
     else if (this.getUserRole() == 'Employee')
-    {
       this.router.navigate(['/employee']);
-      window.location.reload()
-    }
+      
+    window.location.reload()
   }
   logout() {
     const url = 'Account/logout'

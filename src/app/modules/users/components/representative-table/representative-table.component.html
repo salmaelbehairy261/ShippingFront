@@ -57,7 +57,7 @@
                             <td *ngIf=" hasPermission('Delete')">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="isDeleted{{id}}"
-                                        [checked]="representative.isDeleted"
+                                        [checked]="!representative.isDeleted"
                                         (change)=" deleteModal.show(); selecteduser = representative"
                                         [disabled]="representative.isDeleted">
                                     <label class="form-check-label" for="isDeleted{{id}}">
@@ -100,10 +100,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-danger" id="staticBackdropLabel"> حذف موظف</h5>
+                <h5 class="modal-title text-danger" id="staticBackdropLabel"> حذف مندوب</h5>
             </div>
             <div class="modal-body text-secondary fw-bold">
-                هل انت تريد حذف هذه المدينة ؟
+                هل انت تريد حذف هذا المندوب ؟
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="toggleDelete()">حذف</button>
