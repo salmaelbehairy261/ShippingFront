@@ -64,6 +64,8 @@ export class RepresentativeTableComponent implements OnInit {
       }
       this.representativeService.Delete(representative.id).subscribe(() => {
         representative.isDeleted = true;
+        this.deleteModal?.hide()
+
       });
     }
 
