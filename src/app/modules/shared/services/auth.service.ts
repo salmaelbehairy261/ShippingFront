@@ -53,13 +53,22 @@ export class AuthService {
     this.cookieService.set('user_name', name, exp, undefined, undefined, true, 'Strict');
     this.cookieService.set('user_email', email, exp, undefined, undefined, true, 'Strict');
     if (this.getUserRole() == 'Merchant')
+    {
       this.router.navigate(['/merchant'])
+     // window.location.reload()
+    }    
     else if (this.getUserRole() == 'Representative')
+    {
       this.router.navigate(['/representative'])
+     // window.location.reload()
+    }
     else if (this.getUserRole() == 'Employee')
+    {
       this.router.navigate(['/employee']);
+      //window.location.reload()
+    }
       
-    window.location.reload()
+    
   }
   logout() {
     const url = 'Account/logout'
