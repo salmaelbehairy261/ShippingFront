@@ -6,6 +6,7 @@ import { Params } from "src/app/modules/shared/models/Params";
 import { MerchantService } from "src/app/modules/shared/services/merchant.service";
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 
 
 
@@ -27,6 +28,7 @@ export class MarchantTableComponent implements OnInit {
   constructor(
      private authService:AuthService,
     private merchantService: MerchantService,
+     private myToastrService:MyToastrService,
     private router: Router,
     private navTitleService:NavTitleService) { }
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class MarchantTableComponent implements OnInit {
         return;
       }
       this.merchantService.Delete(this.selecteduser.id).subscribe(() => {
+        this.myToastrService.success("تم حذف التاجر بنجاح");
         Marchant.isDeleted = true;
         this.deleteModal!.hide();
       });

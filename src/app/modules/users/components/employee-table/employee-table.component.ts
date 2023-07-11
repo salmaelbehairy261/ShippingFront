@@ -6,6 +6,7 @@ import { getAllEmployees, employeeResponse } from "src/app/modules/shared/models
 import { Params } from "src/app/modules/shared/models/Params";
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { EmployeeService } from "src/app/modules/shared/services/employee.service";
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 
 
 
@@ -29,7 +30,8 @@ export class EmployeeTableComponent implements OnInit {
           private employeeService: EmployeeService,
           private router: Router,
           private navTitleService: NavTitleService,
-          private authService:AuthService,
+          private authService: AuthService,
+          private myToastrService:MyToastrService,
 ) {}
 
   ngOnInit(): void {
@@ -64,13 +66,25 @@ export class EmployeeTableComponent implements OnInit {
       if (emp.isDeleted) {
         return;
       }
+      this.employeeService.Delete(emp.id).subscribe((response: any) => {
+        if (response && response.message == "Admin Can not be deleted")
+        {
+          this.myToastrService.error("لا يمكن حذف الادمن");
+        }
+      else
+        {
+          this.myToastrService.success("تم حذف الموظف بنجاح");
+            emp.isDeleted = true;
+          }
+          this.deleteModal!.hide();
+         });
 
-      this.employeeService.Delete(emp.id).subscribe(() => {
-        emp.isDeleted = true;
-        this.deleteModal!.hide();
-      });
     }
-  }
+  }  
+
+
+
+
    hasPermission(action: string)
   {
     return this.authService.hasPermission(4,action);

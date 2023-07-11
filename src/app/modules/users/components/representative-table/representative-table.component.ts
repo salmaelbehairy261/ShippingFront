@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Params } from 'src/app/modules/shared/models/Params';
 import { getAllRepresentative } from 'src/app/modules/shared/models/Representative';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { MyToastrService } from 'src/app/modules/shared/services/my-toastr.service';
 import { NavTitleService } from 'src/app/modules/shared/services/nav-title.service';
 import { RepresentativeService } from 'src/app/modules/shared/services/representative.service';
 
@@ -24,7 +25,8 @@ export class RepresentativeTableComponent implements OnInit {
   private authService:AuthService,
     private representativeService: RepresentativeService,
     private router: Router,
-    private navTitleService:NavTitleService
+    private navTitleService: NavTitleService,
+     private myToastrService:MyToastrService,
   ) { }
    ngOnInit(): void {
     this.navTitleService.title.next('المناديب')
@@ -63,6 +65,7 @@ export class RepresentativeTableComponent implements OnInit {
         return;
       }
       this.representativeService.Delete(representative.id).subscribe(() => {
+         this.myToastrService.success("تم حذف المندوب بنجاح");
         representative.isDeleted = true;
         this.deleteModal?.hide()
 
